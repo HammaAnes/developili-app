@@ -1,0 +1,59 @@
+Main Features
+
+4.1 Client Interface
+
+	1.	Registration and Login:
+	•	Registration form with email verification.
+	•	Login with a password recovery system.
+	2.	Profile Creation:
+	•	Questionnaire to collect information about the client (position, previous experiences, etc.).
+	•	Ability to edit profile information.
+	3.	Creation of the Project Brief:
+	•	Form to define the type of project (website, mobile app, desktop app).
+	•	Choice of color palettes and design templates.
+	•	Text field to explain the project idea.
+	•	Selection of desired features (authentication, online payment, etc.).
+	•	Option to add examples of similar applications.
+	•	Search for applications by name with filtered results.
+	4.	Developer Selection:
+	•	List of available developers with their skills and experiences.
+	•	Filter by programming languages and availability.
+	•	Messaging feature to communicate directly with developers.
+	5.	Project Management:
+	•	Tracking ongoing projects and their progress.
+	•	Notifications regarding the status of developer proposals.
+
+4.2 Developer Interface
+
+	1.	Registration and Login:
+	•	Registration form with email verification.
+	•	Login with a password recovery system.
+	2.	Profile Creation:
+	•	Questionnaire to collect information about the developer (programming languages mastered, previous projects, etc.).
+	•	Ability to edit profile information.
+	3.	Availability Management:
+	•	Calendar to indicate availability periods for projects.
+	•	Option to block specific dates.
+	4.	Project Consultation:
+	•	Access to the list of projects proposed by clients.
+	•	Details of the project brief for each project.
+	•	Ability to submit a proposal for interesting projects.
+	5.	Proposal Management:
+	•	Notifications for sent and received proposals.
+	•	Ability to accept or decline proposals.
+
+4.3 Common Features
+
+	1.	Integrated Messaging:
+	•	Secure messaging system to facilitate communication between clients and developers.
+	2.	Notifications:
+	•	Real-time notifications for messages, project proposals, and updates on project statuses.
+	3.	Evaluation and Comments:
+	•	Rating system allowing clients and developers to leave comments on their collaboration.
+	•	Display of ratings in user profiles.
+	4.	Security and Privacy:
+	•	Protection of users’ personal data with appropriate security measures.
+	•	Clearly displayed privacy policy.
+	5.	Search Bar:
+	•	A search bar for clients and developers to quickly find specific projects, features, or developers based on keywords.
+
