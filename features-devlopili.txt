@@ -591,6 +591,7 @@ Projet-Devlopili     compilation
 ╭─░▒▓    ~/Downloads/NIT/IHM ──────────────────────── ✔  08:44:28  ▓▒░─╮
 ╰─ ls                                                                        ─╯
 flutter       ihm-poo       pyside_pject2
+ask_maya.txt
 
 ╭─░▒▓    ~/Downloads/NIT/IHM ──────────────────────── ✔  08:44:29  ▓▒░─╮
 commit 2663184aa79047d0a33a14a3b607954f8fdd8730 (HEAD -> stable, tag: 3.24.3, origin/stable, origin/flutter-3.24-candidate.0)
