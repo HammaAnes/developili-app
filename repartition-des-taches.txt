@@ -1,0 +1,79 @@
+
+Répartition des Tâches pour le Projet d’Application Mobile
+
+1. Mohand – Front-End :
+
+	•	Responsabilité principale : Développement de l’interface utilisateur (UI) et de l’expérience utilisateur (UX) pour les clients et les développeurs.
+
+Tâches spécifiques :
+
+	1.	Conception des Interfaces Utilisateurs :
+	•	Création des pages d’inscription et de connexion (pour les clients et les développeurs).
+	•	Formulaire de création de profil client (questionnaire pour comprendre le client).
+	•	Interface de création du cahier des charges (choix des couleurs, design, type de projet).
+	•	Interface de gestion des disponibilités des développeurs (calendrier façon Airbnb).
+	2.	Responsivité et Accessibilité :
+	•	S’assurer que les interfaces sont bien adaptées aux mobiles, tablettes et ordinateurs (responsive design).
+	3.	Tests et Optimisation UX/UI :
+	•	Réalisation de tests utilisateur pour s’assurer que l’interface est intuitive et fluide.
+
+2. Anes – Back-End :
+
+	•	Responsabilité principale : Développement du back-end, gestion des APIs et sécurisation des données.
+
+Tâches spécifiques :
+
+	1.	Développement des APIs :
+	•	APIs pour la gestion des utilisateurs (inscription, connexion, gestion des profils).
+	•	APIs pour la gestion des projets et des cahiers des charges (création, édition, suppression).
+	•	APIs pour la gestion des calendriers et des disponibilités des développeurs.
+	•	APIs pour les notifications (invitations à des projets, messages, etc.).
+	2.	Sécurité et Gestion des Accès :
+	•	Mettre en place des mesures de sécurité pour protéger les données des utilisateurs et des projets (authentification, autorisations).
+	3.	Optimisation des Performances :
+	•	Optimiser les appels API pour assurer des performances rapides et fluides.
+
+3. Amine – Gestion des Bases de Données :
+
+	•	Responsabilité principale : Conception, gestion et optimisation de la base de données.
+
+Tâches spécifiques :
+
+	1.	Conception et Structuration de la Base de Données :
+	•	Créer et organiser les tables de la base de données pour stocker les informations des clients, développeurs, projets et disponibilités.
+	•	Assurer une bonne structuration des relations entre utilisateurs, projets et cahiers de charges.
+	2.	Mise à jour et Gestion des Données en Temps Réel :
+	•	Gérer les informations sur les projets en cours et les disponibilités des développeurs en temps réel.
+	•	S’assurer que les données sont toujours à jour et correctement synchronisées avec l’interface utilisateur.
+	3.	Sécurisation et Sauvegarde des Données :
+	•	Implémenter des mesures pour garantir la sécurité et la sauvegarde régulière des données sensibles.
+
+4. Younes – Gestion des Contenus et Données :
+
+	•	Responsabilité principale : Gestion des contenus visuels et analyse des données utilisateurs pour une meilleure expérience.
+
+Tâches spécifiques :
+
+	1.	Gestion des Contenus et Exemples Visuels :
+	•	Organiser les palettes de couleurs, les maquettes et les exemples de design proposés aux clients.
+	2.	Analyse des Données Utilisateurs :
+	•	Collaborer avec Mohand pour analyser les données récoltées via les questionnaires et les cahiers de charges afin d’améliorer l’expérience client.
+	3.	Filtrage et Suggestion de Développeurs :
+	•	Développer un système de suggestions pour mettre en avant les développeurs qui correspondent aux besoins des clients.
+	•	Gérer et optimiser le filtre des développeurs selon leurs compétences, langages maîtrisés, et disponibilités.
+
+Organisation et Planification du Projet
+
+	1.	Réunions Hebdomadaires :
+	•	Organiser des réunions hebdomadaires pour faire le point sur l’avancement des tâches de chaque membre de l’équipe, résoudre les éventuels problèmes et réajuster les priorités si nécessaire.
+	2.	Outil de Gestion de Projet :
+	•	Utiliser un outil comme Trello ou Notion pour suivre l’avancement des tâches de manière claire et visible pour tout le monde.
+	3.	Calendrier des Objectifs :
+	•	Définir des objectifs à court terme (hebdomadaires) et à long terme pour chaque membre, et suivre leur progression.
+
+Résumé des Responsabilités :
+
+	•	Mohand : Front-End (conception des interfaces utilisateurs, responsivité, tests UX).
+	•	Anes : Back-End (APIs, sécurité des données, performances).
+	•	Amine : Base de Données (structure, gestion des données, sécurité).
+	•	Younes : Contenus et Données (gestion des contenus visuels, suggestions de développeurs, analyse des besoins).

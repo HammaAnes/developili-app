@@ -1,0 +1,145 @@
+Application : Plateforme de Mise en Relation Clients-Développeurs
+
+Interface Client
+
+1. Inscription / Connexion :
+
+	•	Inscription : Création d’un compte avec email ou via un réseau social (Google, Facebook, LinkedIn).
+	•	Connexion : Connexion à un compte existant.
+
+2. Création du Profil :
+
+Après l’inscription, le client remplit un formulaire pour créer un profil détaillé. Cela permet aux développeurs de mieux comprendre qui est le client et ses attentes. Voici une série de questions, sans la question sur les préférences en langage :
+
+Questions pour le profil client :
+
+	1.	Quel est votre rôle dans votre organisation ?
+	•	Entrepreneur
+	•	Responsable marketing
+	•	Responsable technique (CTO)
+	•	Chef de projet
+	•	Autre (à préciser)
+	2.	Avez-vous déjà collaboré avec un développeur auparavant ?
+	•	Oui, plusieurs fois
+	•	Oui, une seule fois
+	•	Non, c’est la première fois
+	3.	Avez-vous déjà supervisé la création d’une application (web, mobile, desktop) ?
+	•	Oui
+	•	Non
+	4.	Quel est votre niveau de connaissance en développement ?
+	•	Débutant
+	•	Intermédiaire
+	•	Avancé
+	•	Expert
+	5.	Quels types d’applications avez-vous déjà gérées ou créées ?
+	•	Applications mobiles
+	•	Sites web
+	•	Applications desktop
+	•	Autre (à préciser)
+	6.	Quel est votre objectif principal pour cette application ?
+	•	Gagner des clients/utilisateurs
+	•	Améliorer la productivité
+	•	Lancer un nouveau produit/service
+	•	Autre (à préciser)
+	7.	Quel est votre budget approximatif pour ce projet ?
+	•	Petit budget (< 1000€)
+	•	Budget moyen (1000€ - 5000€)
+	•	Gros budget (> 5000€)
+	8.	Souhaitez-vous un entretien avec le développeur avant de finaliser votre choix ?
+	•	Oui
+	•	Non
+
+3. Création du Cahier des Charges :
+
+Après avoir complété son profil, le client passe à la création du cahier des charges en suivant les étapes suivantes :
+
+Étapes pour le Cahier des Charges :
+
+	1.	Type de projet :
+	•	Application mobile (iOS, Android, cross-platform)
+	•	Site web
+	•	Application desktop
+	•	Autre (à préciser)
+	2.	Langages et technologies préférés :
+	•	C#, C++
+	•	Python
+	•	JavaScript (React, Angular, etc.)
+	•	PHP, Ruby, etc.
+	•	Aucune préférence
+	3.	Choix des couleurs :
+	•	Palettes de couleurs prédéfinies à choisir (exemples visuels).
+	•	Sélecteur de couleurs personnalisées.
+	4.	Design et apparence :
+	•	Galerie de maquettes UI :
+	•	Scroller pour choisir un design correspondant à l’application.
+	•	Choisir parmi plusieurs styles d’applications : minimaliste, moderne, classique, etc.
+	5.	Structure de l’application :
+	•	Sélectionner la structure de l’interface (page d’accueil, menus, etc.).
+	•	Ajouter des fonctionnalités spécifiques (login, paiement, API, etc.).
+	6.	Fonctionnalités spécifiques :
+	•	Liste des fonctionnalités souhaitées (gestion d’utilisateurs, intégration API, etc.).
+	7.	Champ libre pour décrire l’idée du projet :
+	•	Texte libre pour que le client explique son idée en détail.
+	8.	Recherche d’applications existantes :
+	•	Barre de recherche pour trouver des applications de référence.
+	9.	Ajout d’exemples d’applications similaires :
+	•	Ajout d’exemples d’applications pour guider le développeur.
+
+Interface Développeur
+
+1. Inscription / Connexion :
+
+	•	Création d’un compte développeur avec des informations de base (email, nom, etc.).
+
+2. Création du Profil Développeur :
+
+Pour créer un profil détaillé et permettre aux clients de mieux comprendre le développeur, un questionnaire sera rempli. Voici quelques questions possibles :
+
+Questions pour le profil développeur :
+
+	1.	Quels types de projets développez-vous principalement ?
+	•	Applications mobiles (iOS, Android)
+	•	Sites web
+	•	Applications desktop
+	2.	Quels langages de programmation maîtrisez-vous ?
+	•	C#, C++
+	•	Python
+	•	JavaScript (React, Angular, Vue.js)
+	•	PHP, Ruby, etc.
+	3.	Quelle est votre expérience en développement ?
+	•	0-2 ans
+	•	3-5 ans
+	•	6-10 ans
+	•	Plus de 10 ans
+	4.	Quels secteurs préférez-vous ?
+	•	E-commerce
+	•	SaaS
+	•	Éducation
+	•	Jeux vidéo
+	•	Autres (préciser)
+	5.	Avez-vous déjà travaillé sur des projets similaires à ceux disponibles sur la plateforme ?
+	•	Oui, avec des exemples de projets.
+	•	Non, mais je suis prêt à explorer.
+	6.	Quel est votre tarif horaire ou forfaitaire ?
+	•	[Fourchette de prix à définir]
+	7.	Souhaitez-vous échanger avec le client avant de finaliser un contrat ?
+	•	Oui
+	•	Non
+
+3. Disponibilité du Développeur (Calendrier) :
+
+Comme sur Airbnb, les développeurs pourront définir leurs disponibilités sur un calendrier. Ils peuvent indiquer leurs périodes de travail et leurs périodes d’indisponibilité (exemple : du 1er au 25 du mois, indisponible).
+
+	•	Calendrier dynamique :
+	•	Le développeur sélectionne des dates d’indisponibilité (occupé sur d’autres projets).
+	•	Le client peut voir directement les périodes où le développeur est disponible avant de l’engager.
+	•	Possibilité pour le développeur de recevoir des notifications lorsque des clients essaient de le contacter pendant une période d’indisponibilité.
+
+Résumé :
+
+	•	Le client peut créer un profil détaillé et un cahier des charges structuré.
+	•	Le développeur crée un profil détaillé avec ses compétences, ses expériences, et ses disponibilités.
+	•	Un calendrier de disponibilité similaire à Airbnb permet aux développeurs de gérer leur temps et aux clients de ne voir que ceux qui sont disponibles pour leurs projets.
+
+Cela permet de faciliter le processus de sélection et de maximiser l’efficacité de la communication entre client et développeur, avec un accord clair dès le départ grâce au cahier des charges.
+
