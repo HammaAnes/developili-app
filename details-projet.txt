@@ -11,80 +11,101 @@ Interface Client
 
 Après l’inscription, le client remplit un formulaire pour créer un profil détaillé. Cela permet aux développeurs de mieux comprendre qui est le client et ses attentes. Voici une série de questions, sans la question sur les préférences en langage :
 
-Questions pour le profil client :
+Step 1: Client Profile – Prioritized Questions ( just after creating the profile ) 
 
-	1.	Quel est votre rôle dans votre organisation ?
-	•	Entrepreneur
-	•	Responsable marketing
-	•	Responsable technique (CTO)
-	•	Chef de projet
-	•	Autre (à préciser)
-	2.	Avez-vous déjà collaboré avec un développeur auparavant ?
-	•	Oui, plusieurs fois
-	•	Oui, une seule fois
-	•	Non, c’est la première fois
-	3.	Avez-vous déjà supervisé la création d’une application (web, mobile, desktop) ?
-	•	Oui
-	•	Non
-	4.	Quel est votre niveau de connaissance en développement ?
-	•	Débutant
-	•	Intermédiaire
-	•	Avancé
-	•	Expert
-	5.	Quels types d’applications avez-vous déjà gérées ou créées ?
-	•	Applications mobiles
-	•	Sites web
-	•	Applications desktop
-	•	Autre (à préciser)
-	6.	Quel est votre objectif principal pour cette application ?
-	•	Gagner des clients/utilisateurs
-	•	Améliorer la productivité
-	•	Lancer un nouveau produit/service
-	•	Autre (à préciser)
-	7.	Quel est votre budget approximatif pour ce projet ?
-	•	Petit budget (< 1000€)
-	•	Budget moyen (1000€ - 5000€)
-	•	Gros budget (> 5000€)
-	8.	Souhaitez-vous un entretien avec le développeur avant de finaliser votre choix ?
-	•	Oui
-	•	Non
+These questions will be part of the initial client profile setup, gathering key information that helps determine compatibility.
+	1.	How would you describe your preferred work style?
+	•	Organized and structured, Flexible and adaptive, Goal-oriented
+	2.	How do you prioritize between budget, quality, and timeline?
+	•	Budget, Quality, Timeline
+	3.	What is your role within your organization?
+	•	Entrepreneur, Marketing Manager, Technical Lead (CTO), Project Manager, Other (please specify)
+	4.	Have you worked with developers before?
+	•	Yes, multiple times; Yes, once; No, this is my first time
+	5.	How would you describe your technical knowledge?
+	•	Beginner, Intermediate, Advanced, Expert
+	6.	What is your preferred level of involvement in the development process?
+	•	Highly involved, Moderately involved, Minimally involved
+	7.	How do you prefer to communicate with the developer?
+	•	Email, Phone calls, Video meetings, Messaging apps
+	8.	How quickly do you expect responses from the developer?
+	•	Within a few hours, By the end of the business day, Within 24-48 hours, Flexible
+	9.	What is most important to you in a project?
+	•	Staying within budget, Meeting deadlines, High-quality deliverables, Flexibility to make changes
 
-3. Création du Cahier des Charges :
 
-Après avoir complété son profil, le client passe à la création du cahier des charges en suivant les étapes suivantes :
+Step 2: Project-Specific Questions – Less Prioritized ( after finishing the formulaire of project creation ) 
 
-Étapes pour le Cahier des Charges :
+These questions will be presented during the project creation process to gain detailed insights into project management preferences, expectations, and specific requirements.
+	1.	What is your approach to feedback and revisions during the project?
+	•	Frequent feedback, Key milestones, Trust developer’s judgment
+	2.	How open are you to suggestions or alternative ideas from the developer?
+	•	Very open, Somewhat open, Not open
+	3.	If unexpected challenges arise, how would you handle changes to the scope or schedule?
+	•	Open to adjustments, Prefer minimal changes, Expect to stay on track
+	4.	How do you handle long-term communication during a project?
+	•	Detailed updates, Occasional updates, Only major changes
+	5.	What does an ideal working relationship with a developer look like to you?
+	•	Open-text response
+	6.	Do you have any past experiences (positive or negative) working with developers that you’d like to share?
+	•	Open-text response
+	7.	What are your “must-haves” versus “nice-to-haves” for this project?
+	•	Open-text or multiple-choice response
+	8.	How would you like to manage project documentation and records?
+	•	Developer handles documentation, Client involved, No strong preference
+	9.	Is there anything specific that would make this collaboration successful in your view?
+	•	Open-text response
 
-	1.	Type de projet :
-	•	Application mobile (iOS, Android, cross-platform)
-	•	Site web
-	•	Application desktop
-	•	Autre (à préciser)
-	2.	Langages et technologies préférés :
+3. Updated Project Requirements Form (Project Brief)
+
+	1.	Project Type:
+	•	Options:
+	•	Mobile Application (iOS, Android, cross-platform)
+	•	Website
+	•	Desktop Application
+	•	Other (please specify)
+	2.	Preferred Languages and Technologies:
+	•	Options:
 	•	C#, C++
 	•	Python
 	•	JavaScript (React, Angular, etc.)
 	•	PHP, Ruby, etc.
-	•	Aucune préférence
-	3.	Choix des couleurs :
-	•	Palettes de couleurs prédéfinies à choisir (exemples visuels).
-	•	Sélecteur de couleurs personnalisées.
-	4.	Design et apparence :
-	•	Galerie de maquettes UI :
-	•	Scroller pour choisir un design correspondant à l’application.
-	•	Choisir parmi plusieurs styles d’applications : minimaliste, moderne, classique, etc.
-	5.	Structure de l’application :
-	•	Sélectionner la structure de l’interface (page d’accueil, menus, etc.).
-	•	Ajouter des fonctionnalités spécifiques (login, paiement, API, etc.).
-	6.	Fonctionnalités spécifiques :
-	•	Liste des fonctionnalités souhaitées (gestion d’utilisateurs, intégration API, etc.).
-	7.	Champ libre pour décrire l’idée du projet :
-	•	Texte libre pour que le client explique son idée en détail.
-	8.	Recherche d’applications existantes :
-	•	Barre de recherche pour trouver des applications de référence.
-	9.	Ajout d’exemples d’applications similaires :
-	•	Ajout d’exemples d’applications pour guider le développeur.
-
+	•	No preference
+	3.	Primary Goal for this Application:
+	•	Options:
+	•	Acquire new clients/users
+	•	Improve productivity
+	•	Launch a new product/service
+	•	Other (please specify)
+	4.	Budget for this Project:
+	•	Options:
+	•	Small budget (< 1000€)
+	•	Medium budget (1000€ - 5000€)
+	•	Large budget (> 5000€)
+	5.	Color Scheme:
+	•	Options:
+	•	Choose from predefined color palettes (with visual examples)
+	•	Custom color picker
+	6.	Design and Aesthetics:
+	•	Gallery of UI mockups:
+	•	Scroll to select a style that matches the application’s intent.
+	•	Choose from styles like minimalistic, modern, classic, etc.
+	7.	Application Structure:
+	•	Options:
+	•	Select the layout (homepage, menus, etc.)
+	•	Add specific functionalities (login, payment gateway, API integrations, etc.)
+	8.	Would you like an initial meeting with the developer for this project?
+	•	Options:
+	•	Yes
+	•	No
+	9.	Key Features Required:
+	•	List of desired features (user management, API integration, etc.)
+	10.	Describe Your Project Idea:
+	•	A free-text field where the client can explain their idea in detail.
+	11.	Search for Similar Applications:
+	•	Search bar to find references for similar applications.
+	12.	Add Examples of Similar Applications:
+	•	Option to add examples of similar applications to guide the developer.
 Interface Développeur
 
 1. Inscription / Connexion :
