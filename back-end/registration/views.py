@@ -1,39 +1,27 @@
-import json
-from django.contrib.auth.models import User
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.hashers import make_password
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import User
+from .serialization import UserSerializer
 
-@csrf_exempt  # Only use in development; for production, ensure CSRF protection
-def register_view(request):
-    if request.method == 'POST':
-        # Parse JSON data from the request body
-        try:
-            data = json.loads(request.body)
-            username = data.get('username')
-            email = data.get('email')
-            password = data.get('password')
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON'}, status=400)
 
-        # Basic validation
-        if not username or not email or not password:
-            return JsonResponse({'error': 'All fields are required'}, status=400)
+@api_view(['POST'])
+def registration_views(request):
+    """Register a new user."""
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        user = serializer.save()
+        return Response({
+            'success': True,
+            'message': 'User registered successfully.',
+            'user': {
+                'username': user.username,
+                'email': user.email,
+                'role': user.role,
+            }
+        }, status=status.HTTP_201_CREATED)
 
-        # Check if the username or email already exists
-        if User.objects.filter(username=username).exists():
-            return JsonResponse({'error': 'Username already taken'}, status=400)
-        
-        if User.objects.filter(email=email).exists():
-            return JsonResponse({'error': 'Email already registered'}, status=400)
-
-        # Create a new user
-        user = User.objects.create(
-            username=username,
-            email=email,
-            password=make_password(password)  # Hash the password
-        )
-        
-        return JsonResponse({'message': 'User registered successfully'}, status=201)
-    
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
+    return Response({
+        'success': False,
+        'errors': serializer.errors,
+    }, status=status.HTTP_400_BAD_REQUEST)

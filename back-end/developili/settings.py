@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "rest_framework",
 ]
 
+AUTH_USER_MODEL = 'your_app_name.User'
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -72,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "developili.wsgi.application"
 
+AUTH_USER_MODEL = 'log_in.User'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
