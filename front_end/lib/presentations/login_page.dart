@@ -51,16 +51,16 @@ class _LoginPageState extends State<LoginPage> {
         body: jsonEncode({"email": email, "password": password}),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 202) { // 202 is the status code for accepted
         final data = jsonDecode(response.body);
-        if (data['success']) {
+        if (data['success'] == "Successfully logged in") {
           // Navigate to the success page
           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SuccessPage()),
-          );
+          context,
+          MaterialPageRoute(builder: (context) => const SuccessPage()),
+        );
         } else {
-          _showMessage(data['message'] ?? "Login failed");
+            _showMessage(data['error'] ?? "Login failed");
         }
       } else {
         _showMessage("Something went wrong. Please try again.");

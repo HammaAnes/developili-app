@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "log_in.apps.Log_in",
     "registration.apps.RegistrationConfig",
     "rest_framework",
+    'rest_framework.authtoken',
 ]
 
 AUTH_USER_MODEL = 'your_app_name.User'
@@ -53,6 +54,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+
 
 ROOT_URLCONF = "developili.urls"
 
