@@ -5,6 +5,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,12 +17,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // Dégradé de fond appliqué à toute l'application
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color(0xff2F3F6D),
@@ -33,7 +37,7 @@ class MyHomePage extends StatelessWidget {
             end: Alignment.centerRight,
           ),
         ),
-        padding: EdgeInsets.all(
+        padding: const EdgeInsets.all(
             20.0), // Pour ajouter un padding autour de tous les éléments
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start, // Aligner vers le haut
@@ -41,8 +45,8 @@ class MyHomePage extends StatelessWidget {
               CrossAxisAlignment.center, // Centrer horizontalement
           children: [
             // Titre de la page "Login"
-            SizedBox(height: 40),
-            Text(
+            const SizedBox(height: 40),
+            const Text(
               'Login',
               style: TextStyle(
                 fontSize: 40,
@@ -50,11 +54,11 @@ class MyHomePage extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            SizedBox(
+            const SizedBox(
                 height: 40), // Réduire l'espace avant les champs de formulaire
 
             // Formulaire pour le Username
-            Align(
+            const Align(
               alignment: Alignment.centerLeft, // Aligner à gauche
               child: Text(
                 'Enter your username',
@@ -71,10 +75,10 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 25.8), // Espace entre les champs de formulaire
+            const SizedBox(height: 25.8), // Espace entre les champs de formulaire
 
             // Formulaire pour le Password
-            Align(
+            const Align(
               alignment: Alignment.centerLeft, // Aligner à gauche
               child: Text(
                 'Enter your password',
@@ -92,7 +96,7 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
                 height: 10), // Espacement avant le texte "Forget password?"
 
             // Texte "Forget password?" positionné à droite
@@ -102,7 +106,7 @@ class MyHomePage extends StatelessWidget {
                 onPressed: () {
                   // Action de réinitialisation du mot de passe
                 },
-                child: Text(
+                child: const Text(
                   'Forgot password?',
                   style: TextStyle(
                     color: Colors.black,
@@ -112,33 +116,33 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 10), // Espace avant le bouton de soumission
+            const SizedBox(height: 10), // Espace avant le bouton de soumission
 
             // Bouton de connexion
             ElevatedButton(
               onPressed: () {
                 // Action de connexion
               },
-              child: Text('Login'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black, // Couleur de fond du bouton
                 foregroundColor: Colors.white, // Couleur du texte du bouton
-                minimumSize: Size(double.infinity, 50), // Largeur du bouton
+                minimumSize: const Size(double.infinity, 50), // Largeur du bouton
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(17.6),
                 ),
               ),
+              child: Text('Login'),
             ),
 
             // Espace avant le texte "Don't have an account?" et "Sign up"
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Texte non cliquable + Texte cliquable pour "Sign up"
             Row(
               mainAxisAlignment:
                   MainAxisAlignment.center, // Centrer horizontalement
               children: [
-                Text(
+                const Text(
                   "Don't have an account?",
                   style: TextStyle(
                     color: Colors.white,
@@ -149,7 +153,7 @@ class MyHomePage extends StatelessWidget {
                   onPressed: () {
                     // Action pour l'inscription
                   },
-                  child: Text(
+                  child: const Text(
                     'Sign up',
                     style: TextStyle(
                       color: Colors.black,
@@ -160,10 +164,10 @@ class MyHomePage extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 4), // Espacement avant "or"
+            const SizedBox(height: 4), // Espacement avant "or"
 
             // Texte "or" non cliquable
-            Text(
+            const Text(
               'or',
               style: TextStyle(
                 color: Colors.black,
@@ -171,7 +175,7 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
                 height:
                     10), // Espacement avant les boutons "Continue with Google" et "Continue with Apple"
 
@@ -185,18 +189,18 @@ class MyHomePage extends StatelessWidget {
                 height: 24.0,
                 width: 24.0,
               ),
-              label: Text('Continue with Google'),
+              label: const Text('Continue with Google'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, // Couleur de fond
                 foregroundColor: Colors.black, // Couleur du texte
-                minimumSize: Size(double.infinity, 50),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(17.6),
                 ),
               ),
             ),
 
-            SizedBox(height: 20), // Espacement entre les boutons
+            const SizedBox(height: 20), // Espacement entre les boutons
 
             // Bouton "Continue with Apple"
             ElevatedButton.icon(
@@ -208,11 +212,11 @@ class MyHomePage extends StatelessWidget {
                 height: 24.0,
                 width: 24.0,
               ),
-              label: Text('Continue with Apple'),
+              label: const Text('Continue with Apple'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, // Couleur de fond
                 foregroundColor: Colors.black, // Couleur du texte
-                minimumSize: Size(double.infinity, 50),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(17.6),
                 ),

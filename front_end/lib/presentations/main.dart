@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -15,10 +17,12 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Dégradé utilisé pour le fond de l'application
-    final gradientBackground = LinearGradient(
+    const gradientBackground = LinearGradient(
       colors: [
         Color(0xff2F3F6D),
         Color(0xff5693AD),
@@ -40,7 +44,7 @@ class MyHomePage extends StatelessWidget {
           children: [
             // AppBar avec fond transparent, barre de recherche blanche, et icônes visibles
             PreferredSize(
-              preferredSize: Size.fromHeight(100),
+              preferredSize: const Size.fromHeight(100),
               child: AppBar(
                 backgroundColor: Colors.transparent, // AppBar transparente
                 elevation: 0,
@@ -63,7 +67,7 @@ class MyHomePage extends StatelessWidget {
                         Colors.white, // Fond blanc pour la barre de recherche
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: TextField(
+                  child: const TextField(
                     decoration: InputDecoration(
                       hintText: "Rechercher...",
                       border: InputBorder.none,
@@ -73,7 +77,7 @@ class MyHomePage extends StatelessWidget {
                 ),
                 actions: [
                   IconButton(
-                    icon: Icon(Icons.search,
+                    icon: const Icon(Icons.search,
                         color: Colors.white), // Icône en blanc
                     onPressed: () {
                       // Action pour le bouton de recherche
@@ -100,7 +104,7 @@ class MyHomePage extends StatelessWidget {
                       // Action pour le premier bouton
                     },
                   ),
-                  SizedBox(width: 30), // Espace entre les icônes
+                  const SizedBox(width: 30), // Espace entre les icônes
                   // Deuxième bouton avec une image personnalisée
                   IconButton(
                     icon: Image.asset(
@@ -113,7 +117,7 @@ class MyHomePage extends StatelessWidget {
                       // Action pour le deuxième bouton
                     },
                   ),
-                  SizedBox(width: 30), // Espace entre les icônes
+                  const SizedBox(width: 30), // Espace entre les icônes
                   // Troisième bouton avec une image personnalisée
                   IconButton(
                     icon: Image.asset(
@@ -130,7 +134,7 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
             // Le reste de votre contenu peut aller ici...
-            Expanded(
+            const Expanded(
               child: Center(
                 child: Text(
                   "Contenu de l'application",
