@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'main.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
 
   Future<void> loginUser() async {
-    const String apiUrl = "http://127.0.0.1:8000/log_in/"; // Replace with your API endpoint
+    const String apiUrl = "http://127.0.0.1:8000/log_in/";
     final String email = emailController.text.trim();
     final String password = passwordController.text.trim();
 
@@ -51,16 +52,16 @@ class _LoginPageState extends State<LoginPage> {
         body: jsonEncode({"email": email, "password": password}),
       );
 
-      if (response.statusCode == 202) { // 202 is the status code for accepted
+      if (response.statusCode == 202) {
         final data = jsonDecode(response.body);
         if (data['success'] == "Successfully logged in") {
           // Navigate to the success page
           Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const SuccessPage()),
-        );
+            context,
+            MaterialPageRoute(builder: (context) => const MyAppMain()),
+          );
         } else {
-            _showMessage(data['error'] ?? "Login failed");
+          _showMessage(data['error'] ?? "Login failed");
         }
       } else {
         _showMessage("Something went wrong. Please try again.");
@@ -75,7 +76,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -176,34 +178,6 @@ class _LoginPageState extends State<LoginPage> {
               child: isLoading
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text('Login'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SuccessPage extends StatelessWidget {
-  const SuccessPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Login Successful!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Go Back'),
             ),
           ],
         ),
