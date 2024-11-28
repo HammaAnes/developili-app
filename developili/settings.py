@@ -1,3 +1,4 @@
+import os
 """
 Django settings for developili project.
 
@@ -23,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-=momx#9gkva^a8q4q+ucn-fdr%mz=1!3$_*s-o^m_8&hl2l6vf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
-
+PORT = os.environ.get('PORT', '8000')
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,11 +38,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-<<<<<<< HEAD
-    "rest_framework",
-]
-
-=======
     "log_in.apps.Log_in",
     "registration.apps.RegistrationConfig",
     "rest_framework",
@@ -50,7 +46,6 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'your_app_name.User'
 
->>>>>>> main
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -61,11 +56,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> main
 ROOT_URLCONF = "developili.urls"
 
 TEMPLATES = [
@@ -86,10 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "developili.wsgi.application"
 
-<<<<<<< HEAD
-=======
 AUTH_USER_MODEL = 'log_in.User'
->>>>>>> main
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
