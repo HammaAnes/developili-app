@@ -1,30 +1,6 @@
 from django.db import models
-<<<<<<< HEAD
-
-# Create your models here.
-=======
-from django.contrib.auth.models import AbstractUser
+from log_in.models import User  # Reference the consolidated User model
 from django.core.validators import MinValueValidator, MaxValueValidator
-
-# Custom User Model
-class User(AbstractUser):
-    ROLE_CHOICES = [
-        ('client', 'Client'),
-        ('developer', 'Developer'),
-    ]
-    role = models.CharField(
-        max_length=20,
-        choices=ROLE_CHOICES,
-        blank=True,  # Allow blank initially
-    )
-    email = models.EmailField(unique=True)
-
-    USERNAME_FIELD = 'email'  # Use email for authentication
-    REQUIRED_FIELDS = ['username']  # Ensure username remains required
-
-    def __str__(self):
-        return self.username
-
 
 # Client Profile Model
 class ClientProfile(models.Model):
@@ -32,7 +8,7 @@ class ClientProfile(models.Model):
         User,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name='client_profile'
+        related_name='register_client_profile'
     )
     description = models.TextField(blank=True, null=True)
 
@@ -50,7 +26,7 @@ class DeveloperProfile(models.Model):
         User,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name='developer_profile'
+        related_name='register_developer_profile'
     )
     skills = models.TextField(blank=True, null=True)
     availability = models.TextField(blank=True, null=True)
@@ -68,4 +44,3 @@ class DeveloperProfile(models.Model):
     class Meta:
         verbose_name = "Developer Profile"
         verbose_name_plural = "Developer Profiles"
->>>>>>> main

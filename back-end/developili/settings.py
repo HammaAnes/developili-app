@@ -37,9 +37,20 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+<<<<<<< HEAD
     "rest_framework",
 ]
 
+=======
+    "log_in.apps.Log_in",
+    "registration.apps.RegistrationConfig",
+    "rest_framework",
+    'rest_framework.authtoken',
+]
+
+AUTH_USER_MODEL = 'your_app_name.User'
+
+>>>>>>> main
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -50,6 +61,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> main
 ROOT_URLCONF = "developili.urls"
 
 TEMPLATES = [
@@ -70,6 +86,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "developili.wsgi.application"
 
+<<<<<<< HEAD
+=======
+AUTH_USER_MODEL = 'log_in.User'
+>>>>>>> main
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
