@@ -1,48 +1,100 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'main.dart';
+import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: LoginPage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
+  Future<void> loginUser() async {
+    const String apiUrl = "http://127.0.0.1:8000/log_in/";
+    final String email = emailController.text.trim();
+    final String password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      _showMessage("Please fill in all fields");
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"email": email, "password": password}),
+      );
+
+      if (response.statusCode == 202) {
+        final data = jsonDecode(response.body);
+        if (data['success'] == "Successfully logged in") {
+          // Navigate to the success page
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MyAppMain()),
+          );
+        } else {
+          _showMessage(data['error'] ?? "Login failed");
+        }
+      } else {
+        _showMessage("Something went wrong. Please try again.");
+      }
+    } catch (e) {
+      _showMessage("An error occurred: $e");
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Dégradé de fond appliqué à toute l'application
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xff2F3F6D),
-              Color(0xff5693AD),
-              Color(0xff6ABDCE),
-              Color(0xff7EE7EE),
-            ],
-            stops: [0.0, 0.53, 0.75, 1.0],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
+          gradient: CouleurDuFond.gradientBackground, // Appel du dégradé
         ),
-        padding: EdgeInsets.all(
-            20.0), // Pour ajouter un padding autour de tous les éléments
+        padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start, // Aligner vers le haut
-          crossAxisAlignment:
-              CrossAxisAlignment.center, // Centrer horizontalement
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Titre de la page "Login"
-            SizedBox(height: 40),
-            Text(
+            const SizedBox(height: 40),
+            const Text(
               'Login',
               style: TextStyle(
                 fontSize: 40,
@@ -50,20 +102,18 @@ class MyHomePage extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            SizedBox(
-                height: 40), // Réduire l'espace avant les champs de formulaire
-
-            // Formulaire pour le Username
-            Align(
-              alignment: Alignment.centerLeft, // Aligner à gauche
+            const SizedBox(height: 40),
+            const Align(
+              alignment: Alignment.centerLeft,
               child: Text(
-                'Enter your username',
+                'Enter your email',
                 style: TextStyle(color: Colors.white, fontSize: 16.43),
               ),
             ),
             TextField(
+              controller: emailController,
               decoration: InputDecoration(
-                hintText: 'Username',
+                hintText: 'Email',
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -71,18 +121,17 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 25.8), // Espace entre les champs de formulaire
-
-            // Formulaire pour le Password
-            Align(
-              alignment: Alignment.centerLeft, // Aligner à gauche
+            const SizedBox(height: 25.8),
+            const Align(
+              alignment: Alignment.centerLeft,
               child: Text(
                 'Enter your password',
                 style: TextStyle(color: Colors.white, fontSize: 16.43),
               ),
             ),
             TextField(
-              obscureText: true, // Masquer le texte du mot de passe
+              controller: passwordController,
+              obscureText: true,
               decoration: InputDecoration(
                 hintText: 'Password',
                 filled: true,
@@ -92,17 +141,12 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-                height: 10), // Espacement avant le texte "Forget password?"
-
-            // Texte "Forget password?" positionné à droite
+            const SizedBox(height: 10),
             Align(
-              alignment: Alignment.centerRight, // Aligner à droite
+              alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {
-                  // Action de réinitialisation du mot de passe
-                },
-                child: Text(
+                onPressed: () {},
+                child: const Text(
                   'Forgot password?',
                   style: TextStyle(
                     color: Colors.black,
@@ -111,26 +155,21 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
-
-            SizedBox(height: 10), // Espace avant le bouton de soumission
-
-            // Bouton de connexion
+            const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
-                // Action de connexion
-              },
-              child: Text('Login'),
+              onPressed: isLoading ? null : loginUser,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Couleur de fond du bouton
-                foregroundColor: Colors.white, // Couleur du texte du bouton
-                minimumSize: Size(double.infinity, 50), // Largeur du bouton
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(17.6),
                 ),
               ),
+              child: isLoading
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text('Login'),
             ),
-
-            // Espace avant le texte "Don't have an account?" et "Sign up"
             SizedBox(height: 10),
 
             // Texte non cliquable + Texte cliquable pour "Sign up"
