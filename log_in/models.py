@@ -1,8 +1,4 @@
 from django.db import models
-<<<<<<< HEAD
-
-# Create your models here.
-=======
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -68,4 +64,3 @@ class DeveloperProfile(models.Model):
     class Meta:
         verbose_name = "Developer Profile"
         verbose_name_plural = "Developer Profiles"
->>>>>>> main

@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import loader
-
-# Create your views here
-def log_in(request):
-    template = loader.get_template("index.html")
-    return HttpResponse(template.render())
-=======
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
@@ -58,4 +48,3 @@ def add(request):
     user.save()
 
     return JsonResponse({'message': 'Developer user created successfully!'}, status=201)
->>>>>>> main
