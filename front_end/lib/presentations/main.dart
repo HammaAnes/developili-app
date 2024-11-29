@@ -12,18 +12,23 @@ class MyAppMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int? selectedTileIndex; // Indice du ListTile sélectionné
 
   @override
   Widget build(BuildContext context) {
-    // Dégradé utilisé pour le fond de l'application
-
     return Scaffold(
       // Dégradé de fond appliqué à toute l'application
       body: Container(
@@ -38,17 +43,19 @@ class MyHomePage extends StatelessWidget {
               child: AppBar(
                 backgroundColor: Colors.transparent, // AppBar transparente
                 elevation: 0,
-                leading: IconButton(
-                  icon: Image.asset(
-                    'lib/icons/menu.png',
-                    color: Colors
-                        .white, // Icône en utilisant une image personnalisée
-                    width: 30, // Ajuste la taille de l'image
-                    height: 30, // Ajuste la taille de l'image
+                leading: Builder(
+                  builder: (context) => IconButton(
+                    icon: Image.asset(
+                      'lib/icons/menu.png',
+                      color: Colors.white,
+                      width: 30,
+                      height: 30,
+                    ),
+                    onPressed: () {
+                      // Ouvre la sidebar
+                      Scaffold.of(context).openDrawer();
+                    },
                   ),
-                  onPressed: () {
-                    // Action pour le bouton de menu
-                  },
                 ),
                 title: Container(
                   height: 40,
@@ -137,7 +144,6 @@ class MyHomePage extends StatelessWidget {
       ),
       // Footer avec 5 icônes fixes en bas de l'écran
       bottomNavigationBar: Container(
-        // Appliquer le même gradient de fond sans bordure
         decoration: BoxDecoration(
           gradient: CouleurDuFond.gradientBackground, // Appel du dégradé
         ),
@@ -150,7 +156,7 @@ class MyHomePage extends StatelessWidget {
               IconButton(
                 icon: Image.asset(
                   'lib/icons/home_full.png',
-                  color: Colors.white, // Remplace par ton image
+                  color: Colors.white,
                   width: 40,
                   height: 40,
                 ),
@@ -162,7 +168,7 @@ class MyHomePage extends StatelessWidget {
               IconButton(
                 icon: Image.asset(
                   'lib/icons/clock_full.png',
-                  color: Colors.white, // Remplace par ton image
+                  color: Colors.white,
                   width: 40,
                   height: 40,
                 ),
@@ -174,7 +180,7 @@ class MyHomePage extends StatelessWidget {
               IconButton(
                 icon: Image.asset(
                   'lib/icons/add.png',
-                  color: Colors.white, // Remplace par ton image
+                  color: Colors.white,
                   width: 50,
                   height: 50,
                 ),
@@ -186,7 +192,7 @@ class MyHomePage extends StatelessWidget {
               IconButton(
                 icon: Image.asset(
                   'lib/icons/chat_full.png',
-                  color: Colors.white, // Remplace par ton image
+                  color: Colors.white,
                   width: 40,
                   height: 40,
                 ),
@@ -198,7 +204,7 @@ class MyHomePage extends StatelessWidget {
               IconButton(
                 icon: Image.asset(
                   'lib/icons/user_full.png',
-                  color: Colors.white, // Remplace par ton image
+                  color: Colors.white,
                   width: 40,
                   height: 40,
                 ),
@@ -210,6 +216,106 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
+      // Ajout de la Drawer
+      drawer: Drawer(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xff314270),
+                Color(0xff5E7ED6),
+              ],
+              stops: [0.1, 0.73],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Stack(
+                  children: [
+                    // Cercle Avatar
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Photo de profil ou bouton cliqué');
+                        },
+                        child: CircleAvatar(
+                          radius: 40,
+                          backgroundImage: const AssetImage(
+                            'lib/images/profile_placeholder.png',
+                          ),
+                          backgroundColor: Colors.grey.shade300,
+                          child: Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Icône pour fermer ou revenir à la page
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context); // Ferme le Drawer
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // ListTiles avec état sélectionné
+              buildSelectableTile(
+                index: 0,
+                icon: Icons.home,
+                text: 'Home',
+              ),
+              buildSelectableTile(
+                index: 1,
+                icon: Icons.settings,
+                text: 'Settings',
+              ),
+              buildSelectableTile(
+                index: 2,
+                icon: Icons.info,
+                text: 'About',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Méthode pour créer un ListTile sélectionnable
+  Widget buildSelectableTile(
+      {required int index, required IconData icon, required String text}) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.white),
+      title: Text(
+        text,
+        style: const TextStyle(color: Colors.white),
+      ),
+      tileColor: selectedTileIndex == index
+          ? const Color(0xFF464667) // Couleur sélectionnée
+          : Colors.transparent, // Couleur normale
+      onTap: () {
+        setState(() {
+          selectedTileIndex = index; // Mettre à jour l'état
+        });
+      },
     );
   }
 }
