@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from django.http import JsonResponse
 from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
@@ -37,3 +38,6 @@ def login_views(request):
         print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def test_deployment(request):
+
+    return JsonResponse({'Success': 'Deployment server on point'})
