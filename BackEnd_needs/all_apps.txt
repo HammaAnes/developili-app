@@ -1,7 +1,0 @@
-Application log in:
-client
-developper
-
-Application Register:
-client 
-developper

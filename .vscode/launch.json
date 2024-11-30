@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/DELL/OneDrive/Bureau/stm32/scripts",
-      "program": "c:/Users/DELL/OneDrive/Bureau/stm32/scripts/build/Debug/outDebug",
+      "cwd": "c:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/developili_application/linux/flutter",
+      "program": "c:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/developili_application/linux/flutter/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

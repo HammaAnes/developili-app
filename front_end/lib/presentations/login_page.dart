@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'main.dart';
+import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
 
 void main() {
   runApp(const MyApp());
@@ -84,18 +85,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xff2F3F6D),
-              Color(0xff5693AD),
-              Color(0xff6ABDCE),
-              Color(0xff7EE7EE),
-            ],
-            stops: [0.0, 0.53, 0.75, 1.0],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
+        decoration: BoxDecoration(
+          gradient: CouleurDuFond.gradientBackground, // Appel du dégradé
         ),
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -178,6 +169,93 @@ class _LoginPageState extends State<LoginPage> {
               child: isLoading
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text('Login'),
+            ),
+            SizedBox(height: 10),
+
+            // Texte non cliquable + Texte cliquable pour "Sign up"
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Centrer horizontalement
+              children: [
+                Text(
+                  "Don't have an account?",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Action pour l'inscription
+                  },
+                  child: Text(
+                    'Sign up',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 4), // Espacement avant "or"
+
+            // Texte "or" non cliquable
+            Text(
+              'or',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+
+            SizedBox(
+                height:
+                    10), // Espacement avant les boutons "Continue with Google" et "Continue with Apple"
+
+            // Bouton "Continue with Google"
+            ElevatedButton.icon(
+              onPressed: () {
+                // Action pour se connecter avec Google
+              },
+              icon: Image.asset(
+                'lib/icons/Logo_Google.png', // Assurez-vous que le logo est bien dans le dossier assets
+                height: 24.0,
+                width: 24.0,
+              ),
+              label: Text('Continue with Google'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white, // Couleur de fond
+                foregroundColor: Colors.black, // Couleur du texte
+                minimumSize: Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(17.6),
+                ),
+              ),
+            ),
+
+            SizedBox(height: 20), // Espacement entre les boutons
+
+            // Bouton "Continue with Apple"
+            ElevatedButton.icon(
+              onPressed: () {
+                // Action pour se connecter avec Apple
+              },
+              icon: Image.asset(
+                'lib/icons/apple-logo.png', // Assurez-vous que le logo est bien dans le dossier assets
+                height: 24.0,
+                width: 24.0,
+              ),
+              label: Text('Continue with Apple'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white, // Couleur de fond
+                foregroundColor: Colors.black, // Couleur du texte
+                minimumSize: Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(17.6),
+                ),
+              ),
             ),
           ],
         ),
