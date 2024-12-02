@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-=momx#9gkva^a8q4q+ucn-fdr%mz=1!3$_*s-o^m_8&hl2l6vf
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['your-app.onrender.com']
+ALLOWED_HOSTS = ['developili.onrender.com']
 
 # Port handling (handled by gunicorn)
 PORT = os.environ.get('PORT', '8000')
