@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'main.dart';
@@ -76,6 +78,64 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future<void> loginWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    try {
+      final GoogleSignInAccount? account = await googleSignIn.signIn();
+      if (account != null) {
+        final GoogleSignInAuthentication auth = await account.authentication;
+        final String idToken = auth.idToken!;
+
+        final response = await http.post(
+          Uri.parse("http://127.0.0.1:8000/social_login/"),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({
+            "provider": "google",
+            "access_token": idToken,
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          _showMessage("Logged in with Google successfully!");
+        } else {
+          _showMessage("Google login failed: ${response.body}");
+        }
+      } else {
+        _showMessage("Google sign-in canceled.");
+      }
+    } catch (e) {
+      _showMessage("Google login error: $e");
+    }
+  }
+
+  Future<void> loginWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final response = await http.post(
+        Uri.parse("http://127.0.0.1:8000/social_login/"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "provider": "apple",
+          "access_token": credential.identityToken!,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        _showMessage("Logged in with Apple successfully!");
+      } else {
+        _showMessage("Apple login failed: ${response.body}");
+      }
+    } catch (e) {
+      _showMessage("Apple login error: $e");
+    }
+  }
+
   void _showMessage(String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
@@ -86,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: CouleurDuFond.gradientBackground, // Appel du dégradé
+          gradient: CouleurDuFond.gradientBackground,
         ),
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -142,20 +202,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 10),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Forgot password?',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.0,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: isLoading ? null : loginUser,
               style: ElevatedButton.styleFrom(
@@ -170,88 +216,39 @@ class _LoginPageState extends State<LoginPage> {
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text('Login'),
             ),
-            SizedBox(height: 10),
-
-            // Texte non cliquable + Texte cliquable pour "Sign up"
-            Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, // Centrer horizontalement
-              children: [
-                Text(
-                  "Don't have an account?",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Action pour l'inscription
-                  },
-                  child: Text(
-                    'Sign up',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            SizedBox(height: 4), // Espacement avant "or"
-
-            // Texte "or" non cliquable
-            Text(
-              'or',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16.0,
-              ),
-            ),
-
-            SizedBox(
-                height:
-                    10), // Espacement avant les boutons "Continue with Google" et "Continue with Apple"
-
-            // Bouton "Continue with Google"
+            const SizedBox(height: 10),
+            const Text('or', style: TextStyle(color: Colors.black, fontSize: 16.0)),
+            const SizedBox(height: 10),
             ElevatedButton.icon(
-              onPressed: () {
-                // Action pour se connecter avec Google
-              },
+              onPressed: loginWithGoogle,
               icon: Image.asset(
-                'lib/icons/Logo_Google.png', // Assurez-vous que le logo est bien dans le dossier assets
+                'lib/icons/Logo_Google.png',
                 height: 24.0,
                 width: 24.0,
               ),
-              label: Text('Continue with Google'),
+              label: const Text('Continue with Google'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white, // Couleur de fond
-                foregroundColor: Colors.black, // Couleur du texte
-                minimumSize: Size(double.infinity, 50),
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(17.6),
                 ),
               ),
             ),
-
-            SizedBox(height: 20), // Espacement entre les boutons
-
-            // Bouton "Continue with Apple"
+            const SizedBox(height: 20),
             ElevatedButton.icon(
-              onPressed: () {
-                // Action pour se connecter avec Apple
-              },
+              onPressed: loginWithApple,
               icon: Image.asset(
-                'lib/icons/apple-logo.png', // Assurez-vous que le logo est bien dans le dossier assets
+                'lib/icons/apple-logo.png',
                 height: 24.0,
                 width: 24.0,
               ),
-              label: Text('Continue with Apple'),
+              label: const Text('Continue with Apple'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white, // Couleur de fond
-                foregroundColor: Colors.black, // Couleur du texte
-                minimumSize: Size(double.infinity, 50),
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(17.6),
                 ),
