@@ -6,6 +6,7 @@
 
 #import "GeneratedPluginRegistrant.h"
 
+<<<<<<< HEAD
 #if __has_include(<google_sign_in_ios/FLTGoogleSignInPlugin.h>)
 #import <google_sign_in_ios/FLTGoogleSignInPlugin.h>
 #else
@@ -23,6 +24,11 @@
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
   [SignInWithApplePlugin registerWithRegistrar:[registry registrarForPlugin:@"SignInWithApplePlugin"]];
+=======
+@implementation GeneratedPluginRegistrant
+
++ (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 }
 
 @end

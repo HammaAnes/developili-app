@@ -2,7 +2,11 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
+<<<<<<< HEAD
       <FullPath>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\CMakeFiles\3.29.5-msvc4\x64\Debug\VCTargetsPath</FullPath>
+=======
+      <FullPath>F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\CMakeFiles\3.29.5-msvc4\x64\Debug\VCTargetsPath</FullPath>
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Microsoft/VC/v170
+=======
+F:/YOUNES/Microsoft Visual Studio/2022/Community/MSBuild/Microsoft/VC/v170
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4

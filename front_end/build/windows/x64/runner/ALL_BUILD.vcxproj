@@ -21,7 +21,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+<<<<<<< HEAD
     <ProjectGuid>{386FCE5F-2297-35DB-B747-73A97B9B4760}</ProjectGuid>
+=======
+    <ProjectGuid>{E8767DF6-35C5-3CF6-8884-69AA70A787CB}</ProjectGuid>
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -88,11 +92,19 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <CustomBuild Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\runner\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows -BC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64 --check-stamp-file C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/runner/CMakeFiles/generate.stamp
+=======
+    <CustomBuild Include="F:\YOUNES\projet_eng\SoftwareEngProject\front_end\windows\runner\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule F:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows/runner/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"F:\YOUNES\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SF:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows -BF:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64 --check-stamp-file F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/runner/CMakeFiles/generate.stamp
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -101,11 +113,19 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+<<<<<<< HEAD
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
 "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows -BC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64 --check-stamp-file C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/runner/CMakeFiles/generate.stamp
+=======
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule F:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows/runner/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
+"F:\YOUNES\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SF:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows -BF:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64 --check-stamp-file F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/runner/CMakeFiles/generate.stamp
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -114,11 +134,19 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
+<<<<<<< HEAD
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/runner/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows -BC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64 --check-stamp-file C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/runner/CMakeFiles/generate.stamp
+=======
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule F:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows/runner/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"F:\YOUNES\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SF:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows -BF:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64 --check-stamp-file F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/runner/CMakeFiles/generate.stamp
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -127,22 +155,37 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+<<<<<<< HEAD
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
+=======
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\runner\CMakeFiles\generate.stamp</Outputs>
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ProjectReference Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\ZERO_CHECK.vcxproj">
       <Project>{BCA8CAC7-688D-36DF-B6BA-8B7E281AB887}</Project>
+=======
+    <ProjectReference Include="F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\ZERO_CHECK.vcxproj">
+      <Project>{4D9CA1ED-AACA-3F54-9257-240C0906D68B}</Project>
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+<<<<<<< HEAD
     <ProjectReference Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\runner\front_end.vcxproj">
       <Project>{CF0DF89E-87A7-374E-9822-28FC01249707}</Project>
       <Name>front_end</Name>
+=======
+    <ProjectReference Include="F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\runner\flutter_developili_application.vcxproj">
+      <Project>{146EACFD-E6DC-3A5E-92F4-E92E744BDB55}</Project>
+      <Name>flutter_developili_application</Name>
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

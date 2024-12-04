@@ -1,3 +1,8 @@
 # CMake generation dependency list for this directory.
+<<<<<<< HEAD
 C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/flutter/CMakeLists.txt
 C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/flutter/ephemeral/generated_config.cmake
+=======
+F:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows/flutter/CMakeLists.txt
+F:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows/flutter/ephemeral/generated_config.cmake
+>>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
