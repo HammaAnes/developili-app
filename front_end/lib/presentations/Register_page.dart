@@ -1,233 +1,259 @@
-import 'package:flutter/material.dart';
-import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
+  import 'package:flutter/material.dart';
+  import 'package:http/http.dart' as http;
+  import 'dart:convert';
+  import 'couleur_du_fond.dart'; // Import the gradient background file
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // Enlever le banner de debug
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-
-  // Variable pour gérer l'état du Switch
-  bool _isDeveloper = false;
-
-  // Fonction pour comparer les mots de passe
-  bool _passwordsMatch() {
-    return _passwordController.text == _confirmPasswordController.text;
+  void main() {
+    runApp(MyApp());
   }
 
-  // Fonction pour afficher une alerte si les mots de passe ne correspondent pas
-  void _showErrorDialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text("Error"),
-        content: Text("Passwords do not match!"),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-            child: Text("OK"),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Fonction pour soumettre le formulaire
-  void _submitForm() {
-    if (_passwordsMatch()) {
-      // Traiter le formulaire
-      print("Form submitted with username: ${_usernameController.text}");
-    } else {
-      _showErrorDialog();
+  class MyApp extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage(),
+      );
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // Dégradé de fond appliqué à toute l'application
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: CouleurDuFond.gradientBackground, // Appel du dégradé
+  class MyHomePage extends StatefulWidget {
+    @override
+    _MyHomePageState createState() => _MyHomePageState();
+  }
+
+  class _MyHomePageState extends State<MyHomePage> {
+    final _usernameController = TextEditingController();
+    final _passwordController = TextEditingController();
+    final _confirmPasswordController = TextEditingController();
+    bool _isDeveloper = false;
+    bool _isLoading = false;
+
+    // Backend API URL
+    final String apiUrl = "http://127.0.0.1:8000/registration/";
+
+    // Function to check if passwords match
+    bool _passwordsMatch() {
+      return _passwordController.text == _confirmPasswordController.text;
+    }
+
+    // Function to handle API call for user registration
+    Future<void> _registerUser() async {
+      if (!_passwordsMatch()) {
+        _showErrorDialog("Passwords do not match!");
+        return;
+      }
+
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final response = await http.post(
+          Uri.parse(apiUrl),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: jsonEncode({
+            "username": _usernameController.text,
+            "email": "${_usernameController.text}@gmail.com",
+            "password": _passwordController.text,
+            "role": _isDeveloper ? "developer" : "user",
+          }),
+        );
+
+        final responseData = jsonDecode(response.body);
+
+        if (response.statusCode == 201) {
+          _showSuccessDialog(responseData['message']);
+        } else {
+          _showErrorDialog(responseData['errors'] ?? "An unknown error occurred.");
+        }
+      } catch (error) {
+        _showErrorDialog("Failed to connect to the server.");
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+
+    // Function to show success dialog
+    void _showSuccessDialog(String message) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text("Success"),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text("OK"),
+            ),
+          ],
         ),
-        padding: EdgeInsets.all(20.0), // Padding autour de tous les éléments
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start, // Aligner vers le haut
-          crossAxisAlignment:
-              CrossAxisAlignment.center, // Centrer horizontalement
-          children: [
-            SizedBox(height: 40), // Espacement pour le titre
+      );
+    }
 
-            // Titre de la page "Register"
-            Text(
-              'Register',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+    // Function to show error dialog
+    void _showErrorDialog(String message) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text("Error"),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text("OK"),
             ),
-            SizedBox(
-                height:
-                    40), // Espace entre le titre et le premier champ de formulaire
+          ],
+        ),
+      );
+    }
 
-            // Formulaire pour le Username
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Enter your username',
-                style: TextStyle(color: Colors.white, fontSize: 16.43),
-              ),
-            ),
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                hintText: 'Username',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17.6),
-                ),
-              ),
-            ),
-            SizedBox(height: 25.8), // Espacement entre les champs de formulaire
-
-            // Formulaire pour le Password
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Enter your password',
-                style: TextStyle(color: Colors.white, fontSize: 16.43),
-              ),
-            ),
-            TextField(
-              controller: _passwordController,
-              obscureText: true, // Masquer le texte du mot de passe
-              decoration: InputDecoration(
-                hintText: 'Password',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17.6),
-                ),
-              ),
-            ),
-            SizedBox(height: 25.8), // Espacement entre les champs de formulaire
-
-            // Formulaire pour vérifier le Password
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Verify your password',
-                style: TextStyle(color: Colors.white, fontSize: 16.43),
-              ),
-            ),
-            TextField(
-              controller: _confirmPasswordController,
-              obscureText: true, // Masquer le texte du mot de passe
-              decoration: InputDecoration(
-                hintText: 'Confirm Password',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17.6),
-                ),
-              ),
-            ),
-            SizedBox(
-                height: 10), // Espacement avant le texte "Are you a developer?"
-
-            // Question "Are you a developer?" avec Switch et texte dynamique
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Are you a developer?',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-
-            // Row pour placer "No" à gauche, le Switch et "Yes" à droite
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'No',
-                  style: TextStyle(
-                    color: !_isDeveloper
-                        ? Colors.white
-                        : Colors
-                            .grey, // "No" est gris quand le switch est activé
-                  ),
-                ),
-                SizedBox(width: 10), // Espacement entre le texte et le switch
-                Switch(
-                  value: _isDeveloper,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _isDeveloper = value;
-                    });
-                  },
-                  activeTrackColor: Colors.blue,
-                  activeColor:
-                      Colors.white, // Couleur quand le switch est activé
-                  inactiveThumbColor: Colors
-                      .white, // Couleur du bouton du switch quand il est inactif
-                  inactiveTrackColor: Colors
-                      .grey, // Couleur du track quand le switch est inactif
-                ),
-                SizedBox(width: 10), // Espacement entre le switch et le texte
-                Text(
-                  'Yes',
-                  style: TextStyle(
-                    color: _isDeveloper
-                        ? Colors.white
-                        : Colors
-                            .grey, // "Yes" est gris quand le switch est désactivé
-                  ),
-                ),
-              ],
-            ),
-
-            SizedBox(height: 10), // Espacement avant le bouton de soumission
-
-            // Bouton de soumission
-            ElevatedButton(
-              onPressed: _submitForm,
-              child: Text('Register'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Couleur du fond du bouton
-                foregroundColor: Colors.white, // Couleur du texte du bouton
-                minimumSize: Size(double.infinity, 50), // Largeur du bouton
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(17.6),
-                ),
-              ),
-            ),
-
-            // Espace avant le texte "Do you have an account?" et "Login"
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: CouleurDuFond.gradientBackground,
+          ),
+          padding: EdgeInsets.all(20.0),
+          child: _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 40),
+                    Text(
+                      'Register',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 40),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Enter your username',
+                        style: TextStyle(color: Colors.white, fontSize: 16.43),
+                      ),
+                    ),
+                    TextField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        hintText: 'Username',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(17.6),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 25.8),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Enter your password',
+                        style: TextStyle(color: Colors.white, fontSize: 16.43),
+                      ),
+                    ),
+                    TextField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(17.6),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 25.8),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Verify your password',
+                        style: TextStyle(color: Colors.white, fontSize: 16.43),
+                      ),
+                    ),
+                    TextField(
+                      controller: _confirmPasswordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: 'Confirm Password',
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(17.6),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Are you a developer?',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'No',
+                          style: TextStyle(
+                            color: !_isDeveloper ? Colors.white : Colors.grey,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Switch(
+                          value: _isDeveloper,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _isDeveloper = value;
+                            });
+                          },
+                          activeTrackColor: Colors.blue,
+                          activeColor: Colors.white,
+                          inactiveThumbColor: Colors.white,
+                          inactiveTrackColor: Colors.grey,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Yes',
+                          style: TextStyle(
+                            color: _isDeveloper ? Colors.white : Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: _registerUser,
+                      child: Text('Register'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        minimumSize: Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(17.6),
+                        ),
+                      ),
+                    ),
+                    // Espace avant le texte "Do you have an account?" et "Login"
             SizedBox(height: 10),
 
             // Texte non cliquable + Texte cliquable pour "Login"
@@ -315,9 +341,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-          ],
+                  ],
+                ),
         ),
-      ),
-    );
+      );
+    }
   }
-}

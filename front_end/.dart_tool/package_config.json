@@ -56,6 +56,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "flutter_signin_button",
+      "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_signin_button-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/Users/DELL/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -66,6 +72,12 @@
       "rootUri": "file:///C:/Users/DELL/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "font_awesome_flutter",
+      "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-9.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "google_identity_services_web",
@@ -260,7 +272,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-05T10:07:19.994175Z",
+  "generated": "2024-12-05T11:09:57.295406Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///C:/Users/DELL/flutter",

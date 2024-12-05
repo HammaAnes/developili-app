@@ -12,7 +12,7 @@ SECRET_KEY = "django-insecure-=momx#9gkva^a8q4q+ucn-fdr%mz=1!3$_*s-o^m_8&hl2l6vf
 
 DEBUG = True  # Set to False in production
 
-ALLOWED_HOSTS = ['developili.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 # Port handling (handled by gunicorn)
 PORT = os.environ.get('PORT', '8000')
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "allauth",  # Adding allauth to installed apps
     "allauth.account",  # Adding allauth account app
     "allauth.socialaccount",  # Adding allauth social account app
+    "corsheaders",
     # Add social providers if needed, e.g., 'allauth.socialaccount.providers.google',
 ]
 
@@ -63,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 # URL configuration
@@ -117,7 +119,7 @@ STATIC_URL = "static/"
 # Media files
 MEDIA_URL = '/media/'  # Add if you are using media files (like profile pictures)
 
-# CORS settings (if you're using APIs across domains)
+# CORS settings (if you're using APIs across domains)   
 CORS_ALLOW_ALL_ORIGINS = True  # You can configure this to allow specific domains
 
 # Add Django Allauth-related settings

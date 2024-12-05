@@ -1,6 +1,8 @@
-from django.db import models
+from django.db import models    
 from log_in.models import User  # Reference the consolidated User model
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import AbstractUser
+
 
 # Client Profile Model
 class ClientProfile(models.Model):
