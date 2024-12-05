@@ -18,11 +18,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-<<<<<<< HEAD
     <ProjectGuid>{0A94EDCD-0EDF-3CE4-A319-A5D40913696F}</ProjectGuid>
-=======
-    <ProjectGuid>{48C0FE92-48AD-3DE5-9CEC-46CDEE3F39E1}</ProjectGuid>
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -63,11 +59,7 @@
       <UseUtf8Encoding>Always</UseUtf8Encoding>
       <Message></Message>
       <Command>setlocal
-<<<<<<< HEAD
 "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
-=======
-"F:\YOUNES\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -82,11 +74,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <UseUtf8Encoding>Always</UseUtf8Encoding>
       <Message></Message>
       <Command>setlocal
-<<<<<<< HEAD
 "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
-=======
-"F:\YOUNES\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -101,11 +89,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <UseUtf8Encoding>Always</UseUtf8Encoding>
       <Message></Message>
       <Command>setlocal
-<<<<<<< HEAD
 "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
-=======
-"F:\YOUNES\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DBUILD_TYPE=$(Configuration) -P cmake_install.cmake
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -116,11 +100,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <CustomBuild Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\CMakeFiles\f8a4761376c11eeac8229cbf5227f0bd\INSTALL_force.rule">
-=======
-    <CustomBuild Include="F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\CMakeFiles\a169b872f453e44fb00db6a8621d46d0\INSTALL_force.rule">
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
@@ -133,11 +113,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-<<<<<<< HEAD
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
-=======
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">true</BuildInParallel>
@@ -152,11 +128,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">%(AdditionalInputs)</AdditionalInputs>
-<<<<<<< HEAD
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
-=======
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</VerifyInputsAndOutputsExist>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
@@ -171,34 +143,20 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-<<<<<<< HEAD
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
-=======
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\flutter\CMakeFiles\INSTALL_force</Outputs>
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ProjectReference Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\ZERO_CHECK.vcxproj">
       <Project>{BCA8CAC7-688D-36DF-B6BA-8B7E281AB887}</Project>
-=======
-    <ProjectReference Include="F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\ZERO_CHECK.vcxproj">
-      <Project>{4D9CA1ED-AACA-3F54-9257-240C0906D68B}</Project>
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-<<<<<<< HEAD
     <ProjectReference Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\runner\ALL_BUILD.vcxproj">
       <Project>{386FCE5F-2297-35DB-B747-73A97B9B4760}</Project>
-=======
-    <ProjectReference Include="F:\YOUNES\projet_eng\SoftwareEngProject\front_end\build\windows\x64\runner\ALL_BUILD.vcxproj">
-      <Project>{E8767DF6-35C5-3CF6-8884-69AA70A787CB}</Project>
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
       <Name>ALL_BUILD</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

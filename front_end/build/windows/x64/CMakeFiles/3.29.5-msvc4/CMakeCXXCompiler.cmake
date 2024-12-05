@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 set(CMAKE_CXX_COMPILER "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/cl.exe")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "MSVC")
 set(CMAKE_CXX_COMPILER_VERSION "19.41.34120.0")
-=======
-set(CMAKE_CXX_COMPILER "F:/YOUNES/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/cl.exe")
-set(CMAKE_CXX_COMPILER_ARG1 "")
-set(CMAKE_CXX_COMPILER_ID "MSVC")
-set(CMAKE_CXX_COMPILER_VERSION "19.42.34433.0")
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 set(CMAKE_CXX_COMPILER_VERSION_INTERNAL "")
 set(CMAKE_CXX_COMPILER_WRAPPER "")
 set(CMAKE_CXX_STANDARD_COMPUTED_DEFAULT "14")
@@ -29,7 +22,6 @@ set(CMAKE_CXX_COMPILER_ARCHITECTURE_ID x64)
 
 set(MSVC_CXX_ARCHITECTURE_ID x64)
 
-<<<<<<< HEAD
 set(CMAKE_AR "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/lib.exe")
 set(CMAKE_CXX_COMPILER_AR "")
 set(CMAKE_RANLIB ":")
@@ -40,18 +32,6 @@ set(CMAKE_LINKER_LLD "lld-link")
 set(CMAKE_CXX_COMPILER_LINKER "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.41.34120/bin/HostX64/x64/link.exe")
 set(CMAKE_CXX_COMPILER_LINKER_ID "MSVC")
 set(CMAKE_CXX_COMPILER_LINKER_VERSION 14.41.34120.0)
-=======
-set(CMAKE_AR "F:/YOUNES/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/lib.exe")
-set(CMAKE_CXX_COMPILER_AR "")
-set(CMAKE_RANLIB ":")
-set(CMAKE_CXX_COMPILER_RANLIB "")
-set(CMAKE_LINKER "F:/YOUNES/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/link.exe")
-set(CMAKE_LINKER_LINK "F:/YOUNES/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/link.exe")
-set(CMAKE_LINKER_LLD "lld-link")
-set(CMAKE_CXX_COMPILER_LINKER "F:/YOUNES/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/HostX64/x64/link.exe")
-set(CMAKE_CXX_COMPILER_LINKER_ID "MSVC")
-set(CMAKE_CXX_COMPILER_LINKER_VERSION 14.42.34433.0)
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 set(CMAKE_CXX_COMPILER_LINKER_FRONTEND_VARIANT MSVC)
 set(CMAKE_MT "CMAKE_MT-NOTFOUND")
 set(CMAKE_TAPI "")

@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 # Install script for directory: C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/flutter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX "$<TARGET_FILE_DIR:front_end>")
-=======
-# Install script for directory: F:/YOUNES/projet_eng/SoftwareEngProject/front_end/windows/flutter
-
-# Set the install prefix
-if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "$<TARGET_FILE_DIR:flutter_developili_application>")
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

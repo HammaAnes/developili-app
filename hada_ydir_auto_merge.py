@@ -1,64 +1,45 @@
-import subprocess
 import os
 
-def resolve_conflicts_accept_current():
-    try:
-        # Get the list of files with merge conflicts
-        result = subprocess.run(
-            ["git", "status", "--porcelain"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
-        if result.returncode != 0:
-            print(f"Error fetching git status: {result.stderr}")
-            return
-        
-        # Extract conflicted files
-        conflicted_files = [
-            line[3:] for line in result.stdout.splitlines()
-            if line.startswith("UU")  # UU indicates a conflict
-        ]
-        
-        if not conflicted_files:
-            print("No merge conflicts found.")
-            return
-        
-        print(f"Conflicted files detected: {conflicted_files}")
-        print(f"Resolving conflicts in {len(conflicted_files)} files...")
+def resolve_merge_conflicts(directory):
+    """
+    Automatically resolves merge conflicts by accepting current changes
+    in all files with conflicts within the specified directory.
+    """
 
-        # Function to resolve conflict by keeping current changes
-        def resolve_file(file_path):
-            with open(file_path, 'r') as file:
-                content = file.read()
-            
-            # Remove the conflict markers and keep the current changes (HEAD)
-            resolved_content = content.split('=======')[0]
-            
-            # Write the resolved content back to the file
-            with open(file_path, 'w') as file:
-                file.write(resolved_content)
-            
-            print(f"Resolved conflict in {file_path} using current changes.")
-        
-        # Resolve conflicts in each conflicted file
-        for file in conflicted_files:
-            resolve_file(file)
-        
-        # Stage all resolved files (force add to include ignored files)
-        add_result = subprocess.run(
-            ["git", "add", "-f"] + conflicted_files,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
-        if add_result.returncode != 0:
-            print(f"Error staging files: {add_result.stderr}")
-        else:
-            print("All conflicts resolved and staged successfully.")
-    
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+    for root, _, files in os.walk(directory):
+        for file in files:
+            file_path = os.path.join(root, file)
+
+            try:
+                with open(file_path, 'r') as f:
+                    lines = f.readlines()
+
+                # Check if the file has merge conflict markers
+                if any(conflict_start in line for line in lines):
+                    resolved_lines = []
+                    inside_conflict = False
+
+                    for line in lines:
+                        if conflict_start in line:
+                            inside_conflict = True
+                        elif conflict_middle in line and inside_conflict:
+                            # Skip incoming changes
+                            continue
+                        elif conflict_end in line and inside_conflict:
+                            inside_conflict = False
+                        elif not inside_conflict:
+                            resolved_lines.append(line)
+
+                    # Write back the resolved lines to the file
+                    with open(file_path, 'w') as f:
+                        f.writelines(resolved_lines)
+
+                    print(f"Resolved conflicts in: {file_path}")
+
+            except Exception as e:
+                print(f"Error processing file {file_path}: {e}")
 
 if __name__ == "__main__":
-    resolve_conflicts_accept_current()
+    # Specify the root directory where the files are located
+    directory = r'C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili'  # Change this to your repository's root folder
+    resolve_merge_conflicts(directory)

@@ -72,5 +72,3 @@
 	•	Contrat de maintenance : Le client peut négocier et confirmer un accord de maintenance avec le développeur après la livraison de l’application.
 	•	Conditions de maintenance : Le client peut choisir parmi plusieurs options de maintenance (support régulier, correctifs, nouvelles fonctionnalités).
 
-<<<<<<< HEAD
-12. Sécurité et Confidentialité (Client & Développeur)

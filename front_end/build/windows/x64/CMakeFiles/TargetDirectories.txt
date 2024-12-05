@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/CMakeFiles/INSTALL.dir
 C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/CMakeFiles/ALL_BUILD.dir
 C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/CMakeFiles/ZERO_CHECK.dir
@@ -9,15 +8,3 @@ C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/bu
 C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/runner/CMakeFiles/front_end.dir
 C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/runner/CMakeFiles/INSTALL.dir
 C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/runner/CMakeFiles/ALL_BUILD.dir
-=======
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/CMakeFiles/INSTALL.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/CMakeFiles/ALL_BUILD.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/CMakeFiles/ZERO_CHECK.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/flutter/CMakeFiles/flutter_wrapper_plugin.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/flutter/CMakeFiles/flutter_wrapper_app.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/flutter/CMakeFiles/flutter_assemble.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/flutter/CMakeFiles/INSTALL.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/runner/CMakeFiles/flutter_developili_application.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/runner/CMakeFiles/INSTALL.dir
-F:/YOUNES/projet_eng/SoftwareEngProject/front_end/build/windows/x64/runner/CMakeFiles/ALL_BUILD.dir
->>>>>>> 2c07f9b2c0de2fc5451ca25c6a7e1004f75dabe4
