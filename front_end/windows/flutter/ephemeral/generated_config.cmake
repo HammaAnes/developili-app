@@ -1,6 +1,6 @@
 # Generated code do not commit.
-file(TO_CMAKE_PATH "C:\\Users\\DELL\\flutter" FLUTTER_ROOT)
-file(TO_CMAKE_PATH "C:\\Users\\DELL\\OneDrive\\Bureau\\ProjectSoftwareEngineering\\developili\\front_end" PROJECT_DIR)
+file(TO_CMAKE_PATH "E:\\NIT\\Developili_APP\\flutter" FLUTTER_ROOT)
+file(TO_CMAKE_PATH "E:\\SoftwareEngProject\\SoftwareEngProject\\front_end" PROJECT_DIR)
 
 set(FLUTTER_VERSION "1.0.0+1" PARENT_SCOPE)
 set(FLUTTER_VERSION_MAJOR 1 PARENT_SCOPE)
@@ -19,5 +19,5 @@ list(APPEND FLUTTER_TOOL_ENVIRONMENT
   "DART_OBFUSCATION=false"
   "TRACK_WIDGET_CREATION=true"
   "TREE_SHAKE_ICONS=false"
-  "PACKAGE_CONFIG=C:\\Users\\DELL\\OneDrive\\Bureau\\ProjectSoftwareEngineering\\developili\\front_end\\.dart_tool\\package_config.json"
+  "PACKAGE_CONFIG=E:\\SoftwareEngProject\\SoftwareEngProject\\front_end\\.dart_tool\\package_config.json"
 )

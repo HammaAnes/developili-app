@@ -1,0 +1,127 @@
+import pandas as pd
+import dask.dataframe as dd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import MultiLabelBinarizer, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+import re
+import random
+import numpy as np
+
+# Generate a larger dataset
+def generate_large_dataset(n):
+    names = ["Alice", "Bob", "Charlie", "Diana", "Edward", "Fiona", "George", "Helen", "Ian", "Julia"]
+    names = names * (n // len(names)) + names[:n % len(names)]
+    languages_pool = ['Python', 'Java', 'JavaScript', 'C++', 'Go', 'Swift', 'Ruby', 'PHP', 'TypeScript', 'SQL', 'C#', 'HTML', 'CSS', 'React', 'Node.js', 'Rust', 'Scala', 'R', 'Objective-C', 'Perl', 'Dart']
+    experience_levels = ['Junior', 'Mid', 'Senior']
+
+    data = {
+        'Developer Name': names,
+        'Languages': [random.sample(languages_pool, random.randint(1, 5)) for _ in range(n)],
+        'Experience Level': [random.choice(experience_levels) for _ in range(n)]
+    }
+    return pd.DataFrame(data)
+
+# Create a large dataset with 10,000 entries
+df = generate_large_dataset(100)
+
+# Convert Pandas DataFrame to Dask DataFrame for scalability
+ddf = dd.from_pandas(df, npartitions=10)
+
+# Supported languages and experience levels
+LANGUAGES = ['Python', 'Java', 'JavaScript', 'C++', 'Go', 'Swift', 'Ruby', 'PHP', 'TypeScript', 'SQL', 'C#', 'HTML', 'CSS', 'React', 'Node.js', 'Rust', 'Scala', 'R', 'Objective-C', 'Perl', 'Dart']
+EXPERIENCE_LEVELS = ['Junior', 'Mid', 'Senior']
+
+# Encode languages using MultiLabelBinarizer
+mlb = MultiLabelBinarizer(classes=LANGUAGES)
+languages_encoded = mlb.fit_transform(df['Languages'])
+df_languages = pd.DataFrame(languages_encoded, columns=mlb.classes_)
+''
+# Encode experience levels using OneHotEncoder
+experience_encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+experience_encoded = experience_encoder.fit_transform(df[['Experience Level']])
+df_experience = pd.DataFrame(experience_encoded, columns=experience_encoder.get_feature_names_out(['Experience Level']))
+
+# Combine encoded languages and experience level
+preprocessed_df = pd.concat([df_experience, df_languages], axis=1)
+
+# Define column transformer for preprocessing
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('experience', experience_encoder, df_experience.columns),
+        ('languages', 'passthrough', df_languages.columns)
+    ])
+
+# Prepare input (X) and output (y)
+X = preprocessed_df
+y = df['Developer Name']
+
+# Split dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Build the model pipeline
+model = Pipeline([
+    ('preprocessor', preprocessor),
+    ('classifier', RandomForestClassifier(random_state=42))
+])
+
+# Train the model
+model.fit(X_train, y_train)
+
+# Function to extract features from input text
+def extract_features_from_text(text):
+    languages_pattern = r"(" + "|".join(re.escape(lang) for lang in LANGUAGES) + r")"
+    experience_pattern = r"(" + "|".join(EXPERIENCE_LEVELS) + r")"
+
+    languages = re.findall(languages_pattern, text)
+    experience = re.findall(experience_pattern, text)
+
+    if not experience:
+        experience = ['Junior']  # Default to Junior if no experience level is found
+
+    return languages, experience[0]
+
+# Function to find the top 5 developers with probabilities based on client input
+def find_top_5_developers_for_client_search(text):
+    languages_input, experience_input = extract_features_from_text(text)
+
+    if not languages_input:
+        print("No programming languages found in the input text.")
+        return None
+
+    # Encode the new input
+    new_input_encoded_languages = mlb.transform([languages_input])
+    new_input_encoded_languages = pd.DataFrame(new_input_encoded_languages, columns=mlb.classes_)
+
+    new_input_encoded_experience = experience_encoder.transform([[experience_input]])
+    new_input_encoded_experience = pd.DataFrame(new_input_encoded_experience, columns=experience_encoder.get_feature_names_out(['Experience Level']))
+
+    # Combine both encoded parts
+    new_input_encoded = pd.concat([new_input_encoded_experience, new_input_encoded_languages], axis=1)
+
+    # Ensure columns match the training data
+    for col in preprocessed_df.columns:
+        if col not in new_input_encoded:
+            new_input_encoded[col] = 0  # Add missing columns with default value 0
+
+    new_input_encoded = new_input_encoded[preprocessed_df.columns]  # Reorder columns
+
+    # Preprocess the input to match training format
+    new_input_transformed = preprocessor.transform(new_input_encoded)
+
+    # Get probabilities for all developers
+    probabilities = model.named_steps['classifier'].predict_proba(new_input_transformed)
+    top_5_indices = np.argsort(probabilities[0])[-5:][::-1]
+    top_5_developers = [(model.named_steps['classifier'].classes_[i], probabilities[0][i] * 100) for i in top_5_indices]
+
+    return top_5_developers
+
+# Get client input
+client_input = input("Please enter the type of developer you're looking for (e.g., 'I need a Senior Backend Developer with experience in Python and JavaScript'): ")
+top_matches = find_top_5_developers_for_client_search(client_input)
+
+if top_matches:
+    print("Top 5 matches:")
+    for dev, pct in top_matches:
+        print(f"{dev}: {pct:.2f}%")

@@ -144,7 +144,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body:SingleChildScrollView(
+      child : Container(
         decoration: BoxDecoration(
           gradient: CouleurDuFond.gradientBackground,
         ),
@@ -251,10 +252,11 @@ class _LoginPageState extends State<LoginPage> {
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(17.6),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
