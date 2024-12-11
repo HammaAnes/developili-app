@@ -1,0 +1,34 @@
+Things that clients can do:
+
+
+client, I want to register or log in using my email or social media accounts so that I can quickly access the platform.
+
+client, I want to create a detailed profile by answering a questionnaire so that developers can better understand my preferences and project needs.
+
+client, I want to create multiple project briefs with customizable options (e.g., type, budget, timeline) so that I can organize and communicate my requirements effectively.
+
+client, I want to browse, filter, and select developers based on skills, experience, and availability so that I can choose the most suitable developer for my project.
+
+client, I want to negotiate and confirm a contract with developers, including deadlines, pricing, and deliverables, so that all terms are clear and agreed upon.
+
+client, I want to manage my projects with real-time progress tracking and notifications so that I stay updated on the status.
+
+client, I want to evaluate developers after project completion so that I can contribute to their reputation and help other users make decisions.
+
+
+Things that developer can do:
+
+
+As a developer, I want to register, log in, and create a detailed profile by listing my skills and past experiences so that I can showcase my expertise to clients.
+
+As a developer, I want to manage my availability using a calendar so that clients know when I can take on new projects.
+
+As a developer, I want to browse project briefs and submit proposals so that I can bid for projects that match my skills.
+
+As a developer, I want to finalize contracts with clients, including price, deadlines, and deliverables, so that the project details are documented and agreed upon.
+
+As a platform user, I want to exchange messages securely with the other party so that I can communicate effectively without leaving the platform.
+
+As a platform user, I want to receive and view notifications about key events, such as new messages or deadlines, so that I do not miss important updates.
+
+As a platform user, I want the platform to ensure the security of my data through encryption and other measures so that my privacy is protected.

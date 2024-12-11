@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "log_in.apps.LogInConfig",
     "registration.apps.RegistrationConfig",
+    "handle_questions.apps.HandleQuestionsConfig",
     "rest_framework",
     "rest_framework.authtoken",
     "allauth",  # Adding allauth to installed apps
