@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../main.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'Form_client_qst7.dart';
 import '../couleur_du_fond.dart';
+import '../api_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +26,9 @@ class My_8th_question extends StatefulWidget {
 class _My_8th_question_State extends State<My_8th_question>
     with TickerProviderStateMixin {
   int? boutonSelectionne; // Index du bouton sélectionné
-  int currentPage = 0; // Page actuelle
+  int currentPage = 7; // Page actuelle
+  bool isLoading = false;
+  bool showForm = false;
   final int totalPages = 8; // Nombre total de pages
 
   // Liste des noms des boutons
@@ -51,6 +54,46 @@ class _My_8th_question_State extends State<My_8th_question>
       context,
       MaterialPageRoute(builder: (context) => My_7th_question()),
     );
+  }
+
+  // Submit the selected answer to the backend
+  Future<void> _submitAnswer(String answer) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.submitAnswer(2, 8, answer); // Example: client_id = 1, question_id = 1
+      if (result["success"]) {
+        // Navigate to the next question on success
+        _goToHomePage();
+      } else {
+        // Show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to submit answer: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  // Handles button selection and form display
+  void _onOptionSelected(int index) {
+    setState(() {
+      boutonSelectionne = index;
+      showForm =
+          index == nomsBoutons.length - 1; // Show form for the "Other" option
+      if (!showForm) {
+        _submitAnswer(nomsBoutons[index]);
+      }
+    });
   }
 
   @override
@@ -108,12 +151,7 @@ class _My_8th_question_State extends State<My_8th_question>
                     return Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            boutonSelectionne = index;
-                            _goToHomePage(); // Naviguer vers la prochaine page
-                          });
-                        },
+                        onTap:  ()=> _onOptionSelected(index),
                         child: Container(
                           width: 318,
                           height: 50,

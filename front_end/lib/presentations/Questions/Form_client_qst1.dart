@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
-import 'Form_client_qst2.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
+import 'Form_client_qst2.dart';
 import '../main.dart';
+import '../api_service.dart'; // Import the API service
 
 void main() {
   runApp(MyApp());
@@ -24,10 +25,11 @@ class My_1st_question extends StatefulWidget {
 
 class _My_1st_question_State extends State<My_1st_question>
     with TickerProviderStateMixin {
-  int? boutonSelectionne; // Index du bouton sélectionné
-  bool showForm = false; // Contrôle l'affichage du formulaire
-  int currentPage = 0; // Page actuelle
-  final int totalPages = 8; // Nombre total de pages
+  int? boutonSelectionne; // Index of the selected button
+  bool showForm = false; // Controls the display of the input form
+  bool isLoading = false; // Loading indicator
+  int currentPage = 0; // Current page index
+  final int totalPages = 8; // Total number of pages
 
   final List<String> nomsBoutons = [
     'Entrepreneur',
@@ -39,22 +41,46 @@ class _My_1st_question_State extends State<My_1st_question>
 
   final TextEditingController otherController = TextEditingController();
 
-  // Méthode pour passer à la page suivante
-  void _goToNextPage() {
-    if (otherController.text.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => My_2nd_question()),
+  // Submit the selected answer to the backend
+  Future<void> _submitAnswer(String answer) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.submitAnswer(1, 1, answer); // Example: client_id = 1, question_id = 1
+      if (result["success"]) {
+        // Navigate to the next question on success
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => My_2nd_question()),
+        );
+      } else {
+        // Show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to submit answer: $e")),
       );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-  // Méthode pour revenir à la page d'accueil
-  void _goBack2ndPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
+  // Handles button selection and form display
+  void _onOptionSelected(int index) {
+    setState(() {
+      boutonSelectionne = index;
+      showForm = index == nomsBoutons.length - 1; // Show form for the "Other" option
+      if (!showForm) {
+        _submitAnswer(nomsBoutons[index]);
+      }
+    });
   }
 
   @override
@@ -69,7 +95,7 @@ class _My_1st_question_State extends State<My_1st_question>
           ),
           child: Stack(
             children: [
-              // Titre en haut de l'écran
+              // Title
               Positioned(
                 top: 40,
                 left: 0,
@@ -85,7 +111,7 @@ class _My_1st_question_State extends State<My_1st_question>
                   ),
                 ),
               ),
-              // Question principale
+              // Main question
               Positioned(
                 top: 150,
                 left: 0,
@@ -105,7 +131,7 @@ class _My_1st_question_State extends State<My_1st_question>
                   ),
                 ),
               ),
-              // Liste des boutons
+              // Button list
               Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -115,19 +141,7 @@ class _My_1st_question_State extends State<My_1st_question>
                       return Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              boutonSelectionne = index;
-                              showForm = index == nomsBoutons.length - 1;
-                              if (!showForm) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => My_2nd_question()),
-                                );
-                              }
-                            });
-                          },
+                          onTap: () => _onOptionSelected(index),
                           child: Container(
                             width: 318,
                             height: 50,
@@ -177,7 +191,7 @@ class _My_1st_question_State extends State<My_1st_question>
                         ),
                       );
                     }),
-                    // Formulaire animé
+                    // Input form for "Other" option
                     AnimatedSize(
                       duration: Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
@@ -213,12 +227,22 @@ class _My_1st_question_State extends State<My_1st_question>
                   ],
                 ),
               ),
-              // Bouton "Back"
+              // Loading indicator
+              if (isLoading)
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+              // Back button
               Positioned(
                 bottom: 55,
                 left: 20,
                 child: ElevatedButton(
-                  onPressed: _goBack2ndPage,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
@@ -235,57 +259,6 @@ class _My_1st_question_State extends State<My_1st_question>
                   ),
                 ),
               ),
-              // Indicateur de progression
-              Positioned(
-                bottom: 30,
-                left: 0,
-                right: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(totalPages, (index) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 3.0),
-                      width: 12.0,
-                      height: 12.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: index < 1
-                            ? const Color.fromARGB(255, 73, 255, 79)
-                            : const Color.fromARGB(255, 7, 27, 139)
-                                .withOpacity(0.5),
-                      ),
-                    );
-                  }),
-                ),
-              ),
-              // Bouton "Next" (visible uniquement si le formulaire est actif)
-              if (showForm)
-                Positioned(
-                  bottom: 55,
-                  right: 20,
-                  child: ElevatedButton(
-                    onPressed: otherController.text.isNotEmpty
-                        ? _goToNextPage
-                        : null, // Désactivé si le formulaire est vide
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: otherController.text.isNotEmpty
-                          ? Colors.black
-                          : Colors.grey, // Changement de couleur
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60),
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                    ),
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
             ],
           ),
         ),

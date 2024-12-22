@@ -18,7 +18,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{63B06CE4-28DE-39F1-8DC8-3B687A544F25}</ProjectGuid>
+    <ProjectGuid>{3D6AC39E-E325-3A98-87FE-E97B913EB9EB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -50,22 +50,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\build\windows\x64\flutter\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">flutter_wrapper_plugin.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">flutter_wrapper_plugin</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\build\windows\x64\flutter\Profile\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\Profile\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">flutter_wrapper_plugin.dir\Profile\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">flutter_wrapper_plugin</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\build\windows\x64\flutter\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">flutter_wrapper_plugin.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">flutter_wrapper_plugin</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -86,10 +86,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;_HAS_EXCEPTIONS=0;UNICODE;_UNICODE;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -102,7 +102,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DisableSpecificWarnings>"4100"</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -123,10 +123,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_HAS_EXCEPTIONS=0;UNICODE;_UNICODE;CMAKE_INTDIR=\"Profile\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -139,7 +139,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DisableSpecificWarnings>"4100"</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -160,10 +160,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_HAS_EXCEPTIONS=0;UNICODE;_UNICODE;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\include;C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -175,11 +175,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\CMakeLists.txt">
+    <CustomBuild Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/SoftwareEngProject/SoftwareEngProject/front_end/windows/flutter/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/flutter/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"E:\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SE:/SoftwareEngProject/SoftwareEngProject/front_end/windows -BE:/SoftwareEngProject/SoftwareEngProject/front_end/build/windows/x64 --check-stamp-file E:/SoftwareEngProject/SoftwareEngProject/front_end/build/windows/x64/flutter/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows -BC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64 --check-stamp-file C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/flutter/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -187,12 +187,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\generated_config.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\build\windows\x64\flutter\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\generated_config.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule E:/SoftwareEngProject/SoftwareEngProject/front_end/windows/flutter/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Building Custom Rule C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/flutter/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">setlocal
-"E:\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SE:/SoftwareEngProject/SoftwareEngProject/front_end/windows -BE:/SoftwareEngProject/SoftwareEngProject/front_end/build/windows/x64 --check-stamp-file E:/SoftwareEngProject/SoftwareEngProject/front_end/build/windows/x64/flutter/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows -BC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64 --check-stamp-file C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/flutter/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -200,12 +200,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\generated_config.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\build\windows\x64\flutter\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\generated_config.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/SoftwareEngProject/SoftwareEngProject/front_end/windows/flutter/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/flutter/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"E:\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SE:/SoftwareEngProject/SoftwareEngProject/front_end/windows -BE:/SoftwareEngProject/SoftwareEngProject/front_end/build/windows/x64 --check-stamp-file E:/SoftwareEngProject/SoftwareEngProject/front_end/build/windows/x64/flutter/CMakeFiles/generate.stamp
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows -BC:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64 --check-stamp-file C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/build/windows/x64/flutter/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -213,25 +213,25 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\generated_config.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\SoftwareEngProject\SoftwareEngProject\front_end\build\windows\x64\flutter\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\generated_config.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\core_implementations.cc" />
-    <ClCompile Include="E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\standard_codec.cc" />
-    <ClCompile Include="E:\SoftwareEngProject\SoftwareEngProject\front_end\windows\flutter\ephemeral\cpp_client_wrapper\plugin_registrar.cc" />
+    <ClCompile Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\core_implementations.cc" />
+    <ClCompile Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\standard_codec.cc" />
+    <ClCompile Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\windows\flutter\ephemeral\cpp_client_wrapper\plugin_registrar.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="E:\SoftwareEngProject\SoftwareEngProject\front_end\build\windows\x64\ZERO_CHECK.vcxproj">
-      <Project>{DE8E5544-41F2-33CD-8BE1-94487F24AC83}</Project>
+    <ProjectReference Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\ZERO_CHECK.vcxproj">
+      <Project>{BCA8CAC7-688D-36DF-B6BA-8B7E281AB887}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="E:\SoftwareEngProject\SoftwareEngProject\front_end\build\windows\x64\flutter\flutter_assemble.vcxproj">
-      <Project>{C206936F-FA9D-3341-9418-A708E579A293}</Project>
+    <ProjectReference Include="C:\Users\DELL\OneDrive\Bureau\ProjectSoftwareEngineering\developili\front_end\build\windows\x64\flutter\flutter_assemble.vcxproj">
+      <Project>{37451B32-FE9D-3C76-9E9D-BB79D68B01DC}</Project>
       <Name>flutter_assemble</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

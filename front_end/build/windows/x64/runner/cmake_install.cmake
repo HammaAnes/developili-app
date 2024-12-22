@@ -1,4 +1,4 @@
-# Install script for directory: E:/SoftwareEngProject/SoftwareEngProject/front_end/windows/runner
+# Install script for directory: C:/Users/DELL/OneDrive/Bureau/ProjectSoftwareEngineering/developili/front_end/windows/runner
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

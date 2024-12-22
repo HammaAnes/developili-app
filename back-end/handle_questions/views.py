@@ -6,17 +6,17 @@ from .models import Questionnaire, QuestionResponseMapping
 from .serialization import QuestionnaireSerializer, QuestionResponseMappingSerializer
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+#@permission_classes([IsAuthenticated])
 def HandleQuestion(request):
     serializer = QuestionResponseMappingSerializer(data=request.data)
-
+    
     if serializer.is_valid():
         answer = serializer.save()
         return Response({
             'success': True,
             'message': 'answer saved',
             'answer': {
-                'client_id': answer.client.id,
+                'client_id': answer.client.user.id,
                 'question_id': answer.question.id,
                 'response': answer.response
             },
@@ -27,4 +27,4 @@ def HandleQuestion(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    
+
