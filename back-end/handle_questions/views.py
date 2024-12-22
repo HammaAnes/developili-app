@@ -26,3 +26,5 @@ def HandleQuestion(request):
         print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+    
