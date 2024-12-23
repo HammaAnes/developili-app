@@ -95,6 +95,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",  # Default database engine
         "NAME": BASE_DIR / "db.sqlite3",  # Database location
+        "OPTIONS":{
+            'timeout': 30,
+        }
     }
 }
 

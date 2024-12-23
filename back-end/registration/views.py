@@ -1,8 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from log_in.models import User
-from .serialization import UserSerializer
+from .serialization import UserSerializer, ClientProfileSerializer, DeveloperProfileSerializer
 
 
 @api_view(['POST'])
@@ -11,6 +10,20 @@ def registration_views(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
+        if user.role == 'client' :
+            serializerClient = ClientProfileSerializer(data={'user': user.id})
+            if serializerClient.is_valid():
+                serializerClient.save()
+            else:
+                print(serializerClient.errors) 
+            
+        else:
+            serializerDev = DeveloperProfileSerializer(data={'user': user.id})            
+            if serializerDev.is_valid():
+                serializerDev.save()
+            else:
+                print(serializerDev.errors) 
+            
         return Response({
             'success': True,
             'message': 'User registered successfully.',

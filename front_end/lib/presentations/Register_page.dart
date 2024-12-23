@@ -59,7 +59,7 @@
             "username": _usernameController.text,
             "email": "${_usernameController.text}@gmail.com",
             "password": _passwordController.text,
-            "role": _isDeveloper ? "developer" : "user",
+            "role": _isDeveloper ? "developer" : "client",
           }),
         );
 

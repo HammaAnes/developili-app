@@ -22,6 +22,7 @@ class QuestionResponseMappingSerializer(serializers.ModelSerializer):
     def validate(self, data):
         # Check if the client has already answered this question
         if QuestionResponseMapping.objects.filter(client=data['client'], question=data['question']).exists():
+            QuestionResponseMapping.objects.filter(client=data['client'], question=data['question']).delete()
             raise serializers.ValidationError("This question has already been answered by the client.")
         return data
 

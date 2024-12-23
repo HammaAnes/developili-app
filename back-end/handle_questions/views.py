@@ -27,4 +27,6 @@ def HandleQuestion(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+def delete():
+    QuestionResponseMapping.objects.all().delete()
 
