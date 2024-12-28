@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
+import 'profile.dart';
 
 void main() {
   runApp(const MyAppMain());
@@ -68,7 +69,8 @@ class _HomePageState extends State<HomePage> {
                     decoration: InputDecoration(
                       hintText: "Rechercher...",
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical:  14),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                     ),
                   ),
                 ),
@@ -209,7 +211,12 @@ class _HomePageState extends State<HomePage> {
                   height: 40,
                 ),
                 onPressed: () {
-                  // Action pour le cinquième bouton
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfilePage(),
+                    ),
+                  );
                 },
               ),
             ],
