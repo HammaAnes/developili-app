@@ -124,26 +124,28 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
               ),
 
               // Developer Avatar and Name
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const CircleAvatar(
-                      radius: 40,
-                      backgroundImage: NetworkImage(
-                          'https://via.placeholder.com/150.png?text=Developer'),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Hafid Derradji',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const CircleAvatar(
+                        radius: 40,
+                        backgroundImage: NetworkImage(
+                            'https://via.placeholder.com/150.png?text=Developer'),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      const Text(
+                        'Hafid Derradji',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
