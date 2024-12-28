@@ -9,6 +9,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   int _currentPage = 0; // Keeps track of the currently visible project card
+  bool isOccupied = true; // Tracks Occupied/Available state
 
   @override
   Widget build(BuildContext context) {
@@ -136,53 +137,118 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15), // Adjusted height
 
               // Center section with Accomplished Projects
+              // Accomplished Projects Section
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Center(
-                      child: Text(
-                        "Accomplished Projects",
-                        style: labelStyle.copyWith(
-                          color: Colors.blue.shade900,
-                          fontSize: 20,
-                        ),
+                    Text(
+                      "Accomplished Projects",
+                      style: labelStyle.copyWith(
+                        color: Colors.blue.shade900,
+                        fontSize: 20,
                       ),
                     ),
                     const SizedBox(height: 16),
 
                     // Projects Scroll
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              _projectCard("Devlopili", "Design",
-                                  isFirst: true),
-                              _projectCard("Facebook", "Front-end\nBack-end"),
-                              _projectCard("Créneau", "Back-end\nDesign"),
-                              _projectCard("Voyager", "Design\nFront-end",
-                                  isLast: true),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Responsive dots
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    SizedBox(
+                      height: 130, // Adequate height for the boxes
+                      child: Column(
                         children: [
-                          _dot(true),
-                          const SizedBox(width: 8),
-                          _dot(false),
-                          const SizedBox(width: 8),
-                          _dot(false),
+                          Expanded(
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 4, // Total number of projects
+                              itemBuilder: (context, index) {
+                                final projects = [
+                                  {"title": "Devlopili", "subtitle": "Design"},
+                                  {
+                                    "title": "Facebook",
+                                    "subtitle": "Front-end\nBack-end"
+                                  },
+                                  {
+                                    "title": "Créneau",
+                                    "subtitle": "Back-end\nDesign"
+                                  },
+                                  {
+                                    "title": "Voyager",
+                                    "subtitle": "Design\nFront-end"
+                                  }
+                                ];
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                    left: index == 0 ? 16 : 8,
+                                    right: index == 3 ? 16 : 8,
+                                  ),
+                                  width: MediaQuery.of(context).size.width / 3 -
+                                      16, // Adjusted width for 3 items
+                                  height: 83, // Fixed height
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 4,
+                                        offset: Offset(2, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          projects[index]['title']!,
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          projects[index]['subtitle']!,
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.black54,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          // Responsive dots
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(
+                              4, // Number of dots (same as projects)
+                              (index) => AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                width: _currentPage == index ? 12 : 8,
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: _currentPage == index
+                                      ? Colors.blue
+                                      : Colors.grey,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -281,74 +347,9 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  // The _projectCard method
-  Widget _projectCard(String title, String subtitle) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      padding: const EdgeInsets.all(12),
-      width: 150, // Fixed width for uniformity
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: const TextStyle(color: Colors.black54, fontSize: 12),
-          ),s
-        ],
-      ),
-    );
-  }
-
-  // The _dot method
-  Widget _dot(bool isActive) {
-    return Container(
-      width: isActive ? 12 : 8,
-      height: 8,
-      margin: const EdgeInsets.symmetric(horizontal: 4),
-      decoration: BoxDecoration(
-        color: isActive ? Colors.blue : Colors.grey,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-}
-
+  // Helper methods
   Widget _infoLabel(String text, TextStyle style) {
     return Text(text, style: style.copyWith(color: Colors.white));
-  }
-
-  Widget _projectCard(String title, String subtitle,
-      {bool isFirst = false, bool isLast = false}) {
-    return Container(
-      margin: EdgeInsets.only(
-        left: isFirst ? 0 : 8,
-        right: isLast ? 0 : 8,
-      ),
-      padding: const EdgeInsets.all(12),
-      width: 140, // Uniform card size
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 4),
-          Text(subtitle,
-              style: const TextStyle(color: Colors.black54, fontSize: 12)),
-        ],
-      ),
-    );
   }
 
   Widget _statItem(String value, String label) {
@@ -366,17 +367,6 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 4),
         Text(label, style: const TextStyle(color: Colors.black54)),
       ],
-    );
-  }
-
-  Widget _dot(bool active) {
-    return Container(
-      width: 8,
-      height: 8,
-      decoration: BoxDecoration(
-        color: active ? Colors.white : Colors.white54,
-        shape: BoxShape.circle,
-      ),
     );
   }
 }
