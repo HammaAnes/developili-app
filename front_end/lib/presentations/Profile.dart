@@ -260,12 +260,14 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
 
               // Bottom Section
+              // Adjusting the Bottom Section
               Container(
                 margin: const EdgeInsets.only(
                     left: 14, right: 14), // Margins for the container
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
-                    vertical: 20), // Top and bottom padding
+                  vertical: 18, // Reduced padding to fix overflow
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF5693AD),
                   borderRadius: BorderRadius.circular(12),
@@ -284,7 +286,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           _statItem("37", "Projects Completed"),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(
+                          height: 18), // Reduced spacing between rows
 
                       // Middle Row: Pay Range and Ongoing Projects
                       Row(
@@ -294,7 +297,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Pay Range", style: labelStyle),
+                              Text("Pay Range",
+                                  style: labelStyle.copyWith(
+                                    fontWeight: FontWeight
+                                        .bold, // Makes it bold like a title
+                                    fontSize:
+                                        18, // Slightly larger font size for prominence
+                                    color:
+                                        Colors.black, // Ensure clear visibility
+                                  )),
                               const SizedBox(height: 4),
                               Text("150€ - 2000€", style: infoStyle),
                               const SizedBox(height: 4),
@@ -307,7 +318,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           _statItem("02", "Ongoing Projects"),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(
+                          height: 18), // Reduced spacing between rows
 
                       // Bottom Row: Position and Technologies
                       Row(
@@ -317,7 +329,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Position", style: labelStyle),
+                                Text("Position",
+                                    style: labelStyle.copyWith(
+                                      fontWeight: FontWeight
+                                          .bold, // Makes it bold like a title
+                                      fontSize:
+                                          18, // Slightly larger font size for prominence
+                                      color: Colors
+                                          .black, // Ensure clear visibility
+                                    )),
                                 const SizedBox(height: 4),
                                 Text("Software Engineer", style: infoStyle),
                               ],
@@ -328,7 +348,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Technologies", style: labelStyle),
+                                Text("Technologies",
+                                    style: labelStyle.copyWith(
+                                      fontWeight: FontWeight
+                                          .bold, // Makes it bold like a title
+                                      fontSize:
+                                          18, // Slightly larger font size for prominence
+                                      color: Colors
+                                          .black, // Ensure clear visibility
+                                    )),
                                 const SizedBox(height: 4),
                                 Text(
                                   "Python / Django\nC / C++ / C#\nReact / Node",
@@ -367,7 +395,7 @@ class _ProfilePageState extends State<ProfilePage> {
             fontSize: 26,
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 3),
         Text(label, style: const TextStyle(color: Colors.black54)),
       ],
     );
