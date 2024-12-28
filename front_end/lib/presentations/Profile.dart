@@ -210,7 +210,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize:
-                                                10, // Reduced font size for text
+                                                14, // Reduced font size for text
                                           ),
                                         ),
                                         const SizedBox(height: 4),
@@ -219,7 +219,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             fontSize:
-                                                8, // Reduced font size for subtitle
+                                                12, // Reduced font size for subtitle
                                             color: Colors.black54,
                                           ),
                                         ),
@@ -232,10 +232,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           const SizedBox(height: 8),
                           // Responsive dots
+                          // Responsive dots
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: List.generate(
-                              4, // Number of dots (same as projects)
+                              3, // Set the number of dots to 3
                               (index) => AnimatedContainer(
                                 duration: const Duration(milliseconds: 300),
                                 margin:
