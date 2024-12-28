@@ -156,7 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                     // Projects Scroll
                     SizedBox(
-                      height: 130, // Adequate height for the boxes
+                      height: 90, // Adjusted height for smaller boxes
                       child: Column(
                         children: [
                           Expanded(
@@ -184,9 +184,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                     left: index == 0 ? 16 : 8,
                                     right: index == 3 ? 16 : 8,
                                   ),
-                                  width: MediaQuery.of(context).size.width / 3 -
-                                      16, // Adjusted width for 3 items
-                                  height: 83, // Fixed height
+                                  width: 98, // Kept the width as it is
+                                  height:
+                                      60, // Reduced height for smaller boxes
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(8),
@@ -209,7 +209,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 12,
+                                            fontSize:
+                                                10, // Reduced font size for text
                                           ),
                                         ),
                                         const SizedBox(height: 4),
@@ -217,7 +218,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           projects[index]['subtitle']!,
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
-                                            fontSize: 10,
+                                            fontSize:
+                                                8, // Reduced font size for subtitle
                                             color: Colors.black54,
                                           ),
                                         ),
@@ -264,7 +266,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.symmetric(
                     vertical: 20), // Top and bottom padding
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
+                  color: const Color(0xFF5693AD),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
