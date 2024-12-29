@@ -11,7 +11,8 @@ class APIService {
     final body = jsonEncode({
       "client_id": clientId,
       "question_id": questionId,
-      "response": response,
+      "response": "Other",
+      "other_response": response,
     });
 
     try {
@@ -50,4 +51,5 @@ class APIService {
       return {"success": false, "error": e.toString()};
     }
   }
+
 }

@@ -28,6 +28,7 @@ class _My_4th_question_State extends State<My_4th_question>
   int? boutonSelectionne; // Index du bouton sélectionné
   bool showForm = false; // Contrôle l'affichage du formulaire
   bool isLoading = false;
+  String? customerInput;
   int currentPage = 3; // Page actuelle
   final int totalPages = 8; // Nombre total de pages
 
@@ -63,8 +64,18 @@ class _My_4th_question_State extends State<My_4th_question>
       isLoading = true;
     });
 
+    if (showForm && otherController.text.isNotEmpty) {
+      answer = otherController.text;
+    }
+
     try {
-      final result = await APIService.submitAnswer(1, 4, answer, 'handle_questions'); // Example: client_id = 1, question_id = 1
+      final result = await APIService.submitAnswer(
+        1,
+        4,
+        answer,
+        'handle_questions',
+      );
+
       if (result["success"]) {
         // Navigate to the next question on success
         _goTo5thPage();
@@ -85,30 +96,31 @@ class _My_4th_question_State extends State<My_4th_question>
     }
   }
 
-    Future<void> _handleBackButton() async {
-  setState(() {
-    isLoading = true;
-  });
-
-  try {
-    final result = await APIService.deleteAnswer(1, 3, 'handle_questions'); // Replace with the actual client ID and question ID
-    if (result["success"]) {
-      _goBack3rdPage(); // Navigate to the previous page
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Failed to go back: ${result["error"]}")),
-      );
-    }
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Error: $e")),
-    );
-  } finally {
+  Future<void> _handleBackButton() async {
     setState(() {
-      isLoading = false;
+      isLoading = true;
     });
+
+    try {
+      final result = await APIService.deleteAnswer(1, 3,
+          'handle_questions'); // Replace with the actual client ID and question ID
+      if (result["success"]) {
+        _goBack3rdPage(); // Navigate to the previous page
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to go back: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
-}
 
   // Handles button selection and form display
   void _onOptionSelected(int index) {
@@ -183,7 +195,7 @@ class _My_4th_question_State extends State<My_4th_question>
                       return Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: GestureDetector(
-                          onTap: ()=> _onOptionSelected(index),
+                          onTap: () => _onOptionSelected(index),
                           child: Container(
                             width: 318,
                             height: 50,
@@ -286,46 +298,25 @@ class _My_4th_question_State extends State<My_4th_question>
                     "Back",
                     style: TextStyle(
                       fontSize: 20,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
                 ),
               ),
-              // Cercles de progression au centre en bas
-              Positioned(
-                bottom: 30,
-                left: 0,
-                right: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(totalPages, (index) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 3.0),
-                      width: 12.0,
-                      height: 12.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: index < 4
-                            ? const Color.fromARGB(255, 73, 255, 79)
-                            : const Color.fromARGB(255, 7, 27, 139)
-                                .withOpacity(0.5),
-                      ),
-                    );
-                  }),
-                ),
-              ),
+              // Bouton "Next" en bas à droite
               if (showForm)
                 Positioned(
                   bottom: 55,
                   right: 20,
                   child: ElevatedButton(
                     onPressed: otherController.text.isNotEmpty
-                        ? _goTo5thPage
-                        : null, // Désactivé si le formulaire est vide
+                        ? () => _submitAnswer(otherController.text)
+                        : null, // Disabled if the form is empty
                     style: ElevatedButton.styleFrom(
                       backgroundColor: otherController.text.isNotEmpty
                           ? Colors.black
-                          : Colors.grey, // Changement de couleur
+                          : Colors.grey, // Change color dynamically
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(60),
                       ),

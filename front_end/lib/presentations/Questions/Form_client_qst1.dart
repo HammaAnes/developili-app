@@ -47,8 +47,18 @@ class _My_1st_question_State extends State<My_1st_question>
       isLoading = true;
     });
 
+    if (showForm && otherController.text.isNotEmpty) {
+      answer = otherController.text;
+    }
+
     try {
-      final result = await APIService.submitAnswer(1, 1, answer, 'handle_questions'); // Example: client_id = 1, question_id = 1
+      final result = await APIService.submitAnswer(
+        1,
+        1,
+        answer,
+        'handle_questions',
+      );
+
       if (result["success"]) {
         // Navigate to the next question on success
         Navigator.push(
@@ -197,7 +207,7 @@ class _My_1st_question_State extends State<My_1st_question>
                       curve: Curves.easeInOut,
                       child: showForm
                           ? Padding(
-                              padding: const EdgeInsets.only(top: 0.0),
+                              padding: const EdgeInsets.only(top: 20.0),
                               child: Container(
                                 width: 318,
                                 height: 50,
@@ -259,6 +269,34 @@ class _My_1st_question_State extends State<My_1st_question>
                   ),
                 ),
               ),
+              // Next button
+              if (showForm)
+                Positioned(
+                  bottom: 55,
+                  right: 20,
+                  child: ElevatedButton(
+                    onPressed: otherController.text.isNotEmpty
+                        ? () => _submitAnswer(otherController.text)
+                        : null, // Disabled if the form is empty
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: otherController.text.isNotEmpty
+                          ? Colors.black
+                          : Colors.grey, // Change color dynamically
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    ),
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

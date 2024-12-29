@@ -113,7 +113,7 @@ class _My_7th_question_State extends State<My_7th_question>
     setState(() {
       boutonSelectionne = index;
       showForm =
-          index == nomsBoutons.length - 1; // Show form for the "Other" option
+          index == nomsBoutons.length; // Show form for the "Other" option
       if (!showForm) {
         _submitAnswer(nomsBoutons[index]);
       }
