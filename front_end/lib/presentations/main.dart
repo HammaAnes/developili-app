@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
 import 'profile.dart'; // Profile Page
 import 'project_details.dart'; // Devlopili Details Page
+import 'top_devs_page.dart';
+import 'projects_page.dart';
 
 void main() {
   runApp(const MyAppMain());
@@ -132,8 +134,8 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "Projects",
                     style: TextStyle(
                       color: Colors.white,
@@ -141,17 +143,28 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "See More",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProjectsPage()),
+                      );
+// Navigate to a page showing all projects
+                    },
+                    child: const Text(
+                      "See More",
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+
             const SizedBox(height: 10),
 
             // Projects List
@@ -200,8 +213,8 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "Top Dev's",
                     style: TextStyle(
                       color: Colors.white,
@@ -209,17 +222,28 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "See More",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TopDevsPage()),
+                      );
+// Navigate to a page showing all developers
+                    },
+                    child: const Text(
+                      "See More",
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
+
             const SizedBox(height: 10),
 
             // Top Dev's List
