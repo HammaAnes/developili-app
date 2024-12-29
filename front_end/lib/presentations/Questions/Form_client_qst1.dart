@@ -48,7 +48,7 @@ class _My_1st_question_State extends State<My_1st_question>
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 1, answer); // Example: client_id = 1, question_id = 1
+      final result = await APIService.submitAnswer(1, 1, answer, 'handle_questions'); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
         Navigator.push(

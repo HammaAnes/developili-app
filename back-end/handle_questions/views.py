@@ -27,6 +27,12 @@ def HandleQuestion(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def delete():
-    QuestionResponseMapping.objects.all().delete()
+@api_view(['POST'])
+def BackButtonPressed(request):
+    data = request.data
+    QuestionResponseMapping.objects.filter(client=data['client'], question=data['question']).delete()
 
+    return Response({
+            'success': True,
+            'message': 'deleted line properly',
+        }, status=status.HTTP_201_CREATED)

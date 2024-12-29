@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.HandleQuestion, name='HandleQuestion'),
-    path('delete/', views.delete, name="delete"),
+    path('BackButtonPressed/', views.BackButtonPressed, name="BackButtonPressed"),
 ]
