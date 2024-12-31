@@ -14,7 +14,7 @@ class User(AbstractUser):
         blank=True,  # Allow blank initially
     )
     email = models.EmailField(unique=True)
-
+    
     USERNAME_FIELD = 'email'  # Use email for authentication
     REQUIRED_FIELDS = ['username']  # Ensure username remains required
 

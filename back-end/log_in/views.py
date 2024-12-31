@@ -35,7 +35,7 @@ def login_views(request):
                     'role': user.role,
                 }
             }, status=status.HTTP_202_ACCEPTED)
-
+    
        
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
     else:
