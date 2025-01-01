@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'couleur_du_fond.dart';
 import 'profile.dart'; // Profile Page
 import 'main_dev.dart'; // Main Page
-import 'chat_dev.dart'; // Chat Page
+import 'chat_dev_after_accept.dart'; // Chat Page
 
 void main() {
   runApp(const RequestsForDev());

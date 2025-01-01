@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'couleur_du_fond.dart';
 import 'profile.dart'; // Profile Page
 import 'main_dev.dart'; // Main Page
-import 'Requests_for_dev.dart'; // Requests Page
 
 void main() {
   runApp(const ChatPageApp());
@@ -77,7 +76,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const RequestsPage()),
+                              builder: (context) => const MyAppMain()),
                         );
                       },
                     ),

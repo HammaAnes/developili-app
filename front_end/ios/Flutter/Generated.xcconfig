@@ -2,7 +2,7 @@
 FLUTTER_ROOT=/Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/flutter
 FLUTTER_APPLICATION_PATH=/Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/SoftwareEngProject/front_end
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/SoftwareEngProject/front_end/lib/presentations/message_page_icone.dart
+FLUTTER_TARGET=/Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/SoftwareEngProject/front_end/lib/presentations/chat_client.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
