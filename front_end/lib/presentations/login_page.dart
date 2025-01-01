@@ -4,6 +4,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'main_client.dart';
+import 'main_dev.dart';
 import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
 
 void main() {
@@ -59,10 +60,19 @@ class _LoginPageState extends State<LoginPage> {
         final data = jsonDecode(response.body);
         if (data['success'] == "Successfully logged in") {
           // Navigate to the success page
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ClientMain()),
-          );
+          String role = data['user']['role'];
+          if (role == 'client'){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ClientMain()),
+            );
+          }
+          else if (role == 'developer'){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MainDev()),
+            );
+          }
         } else {
           _showMessage(data['error'] ?? "Login failed");
         }

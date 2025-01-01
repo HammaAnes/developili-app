@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
+import '../main_client.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'Form_client_qst7.dart';
 import '../couleur_du_fond.dart';
 import '../api_service.dart';
@@ -44,7 +44,7 @@ class _My_8th_question_State extends State<My_8th_question>
     if (boutonSelectionne != null) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => ClientMain()),
       );
     }
   }

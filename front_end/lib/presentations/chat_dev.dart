@@ -76,7 +76,7 @@ class _ChatPageState extends State<ChatPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const MyAppMain()),
+                              builder: (context) => const MainDev()),
                         );
                       },
                     ),

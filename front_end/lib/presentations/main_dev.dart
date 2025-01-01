@@ -8,11 +8,11 @@ import 'Requests_for_dev.dart'; // Requests Page
 import 'message_page_icone_dev.dart';
 
 void main() {
-  runApp(const MyAppMain());
+  runApp(const MainDev());
 }
 
-class MyAppMain extends StatelessWidget {
-  const MyAppMain({super.key});
+class MainDev extends StatelessWidget {
+  const MainDev({super.key});
 
   @override
   Widget build(BuildContext context) {

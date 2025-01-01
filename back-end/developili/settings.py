@@ -34,12 +34,6 @@ INSTALLED_APPS = [
     "corsheaders",
 ]
 
-# Authentication backends
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
-]
-
 # Custom user model
 AUTH_USER_MODEL = 'log_in.User'
 
@@ -130,33 +124,33 @@ CORS_ALLOW_HEADERS = [
 ]
 
 # REST Framework Configuration
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",  # Use JWT for authentication
-        "rest_framework.authentication.SessionAuthentication",  # Optional
-    ),
-    "DEFAULT_PERMISSION_CLASSES": (
-        "rest_framework.permissions.IsAuthenticated",  # Default: restrict access
-    ),
-}
+# REST_FRAMEWORK = {
+#     "DEFAULT_AUTHENTICATION_CLASSES": (
+#         "rest_framework_simplejwt.authentication.JWTAuthentication",  # Use JWT for authentication
+#         "rest_framework.authentication.SessionAuthentication",  # Optional
+#     ),
+#     "DEFAULT_PERMISSION_CLASSES": (
+#         "rest_framework.permissions.IsAuthenticated",  # Default: restrict access
+#     ),
+# }
 
-# Simple JWT Configuration
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # Token expires after 1 hour
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Refresh token expires after 7 days
-    "ROTATE_REFRESH_TOKENS": True,  # Generate a new refresh token on use
-    "BLACKLIST_AFTER_ROTATION": True,  # Blacklist old refresh tokens
-    "AUTH_HEADER_TYPES": ("Bearer",),  # Authorization: Bearer <token>
-    "ALGORITHM": "HS256",
-    "SIGNING_KEY": SECRET_KEY,  # Use the same key as Django
-    "VERIFYING_KEY": None,
-    "AUDIENCE": None,
-    "ISSUER": None,
-    "USER_ID_FIELD": "id",
-    "USER_ID_CLAIM": "user_id",
-    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
-    "TOKEN_TYPE_CLAIM": "token_type",
-}
+# # Simple JWT Configuration
+# SIMPLE_JWT = {
+#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # Token expires after 1 hour
+#     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Refresh token expires after 7 days
+#     "ROTATE_REFRESH_TOKENS": True,  # Generate a new refresh token on use
+#     "BLACKLIST_AFTER_ROTATION": True,  # Blacklist old refresh tokens
+#     "AUTH_HEADER_TYPES": ("Bearer",),  # Authorization: Bearer <token>
+#     "ALGORITHM": "HS256",
+#     "SIGNING_KEY": SECRET_KEY,  # Use the same key as Django
+#     "VERIFYING_KEY": None,
+#     "AUDIENCE": None,
+#     "ISSUER": None,
+#     "USER_ID_FIELD": "id",
+#     "USER_ID_CLAIM": "user_id",
+#     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+#     "TOKEN_TYPE_CLAIM": "token_type",
+# }
 
 
 # CSRF settings
