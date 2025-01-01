@@ -5,6 +5,7 @@ import 'project_details.dart'; // Devlopili Details Page
 import 'top_devs_page.dart';
 import 'projects_page.dart';
 import 'Requests_for_dev.dart'; // Requests Page
+import 'message_page_icone.dart';
 
 void main() {
   runApp(const MyAppMain());
@@ -316,7 +317,15 @@ class _HomePageState extends State<HomePage> {
                   width: 40,
                   height: 40,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const MessagesPage(), // Navigate to MessagesPage
+                    ),
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset(
