@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
 import 'profile.dart'; // Import the profile page
-import 'main.dart'; // Import the main.dart for navigation
+import 'main_client.dart'; // Import the main.dart for navigation
 
 void main() {
   runApp(const MyApp());
@@ -191,7 +191,7 @@ class _ChooseDevPageState extends State<ChooseDevPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const HomePage()), // Navigate to HomePage from main.dart
+                                    const ClientMain()), // Navigate to HomePage from main.dart
                             (route) =>
                                 false, // Removes all previous routes from the stack
                           );

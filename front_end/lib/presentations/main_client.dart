@@ -6,11 +6,11 @@ import 'top_devs_page.dart';
 import 'projects_page.dart';
 
 void main() {
-  runApp(const MyAppMain());
+  runApp(const ClientMain());
 }
 
-class MyAppMain extends StatelessWidget {
-  const MyAppMain({super.key});
+class ClientMain extends StatelessWidget {
+  const ClientMain({super.key});
 
   @override
   Widget build(BuildContext context) {
