@@ -8,6 +8,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "blur",
+      "rootUri": "file:///Users/mohamedouadahi/.pub-cache/hosted/pub.dev/blur-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///Users/mohamedouadahi/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -272,7 +278,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-28T13:16:55.620014Z",
+  "generated": "2025-01-01T00:31:26.526145Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/flutter",
