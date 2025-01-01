@@ -8,6 +8,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "blur",
+      "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/blur-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -272,7 +278,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-12-22T17:49:27.299608Z",
+  "generated": "2025-01-01T09:38:44.188101Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///C:/Users/DELL/flutter",
