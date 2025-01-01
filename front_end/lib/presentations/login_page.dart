@@ -222,11 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(color: Colors.black, fontSize: 16.0)),
               const SizedBox(height: 10),
               ElevatedButton.icon(
-<<<<<<< HEAD
                 onPressed: () {},
-=======
-                onPressed: loginWithGoogle,
->>>>>>> a60b0ba787a7f4be68c7a5a913095fd0670adec1
                 icon: Image.asset(
                   'lib/icons/Logo_Google.png',
                   height: 24.0,
@@ -244,11 +240,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
-<<<<<<< HEAD
                 onPressed: () {},
-=======
-                onPressed: loginWithApple,
->>>>>>> a60b0ba787a7f4be68c7a5a913095fd0670adec1
                 icon: Image.asset(
                   'lib/icons/apple-logo.png',
                   height: 24.0,

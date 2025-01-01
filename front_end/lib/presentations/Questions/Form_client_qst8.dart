@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
+import '../main_client.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'Form_client_qst7.dart';
 import '../couleur_du_fond.dart';
 import '../api_service.dart';
@@ -63,7 +63,8 @@ class _My_8th_question_State extends State<My_8th_question>
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 8, answer, 'handle_questions'); // Example: client_id = 1, question_id = 1
+      final result = await APIService.submitAnswer(1, 8, answer,
+          'handle_questions'); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
         _goToHomePage();
@@ -84,30 +85,31 @@ class _My_8th_question_State extends State<My_8th_question>
     }
   }
 
-    Future<void> _handleBackButton() async {
-  setState(() {
-    isLoading = true;
-  });
-
-  try {
-    final result = await APIService.deleteAnswer(1, 7, 'handle_questions'); // Replace with the actual client ID and question ID
-    if (result["success"]) {
-      _goBack7thPage(); // Navigate to the previous page
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Failed to go back: ${result["error"]}")),
-      );
-    }
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Error: $e")),
-    );
-  } finally {
+  Future<void> _handleBackButton() async {
     setState(() {
-      isLoading = false;
+      isLoading = true;
     });
+
+    try {
+      final result = await APIService.deleteAnswer(1, 7,
+          'handle_questions'); // Replace with the actual client ID and question ID
+      if (result["success"]) {
+        _goBack7thPage(); // Navigate to the previous page
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to go back: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
-}
 
   // Handles button selection and form display
   void _onOptionSelected(int index) {
@@ -176,7 +178,7 @@ class _My_8th_question_State extends State<My_8th_question>
                     return Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: GestureDetector(
-                        onTap:  ()=> _onOptionSelected(index),
+                        onTap: () => _onOptionSelected(index),
                         child: Container(
                           width: 318,
                           height: 50,

@@ -9,7 +9,7 @@
     },
     {
       "name": "blur",
-      "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/blur-3.1.0",
+      "rootUri": "file:///C:/Users/admin/AppData/Local/Pub/Cache/hosted/pub.dev/blur-3.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -218,11 +218,7 @@
       "languageVersion": "3.5"
     }
   ],
-<<<<<<< HEAD
-  "generated": "2025-01-01T09:39:24.784207Z",
-=======
-  "generated": "2025-01-01T09:48:47.647538Z",
->>>>>>> a60b0ba787a7f4be68c7a5a913095fd0670adec1
+  "generated": "2025-01-01T20:59:24.156946Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///F:/YOUNES/flutter",

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
 import 'Form_SRS_qst8.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
-import '../main.dart';
+import '../main_client.dart';
 
 void main() {
   runApp(MyApp());

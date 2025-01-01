@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
 import 'qst6_dev.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
-import '../main.dart';
+import '../main_dev.dart';
 
 void main() {
   runApp(MyApp());

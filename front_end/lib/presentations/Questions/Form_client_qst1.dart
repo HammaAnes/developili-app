@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
 import 'Form_client_qst2.dart';
-import '../main.dart';
+import '../main_client.dart';
 import '../api_service.dart'; // Import the API service
 
 void main() {
@@ -86,7 +86,8 @@ class _My_1st_question_State extends State<My_1st_question>
   void _onOptionSelected(int index) {
     setState(() {
       boutonSelectionne = index;
-      showForm = index == nomsBoutons.length - 1; // Show form for the "Other" option
+      showForm =
+          index == nomsBoutons.length - 1; // Show form for the "Other" option
       if (!showForm) {
         _submitAnswer(nomsBoutons[index]);
       }
