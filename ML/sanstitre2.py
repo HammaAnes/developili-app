@@ -6,38 +6,39 @@ from sklearn.preprocessing import MultiLabelBinarizer, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import re
-import random
 import numpy as np
 
-# Generate a larger dataset
-def generate_large_dataset(n):
-    names = ["Alice", "Bob", "Charlie", "Diana", "Edward", "Fiona", "George", "Helen", "Ian", "Julia"]
-    names = names * (n // len(names)) + names[:n % len(names)]
-    languages_pool = ['Python', 'Java', 'JavaScript', 'C++', 'Go', 'Swift', 'Ruby', 'PHP', 'TypeScript', 'SQL', 'C#', 'HTML', 'CSS', 'React', 'Node.js', 'Rust', 'Scala', 'R', 'Objective-C', 'Perl', 'Dart']
-    experience_levels = ['Junior', 'Mid', 'Senior']
+# Load dataset from Excel file
+def load_dataset(file_path):
+    """
+    Reads the dataset from the specified Excel file.
+    The file should contain columns: Developer Name, Languages, Experience Level.
+    """
+    return pd.read_excel(file_path)
 
-    data = {
-        'Developer Name': names,
-        'Languages': [random.sample(languages_pool, random.randint(1, 5)) for _ in range(n)],
-        'Experience Level': [random.choice(experience_levels) for _ in range(n)]
-    }
-    return pd.DataFrame(data)
-
-# Create a large dataset with 10,000 entries
-df = generate_large_dataset(100)
-
-# Convert Pandas DataFrame to Dask DataFrame for scalability
-ddf = dd.from_pandas(df, npartitions=10)
+# Specify the path to the Excel file
+file_path = "/mnt/data/developers_data_with_names.xlsx"
+df = load_dataset(file_path)
 
 # Supported languages and experience levels
-LANGUAGES = ['Python', 'Java', 'JavaScript', 'C++', 'Go', 'Swift', 'Ruby', 'PHP', 'TypeScript', 'SQL', 'C#', 'HTML', 'CSS', 'React', 'Node.js', 'Rust', 'Scala', 'R', 'Objective-C', 'Perl', 'Dart']
+LANGUAGES = ['Python', 'Java', 'JavaScript', 'C++', 'Go', 'Swift', 'Ruby', 'PHP', 
+             'TypeScript', 'SQL', 'C#', 'HTML', 'CSS', 'React', 'Node.js', 'Rust', 
+             'Scala', 'R', 'Objective-C', 'Perl', 'Dart']
 EXPERIENCE_LEVELS = ['Junior', 'Mid', 'Senior']
+
+# Categories based on programming languages
+CATEGORIES = {
+    'frontend': ['JavaScript', 'HTML', 'CSS', 'React', 'TypeScript', 'Node.js'],
+    'backend': ['Python', 'Java', 'C++', 'Go', 'PHP', 'Rust', 'Scala'],
+    'database': ['SQL', 'R', 'Perl'],
+    'ai': ['Python', 'R', 'Scala']
+}
 
 # Encode languages using MultiLabelBinarizer
 mlb = MultiLabelBinarizer(classes=LANGUAGES)
-languages_encoded = mlb.fit_transform(df['Languages'])
+languages_encoded = mlb.fit_transform(df['Languages'].str.split(', '))
 df_languages = pd.DataFrame(languages_encoded, columns=mlb.classes_)
-''
+
 # Encode experience levels using OneHotEncoder
 experience_encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
 experience_encoded = experience_encoder.fit_transform(df[['Experience Level']])
@@ -69,59 +70,44 @@ model = Pipeline([
 # Train the model
 model.fit(X_train, y_train)
 
-# Function to extract features from input text
-def extract_features_from_text(text):
-    languages_pattern = r"(" + "|".join(re.escape(lang) for lang in LANGUAGES) + r")"
-    experience_pattern = r"(" + "|".join(EXPERIENCE_LEVELS) + r")"
-
-    languages = re.findall(languages_pattern, text)
-    experience = re.findall(experience_pattern, text)
-
-    if not experience:
-        experience = ['Junior']  # Default to Junior if no experience level is found
-
-    return languages, experience[0]
-
-# Function to find the top 5 developers with probabilities based on client input
-def find_top_5_developers_for_client_search(text):
-    languages_input, experience_input = extract_features_from_text(text)
-
-    if not languages_input:
-        print("No programming languages found in the input text.")
+# Function to find the top developers for a specific category
+def find_top_developers_by_category(category, top_n=5):
+    if category not in CATEGORIES:
+        print(f"Category '{category}' is not recognized.")
         return None
+    
+    # Get languages for the category
+    category_languages = CATEGORIES[category]
 
-    # Encode the new input
-    new_input_encoded_languages = mlb.transform([languages_input])
+    # Create encoded input for the category
+    new_input_encoded_languages = mlb.transform([category_languages])
     new_input_encoded_languages = pd.DataFrame(new_input_encoded_languages, columns=mlb.classes_)
-
-    new_input_encoded_experience = experience_encoder.transform([[experience_input]])
-    new_input_encoded_experience = pd.DataFrame(new_input_encoded_experience, columns=experience_encoder.get_feature_names_out(['Experience Level']))
-
-    # Combine both encoded parts
+    new_input_encoded_experience = pd.DataFrame(np.zeros((1, len(df_experience.columns))), columns=df_experience.columns)
     new_input_encoded = pd.concat([new_input_encoded_experience, new_input_encoded_languages], axis=1)
 
     # Ensure columns match the training data
     for col in preprocessed_df.columns:
         if col not in new_input_encoded:
-            new_input_encoded[col] = 0  # Add missing columns with default value 0
+            new_input_encoded[col] = 0
 
-    new_input_encoded = new_input_encoded[preprocessed_df.columns]  # Reorder columns
+    new_input_encoded = new_input_encoded[preprocessed_df.columns]
 
     # Preprocess the input to match training format
     new_input_transformed = preprocessor.transform(new_input_encoded)
 
     # Get probabilities for all developers
     probabilities = model.named_steps['classifier'].predict_proba(new_input_transformed)
-    top_5_indices = np.argsort(probabilities[0])[-5:][::-1]
-    top_5_developers = [(model.named_steps['classifier'].classes_[i], probabilities[0][i] * 100) for i in top_5_indices]
+    top_indices = np.argsort(probabilities[0])[-top_n:][::-1]
+    top_developers = [(model.named_steps['classifier'].classes_[i], probabilities[0][i] * 100) for i in top_indices]
 
-    return top_5_developers
+    return top_developers
 
-# Get client input
-client_input = input("Please enter the type of developer you're looking for (e.g., 'I need a Senior Backend Developer with experience in Python and JavaScript'): ")
-top_matches = find_top_5_developers_for_client_search(client_input)
-
-if top_matches:
-    print("Top 5 matches:")
-    for dev, pct in top_matches:
-        print(f"{dev}: {pct:.2f}%")
+# Display top developers for each category
+categories = ['frontend', 'backend', 'database', 'ai']
+for category in categories:
+    print(f"Top 5 developers for {category.capitalize()}:")
+    top_devs = find_top_developers_by_category(category)
+    if top_devs:
+        for dev, pct in top_devs:
+            print(f"{dev}: {pct:.2f}%")
+    print()
