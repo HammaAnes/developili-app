@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'couleur_du_fond.dart';
-import 'profile.dart'; // Profile Page
+import 'profile_dev.dart'; // Profile Page
 import 'main_dev.dart'; // Main Page
 import 'chat_dev_after_accept.dart'; // Chat Page
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
-import 'profile.dart';
+import 'profile_client.dart';
 
 class TopDevsPage extends StatelessWidget {
   const TopDevsPage({Key? key}) : super(key: key);

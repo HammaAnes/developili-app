@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
-import 'profile.dart'; // Import the profile page
+import 'profile_client.dart'; // Import the profile page
 import 'main_client.dart'; // Import the main.dart for navigation
 
 void main() {

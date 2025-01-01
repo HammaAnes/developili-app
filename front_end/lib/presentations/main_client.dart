@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
-import 'profile.dart'; // Profile Page
+import 'profile_client.dart'; // Profile Page
 import 'project_details.dart'; // Devlopili Details Page
 import 'top_devs_page.dart';
 import 'projects_page.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'couleur_du_fond.dart';
-import 'profile.dart'; // Profile Page
+import 'profile_client.dart'; // Profile Page
 import 'main_client.dart'; // Main Page
 
 void main() {
