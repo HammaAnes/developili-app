@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'main.dart';
+import 'main_client.dart';
 import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
 
 void main() {
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
           // Navigate to the success page
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const MyAppMain()),
+            MaterialPageRoute(builder: (context) => const ClientMain()),
           );
         } else {
           _showMessage(data['error'] ?? "Login failed");
@@ -222,7 +222,11 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(color: Colors.black, fontSize: 16.0)),
               const SizedBox(height: 10),
               ElevatedButton.icon(
+<<<<<<< HEAD
                 onPressed: () {},
+=======
+                onPressed: loginWithGoogle,
+>>>>>>> a60b0ba787a7f4be68c7a5a913095fd0670adec1
                 icon: Image.asset(
                   'lib/icons/Logo_Google.png',
                   height: 24.0,
@@ -240,7 +244,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
+<<<<<<< HEAD
                 onPressed: () {},
+=======
+                onPressed: loginWithApple,
+>>>>>>> a60b0ba787a7f4be68c7a5a913095fd0670adec1
                 icon: Image.asset(
                   'lib/icons/apple-logo.png',
                   height: 24.0,
