@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+//import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'main.dart';
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> loginWithGoogle() async {
+  /*Future<void> loginWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       final GoogleSignInAccount? account = await googleSignIn.signIn();
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
       _showMessage("Apple login error: $e");
     }
   }
-
+*/
   void _showMessage(String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
@@ -144,114 +144,115 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:SingleChildScrollView(
-      child : Container(
-        decoration: BoxDecoration(
-          gradient: CouleurDuFond.gradientBackground,
-        ),
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 40),
-            const Text(
-              'Login',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 40),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Enter your email',
-                style: TextStyle(color: Colors.white, fontSize: 16.43),
-              ),
-            ),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                hintText: 'Email',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17.6),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: CouleurDuFond.gradientBackground,
+          ),
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 40),
+              const Text(
+                'Login',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
-            ),
-            const SizedBox(height: 25.8),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Enter your password',
-                style: TextStyle(color: Colors.white, fontSize: 16.43),
-              ),
-            ),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: 'Password',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(17.6),
+              const SizedBox(height: 40),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Enter your email',
+                  style: TextStyle(color: Colors.white, fontSize: 16.43),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: isLoading ? null : loginUser,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(17.6),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(17.6),
+                  ),
                 ),
               ),
-              child: isLoading
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text('Login'),
-            ),
-            const SizedBox(height: 10),
-            const Text('or', style: TextStyle(color: Colors.black, fontSize: 16.0)),
-            const SizedBox(height: 10),
-            ElevatedButton.icon(
-              onPressed: loginWithGoogle,
-              icon: Image.asset(
-                'lib/icons/Logo_Google.png',
-                height: 24.0,
-                width: 24.0,
-              ),
-              label: const Text('Continue with Google'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(17.6),
+              const SizedBox(height: 25.8),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Enter your password',
+                  style: TextStyle(color: Colors.white, fontSize: 16.43),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: loginWithApple,
-              icon: Image.asset(
-                'lib/icons/apple-logo.png',
-                height: 24.0,
-                width: 24.0,
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(17.6),
+                  ),
+                ),
               ),
-              label: const Text('Continue with Apple'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(17.6),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: isLoading ? null : loginUser,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(17.6),
+                  ),
+                ),
+                child: isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text('Login'),
+              ),
+              const SizedBox(height: 10),
+              const Text('or',
+                  style: TextStyle(color: Colors.black, fontSize: 16.0)),
+              const SizedBox(height: 10),
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: Image.asset(
+                  'lib/icons/Logo_Google.png',
+                  height: 24.0,
+                  width: 24.0,
+                ),
+                label: const Text('Continue with Google'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(17.6),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: Image.asset(
+                  'lib/icons/apple-logo.png',
+                  height: 24.0,
+                  width: 24.0,
+                ),
+                label: const Text('Continue with Apple'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(17.6),
                   ),
                 ),
               ),
