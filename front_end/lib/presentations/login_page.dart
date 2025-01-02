@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+//import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Questions/Form_client_qst1.dart';
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> loginWithGoogle() async {
+  /*Future<void> loginWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       final GoogleSignInAccount? account = await googleSignIn.signIn();
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
       _showMessage("Apple login error: $e");
     }
   }
-
+*/
   void _showMessage(String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
@@ -231,7 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(color: Colors.black, fontSize: 16.0)),
               const SizedBox(height: 10),
               ElevatedButton.icon(
-                onPressed: loginWithGoogle,
+                onPressed: () {},
                 icon: Image.asset(
                   'lib/icons/Logo_Google.png',
                   height: 24.0,
@@ -249,7 +249,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton.icon(
-                onPressed: loginWithApple,
+                onPressed: () {},
                 icon: Image.asset(
                   'lib/icons/apple-logo.png',
                   height: 24.0,
