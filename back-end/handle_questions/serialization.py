@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Questionnaire, QuestionResponseMapping, ClientProfile
+from log_in.models import Questionnaire, Questionresponsemapping, Clientprofile
 
 
 # Serializer for Questionnaire Model
@@ -12,18 +12,18 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
 # Serializer for QuestionResponseMapping Model
 class QuestionResponseMappingSerializer(serializers.ModelSerializer):
-    client_id = serializers.PrimaryKeyRelatedField(source='client', queryset=ClientProfile.objects.all())
+    client_id = serializers.PrimaryKeyRelatedField(source='client', queryset=Clientprofile.objects.all())
     question_id = serializers.PrimaryKeyRelatedField(source='question', queryset=Questionnaire.objects.all())
     other_response = serializers.CharField(required=False, allow_blank=True)  # New field for 'Other' option input
 
     class Meta:
-        model = QuestionResponseMapping
+        model = Questionresponsemapping
         fields = ['id', 'client_id', 'question_id', 'response', 'other_response']  # Include 'other_response' field
 
     def validate(self, data):
         # Check if the client has already answered this question
-        if QuestionResponseMapping.objects.filter(client=data['client'], question=data['question']).exists():
-            QuestionResponseMapping.objects.filter(client=data['client'], question=data['question']).delete()
+        if Questionresponsemapping.objects.filter(client=data['client'], question=data['question']).exists():
+            Questionresponsemapping.objects.filter(client=data['client'], question=data['question']).delete()
             raise serializers.ValidationError("This question has already been answered by the client.")
         
         question = data['question']

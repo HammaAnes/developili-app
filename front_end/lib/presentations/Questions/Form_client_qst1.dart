@@ -46,18 +46,15 @@ class _My_1st_question_State extends State<My_1st_question>
     setState(() {
       isLoading = true;
     });
-
+    String other_answer = 'null';
     if (showForm && otherController.text.isNotEmpty) {
-      answer = otherController.text;
+      answer = 'other';
+      other_answer = otherController.text;
     }
 
     try {
       final result = await APIService.submitAnswer(
-        1,
-        1,
-        answer,
-        'handle_questions',
-      );
+          1, 1, answer, 'handle_questions', other_answer);
 
       if (result["success"]) {
         // Navigate to the next question on success
@@ -86,7 +83,8 @@ class _My_1st_question_State extends State<My_1st_question>
   void _onOptionSelected(int index) {
     setState(() {
       boutonSelectionne = index;
-      showForm = index == nomsBoutons.length - 1; // Show form for the "Other" option
+      showForm =
+          index == nomsBoutons.length - 1; // Show form for the "Other" option
       if (!showForm) {
         _submitAnswer(nomsBoutons[index]);
       }

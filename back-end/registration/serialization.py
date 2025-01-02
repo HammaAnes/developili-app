@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from log_in.models import User
-from log_in.models import ClientProfile, DeveloperProfile
+from log_in.models import Clientprofile, Developerprofile
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)  # Ensure password is not exposed
@@ -26,11 +26,11 @@ class UserSerializer(serializers.ModelSerializer):
     
 class ClientProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ClientProfile
+        model = Clientprofile
         fields = ['user', 'description']
 
 
 class DeveloperProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DeveloperProfile
+        model = Developerprofile
         fields = ['user', 'skills', 'availability', 'rating']

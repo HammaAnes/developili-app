@@ -3,7 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'main_client.dart';
+import 'Questions/Form_client_qst1.dart';
 import 'main_dev.dart';
 import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
 
@@ -56,18 +56,17 @@ class _LoginPageState extends State<LoginPage> {
         body: jsonEncode({"email": email, "password": password}),
       );
 
+      final data = jsonDecode(response.body);
       if (response.statusCode == 202) {
-        final data = jsonDecode(response.body);
         if (data['success'] == "Successfully logged in") {
           // Navigate to the success page
           String role = data['user']['role'];
-          if (role == 'client'){
+          if (role == 'client') {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ClientMain()),
+              MaterialPageRoute(builder: (context) => My_1st_question()),
             );
-          }
-          else if (role == 'developer'){
+          } else if (role == 'developer') {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const MainDev()),
@@ -77,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
           _showMessage(data['error'] ?? "Login failed");
         }
       } else {
-        _showMessage("Something went wrong. Please try again.");
+        _showMessage("Something went wrong: ${data['error']}");
       }
     } catch (e) {
       _showMessage("An error occurred: $e");

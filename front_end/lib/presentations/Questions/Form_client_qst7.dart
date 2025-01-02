@@ -62,7 +62,7 @@ class _My_7th_question_State extends State<My_7th_question>
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 7, answer, 'handle_questions'); // Example: client_id = 1, question_id = 1
+      final result = await APIService.submitAnswer(1, 7, answer, 'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
         _goTo8thPage();
@@ -89,7 +89,7 @@ class _My_7th_question_State extends State<My_7th_question>
   });
 
   try {
-    final result = await APIService.deleteAnswer(1, 6, 'handle_questions'); // Replace with the actual client ID and question ID
+    final result = await APIService.deleteAnswer(1, 8, 'handle_questions'); // Replace with the actual client ID and question ID
     if (result["success"]) {
       _goBack6thPage(); // Navigate to the previous page
     } else {

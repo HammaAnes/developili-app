@@ -78,15 +78,18 @@ CREATE TABLE Questionnaire (
     question_type TEXT CHECK (question_type IN ('multiple_choice', 'text', 'rating', 'boolean', 'color_picker', 'layout_selector')) DEFAULT 'text',
     options JSONB, -- Stores multiple-choice options
     step INT NOT NULL DEFAULT 1, -- Groups questions by UI step
-    category TEXT CHECK (category IN ('general', 'SRS', 'interview', 'design')) DEFAULT 'general'
+    category TEXT CHECK (category IN ('general', 'SRS', 'interview', 'design')) DEFAULT 'general',
+    allow_other boolean DEFAULT FALSE
 );
+
 -- Table QuestionResponseMapping (Maps client responses to questions)
 CREATE TABLE QuestionResponseMapping (
     id SERIAL PRIMARY KEY,
     client_id INT NOT NULL REFERENCES ClientProfile(id) ON DELETE CASCADE,
     question_id INT NOT NULL REFERENCES Questionnaire(id) ON DELETE CASCADE,
     response TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    other_response TEXT DEFAULT NULL
 );
 
 -- DeveloperRating Table (Tracks ratings for developers)

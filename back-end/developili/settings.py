@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "log_in.apps.LogInConfig",
     "registration.apps.RegistrationConfig",
     "handle_questions.apps.HandleQuestionsConfig",
+    "main_page.apps.MainPageConfig",
     "rest_framework",
     "rest_framework.authtoken",
     "allauth",
@@ -83,12 +84,13 @@ WSGI_APPLICATION = "developili.wsgi.application"
 
 # Database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        "OPTIONS": {
-            'timeout': 30,
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'defaultdb',
+        'USER': 'avnadmin',
+        'PASSWORD': 'AVNS_GAdGpf1DtUda-fCprv-',
+        'HOST': 'developili-db-developili.k.aivencloud.com',  # or the IP address of your PostgreSQL server
+        'PORT': '20939',
     }
 }
 

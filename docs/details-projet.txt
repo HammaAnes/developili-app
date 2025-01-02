@@ -14,23 +14,21 @@ Après l’inscription, le client remplit un formulaire pour créer un profil d�
 Step 1: Client Profile – Prioritized Questions ( just after creating the profile ) 
 
 These questions will be part of the initial client profile setup, gathering key information that helps determine compatibility.
-	1.	How would you describe your preferred work style?
-	•	Organized and structured, Flexible and adaptive, Goal-oriented
-	2.	How do you prioritize between budget, quality, and timeline?
-	•	Budget, Quality, Timeline
-	3.	What is your role within your organization?
+	1.	What is your role within your organization?
 	•	Entrepreneur, Marketing Manager, Technical Lead (CTO), Project Manager, Other (please specify)
-	4.	Have you worked with developers before?
+	2.	Have you worked with developers before?
 	•	Yes, multiple times; Yes, once; No, this is my first time
-	5.	How would you describe your technical knowledge?
+	3.	What is your level of knowledge in development ?
 	•	Beginner, Intermediate, Advanced, Expert
-	6.	What is your preferred level of involvement in the development process?
-	•	Highly involved, Moderately involved, Minimally involved
-	7.	How do you prefer to communicate with the developer?
-	•	Email, Phone calls, Video meetings, Messaging apps
-	8.	How quickly do you expect responses from the developer?
-	•	Within a few hours, By the end of the business day, Within 24-48 hours, Flexible
-	9.	What is most important to you in a project?
+	5.	What types of applications have you managed or created before ?
+	•	mobile applications, websites, desktop applications, Other (please specify)
+	4.	How would you describe your preferred work style?
+	•	Organized and structured, Flexible and adaptive, Goal-oriented
+	6.	How do you prioritize between budget, quality, and timeline?
+	•	Budget, Quality, Timeline
+	7.	What is your preferred level of involvement in the development process?
+	•	Highly involved, Moderately involved, Minimally involved	
+	8.	What is most important to you in a project?
 	•	Staying within budget, Meeting deadlines, High-quality deliverables, Flexibility to make changes
 
 

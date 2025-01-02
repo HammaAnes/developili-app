@@ -5,14 +5,14 @@ class APIService {
   static const String baseUrl = "http://127.0.0.1:8000";
 
   static Future<Map<String, dynamic>> submitAnswer(
-      int clientId, int questionId, String response, String djangoApp) async {
+      int clientId, int questionId, String response, String djangoApp, String other) async {
     final url = Uri.parse("$baseUrl/$djangoApp/");
     final headers = {"Content-Type": "application/json"};
     final body = jsonEncode({
       "client_id": clientId,
       "question_id": questionId,
-      "response": "Other",
-      "other_response": response,
+      "response": response,
+      "other_response": other,
     });
 
     try {
@@ -42,7 +42,7 @@ class APIService {
       final http.Response res =
           await http.post(url, headers: headers, body: body);
 
-      if (res.statusCode == 201) {
+      if (res.statusCode == 200) {
         return {"success": true, "data": jsonDecode(res.body)};
       } else {
         return {"success": false, "error": jsonDecode(res.body)};

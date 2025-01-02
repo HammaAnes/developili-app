@@ -64,8 +64,11 @@ class _My_4th_question_State extends State<My_4th_question>
       isLoading = true;
     });
 
+    String other_answer = 'null';
+
     if (showForm && otherController.text.isNotEmpty) {
-      answer = otherController.text;
+      answer = 'other';
+      other_answer = otherController.text;
     }
 
     try {
@@ -74,6 +77,7 @@ class _My_4th_question_State extends State<My_4th_question>
         4,
         answer,
         'handle_questions',
+        other_answer,
       );
 
       if (result["success"]) {
@@ -102,7 +106,7 @@ class _My_4th_question_State extends State<My_4th_question>
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 3,
+      final result = await APIService.deleteAnswer(1, 4,
           'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"]) {
         _goBack3rdPage(); // Navigate to the previous page

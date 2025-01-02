@@ -63,7 +63,7 @@ class _My_8th_question_State extends State<My_8th_question>
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 8, answer, 'handle_questions'); // Example: client_id = 1, question_id = 1
+      final result = await APIService.submitAnswer(1, 8, answer, 'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
         _goToHomePage();

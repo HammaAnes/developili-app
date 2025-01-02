@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from log_in.models import User
 
 class LoginSerializer(serializers.Serializer):  # Note: Not ModelSerializer
     email = serializers.EmailField()  # Validate email format
