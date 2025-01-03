@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from log_in.models import Questionnaire, Questionresponsemapping, User
+from log_in.models import Questionnaire, Questionresponsemapping, User, Previousprojectdev, Developerprofile
 
 
 # Serializer for Questionnaire Model
@@ -37,3 +37,32 @@ class QuestionResponseMappingSerializer(serializers.ModelSerializer):
                 data['response'] = data['other_response']
         
         return data
+
+class PreviousProjectDevSerializer(serializers.ModelSerializer):
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    project_name = serializers.CharField(max_length=255)
+
+    class Meta:
+        model = Previousprojectdev
+        fields = ['id', 'user_id', 'project_name', 'dev_speciality']
+
+    def validate(self, data):
+        # Check if the user is a developer
+    
+        developer = Developerprofile.objects.filter(user=data['user_id']).first()
+        if not developer:
+            raise serializers.ValidationError("This user is not a developer")
+
+        # Check for duplicate projects
+        if Previousprojectdev.objects.filter(project_name=data['project_name'], developer=developer).exists():
+            raise serializers.ValidationError("This project already exists for this developer")
+
+        # Replace `user_id` with the actual developer object
+        data['developer'] = developer
+        data.pop('user_id')  # Remove user_id since it's not a field in the model
+       
+        return data
+
+    def create(self, validated_data):
+        # Create the instance with the mapped developer field
+        return Previousprojectdev.objects.create(**validated_data)

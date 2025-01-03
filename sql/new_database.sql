@@ -82,10 +82,17 @@ CREATE TABLE Questionnaire (
     allow_other boolean DEFAULT FALSE
 );
 
+CREATE TABLE PreviousProjectDev (
+    id SERIAL PRIMARY KEY,
+    project_name TEXT NOT NULL,
+    developer_id INT NOT NULL REFERENCES Developerprofile(id) ON DELETE CASCADE,
+    dev_speciality TEXT DEFAULT NULL
+)
+
 -- Table QuestionResponseMapping (Maps client responses to questions)
 CREATE TABLE QuestionResponseMapping (
     id SERIAL PRIMARY KEY,
-    client_id INT NOT NULL REFERENCES ClientProfile(id) ON DELETE CASCADE,
+    user_id INT NOT NULL REFERENCES User(id) ON DELETE CASCADE,
     question_id INT NOT NULL REFERENCES Questionnaire(id) ON DELETE CASCADE,
     response TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

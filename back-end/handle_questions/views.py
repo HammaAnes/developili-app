@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from log_in.models import Questionresponsemapping
-from .serialization import QuestionResponseMappingSerializer
+from .serialization import QuestionResponseMappingSerializer, PreviousProjectDevSerializer
 
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated])  # Enforce authentication
@@ -38,3 +38,21 @@ def BackButtonPressed(request):
             'message': 'deleted line properly',
         }, status=status.HTTP_200_OK)
 
+
+@api_view(['POST'])
+def DevPreviousProject(request):
+    serializer = PreviousProjectDevSerializer(data=request.data)
+
+    if serializer.is_valid():
+        
+        answer = serializer.save()
+        return Response({
+            'success': True,
+            'message': 'Answer saved',
+            'answer': {
+                'dev_id': answer.developer_id,
+                'project_name': answer.project_name,
+            },
+        }, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

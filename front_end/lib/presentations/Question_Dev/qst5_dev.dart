@@ -54,25 +54,23 @@ class _My_5th_question_State extends State<My_5th_question> {
   // Méthode pour le bouton "Add"
   void _addProject() {
     // Effacer le contenu des champs de formulaire
-    minimumController.clear();
-    maximumController.clear();
+    
 
     // Optionnel: Afficher un message dans la console ou dans l'interface utilisateur
     print('Le projet a été ajouté et les champs ont été réinitialisés');
   }
 
-      Future<void> _submitAnswer(String answer) async {
+      Future<void> _submitAnswer(String project_name, String dev_speciality) async {
+        
+      minimumController.clear();
+      maximumController.clear();
     setState(() {
       isLoading = true;
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 22, answer,
-          'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
-      if (result["success"]) {
-        // Navigate to the next question on success
-        _goToNextPage();
-      } else {
+      final result = await APIService.devPrevProjct(17, project_name, dev_speciality); // Example: client_id = 1, question_id = 1
+      if (!result["success"]) {
         // Show an error message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Error: ${result["error"]}")),
@@ -95,8 +93,7 @@ class _My_5th_question_State extends State<My_5th_question> {
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 21,
-          'handle_questions'); // Replace with the actual client ID and question ID
+      final result = await APIService.deleteAnswer(1, 21,'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
       } else {
@@ -294,7 +291,7 @@ class _My_5th_question_State extends State<My_5th_question> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
-                        onPressed: _addProject,
+                        onPressed: ()=> _submitAnswer(minimumController.text, maximumController.text),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(

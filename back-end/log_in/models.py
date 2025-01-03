@@ -253,6 +253,14 @@ class Projects(models.Model):
         managed = False
         db_table = 'projects'
 
+class Previousprojectdev(models.Model):
+    project_name = models.TextField()
+    developer = models.ForeignKey(Developerprofile, models.DO_NOTHING)
+    dev_speciality = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'previousprojectdev'
 
 class Questionnaire(models.Model):
     question = models.TextField()

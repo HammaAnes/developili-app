@@ -52,4 +52,28 @@ class APIService {
     }
   }
 
+  static Future<Map<String, dynamic>> devPrevProjct(
+      int userId, String project_name, String dev_spec) async {
+    final url = Uri.parse("$baseUrl/handle_questions/DevPreviousProject/");
+    final headers = {"Content-Type": "application/json"};
+    final body = jsonEncode({
+      "user_id": userId,
+      "project_name": project_name,
+      "dev_speciality": dev_spec,
+    });
+
+    try {
+      final http.Response res =
+          await http.post(url, headers: headers, body: body);
+
+      if (res.statusCode == 201) {
+        return {"success": true, "data": jsonDecode(res.body)};
+      } else {
+        return {"success": false, "error": jsonDecode(res.body)};
+      }
+    } catch (e) {
+      return {"success": false, "error": e.toString()};
+    }
+  }
+
 }
