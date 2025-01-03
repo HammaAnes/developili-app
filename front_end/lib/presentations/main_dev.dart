@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       hintText: "Rechercher...",
                       border: InputBorder.none,
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                     ),
                   ),
                 ),
