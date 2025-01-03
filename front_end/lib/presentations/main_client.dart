@@ -5,6 +5,7 @@ import 'project_details.dart'; // Devlopili Details Page
 import 'top_devs_page.dart';
 import 'projects_page.dart';
 import 'message_icone_client.dart';
+import 'Questions_SRS/Form_SRS_qst1.dart';
 
 void main() {
   runApp(const ClientMain());
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       hintText: "Rechercher...",
                       border: InputBorder.none,
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                     ),
                   ),
                 ),
@@ -301,7 +302,12 @@ class _HomePageState extends State<HomePage> {
                   width: 50,
                   height: 50,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => My_1st_question()),
+                  );
+                },
               ),
               IconButton(
                 icon: Image.asset(
