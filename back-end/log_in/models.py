@@ -268,7 +268,7 @@ class Questionnaire(models.Model):
 
 
 class Questionresponsemapping(models.Model):
-    client = models.ForeignKey(Clientprofile, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING)
     question = models.ForeignKey(Questionnaire, models.DO_NOTHING)
     response = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)

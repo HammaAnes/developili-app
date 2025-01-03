@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
 import 'qst2_dev.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'qst4_dev.dart';
+import '../api_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,6 +51,64 @@ class _My_3rd_question_State extends State<My_3rd_question>
       context,
       MaterialPageRoute(builder: (context) => My_2nd_question()),
     );
+  }
+
+  Future<void> _submitAnswer(String answer) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.submitAnswer(
+          1,
+          20,
+          answer,
+          'handle_questions',
+          'null'); // Example: client_id = 1, question_id = 1
+      if (result["success"]) {
+        // Navigate to the next question on success
+        _goToNextPage();
+      } else {
+        // Show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to submit answer: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _handleBackButton() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.deleteAnswer(1, 19,
+          'handle_questions'); // Replace with the actual client ID and question ID
+      if (result["success"] == true) {
+        _goBack2ndPage(); // Navigate to the previous page
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to go back: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -113,6 +172,7 @@ class _My_3rd_question_State extends State<My_3rd_question>
                           onTap: () {
                             setState(() {
                               boutonSelectionne = index;
+                              _submitAnswer(nomsBoutons[index]);
                             });
                             // Rediriger vers la page suivante après sélection
                             _goToNextPage();
@@ -151,7 +211,7 @@ class _My_3rd_question_State extends State<My_3rd_question>
                 bottom: 55,
                 left: 20,
                 child: ElevatedButton(
-                  onPressed: _goBack2ndPage,
+                  onPressed: _handleBackButton,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(

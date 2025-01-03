@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
 import 'qst3_dev.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'qst5_dev.dart';
+import '../api_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,12 +40,12 @@ class _My_4th_question_State extends State<My_4th_question>
 
   // Méthode pour passer à la page suivante
   void _goToNextPage() {
-    if (otherController.text.isNotEmpty) {
+    
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => My_5th_question()),
       );
-    }
+    
   }
 
   // Méthode pour revenir à la page d'accueil
@@ -53,6 +54,64 @@ class _My_4th_question_State extends State<My_4th_question>
       context,
       MaterialPageRoute(builder: (context) => My_3rd_question()),
     );
+  }
+
+  Future<void> _submitAnswer(String answer) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.submitAnswer(
+          1,
+          21,
+          answer,
+          'handle_questions',
+          'null'); // Example: client_id = 1, question_id = 1
+      if (result["success"]) {
+        // Navigate to the next question on success
+
+        _goToNextPage();
+      } else {
+        // Show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to submit answer: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _handleBackButton() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.deleteAnswer(1, 20,'handle_questions'); // Replace with the actual client ID and question ID
+      if (result["success"] == true) {
+        _goBack2ndPage(); // Navigate to the previous page
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to go back: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -118,11 +177,7 @@ class _My_4th_question_State extends State<My_4th_question>
                               boutonSelectionne = index;
                               showForm = index == nomsBoutons.length - 1;
                               if (!showForm) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => My_5th_question()),
-                                );
+                                _submitAnswer("Freelancer");
                               }
                             });
                           },
@@ -193,7 +248,7 @@ class _My_4th_question_State extends State<My_4th_question>
                 bottom: 55,
                 left: 20,
                 child: ElevatedButton(
-                  onPressed: _goBack2ndPage,
+                  onPressed: _handleBackButton,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
@@ -240,7 +295,7 @@ class _My_4th_question_State extends State<My_4th_question>
                   right: 20,
                   child: ElevatedButton(
                     onPressed: otherController.text.isNotEmpty
-                        ? _goToNextPage
+                        ? ()=>_submitAnswer(otherController.text)
                         : null, // Désactivé si le formulaire est vide
                     style: ElevatedButton.styleFrom(
                       backgroundColor: otherController.text.isNotEmpty

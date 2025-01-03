@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
 import 'qst2_dev.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import '../main_dev.dart';
+import '../api_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,12 +43,10 @@ class _My_1st_question_State extends State<My_1st_question>
 
   // Méthode pour passer à la page suivante
   void _goToNextPage() {
-    if (otherController.text.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => My_2nd_question()),
-      );
-    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => My_2nd_question()),
+    );
   }
 
   // Méthode pour revenir à la page d'accueil
@@ -56,6 +55,39 @@ class _My_1st_question_State extends State<My_1st_question>
       context,
       MaterialPageRoute(builder: (context) => HomePage()),
     );
+  }
+
+  Future<void> _submitAnswer(String answer) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    String other_answer = 'null';
+    if (showForm && otherController.text.isNotEmpty) {
+      answer = 'other';
+      other_answer = otherController.text;
+    }
+
+    try {
+      final result = await APIService.submitAnswer(1, 18, answer,'handle_questions', other_answer); // Example: user_id = 1, question_id = 1
+      if (result["success"]) {
+        // Navigate to the next question on success
+        _goToNextPage();
+      } else {
+        // Show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to submit answer: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -121,11 +153,7 @@ class _My_1st_question_State extends State<My_1st_question>
                               boutonSelectionne = index;
                               showForm = index == nomsBoutons.length - 1;
                               if (!showForm) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => My_2nd_question()),
-                                );
+                                _submitAnswer(nomsBoutons[index]);
                               }
                             });
                           },
@@ -266,7 +294,7 @@ class _My_1st_question_State extends State<My_1st_question>
                   right: 20,
                   child: ElevatedButton(
                     onPressed: otherController.text.isNotEmpty
-                        ? _goToNextPage
+                        ? () => _submitAnswer(otherController.text)
                         : null, // Désactivé si le formulaire est vide
                     style: ElevatedButton.styleFrom(
                       backgroundColor: otherController.text.isNotEmpty

@@ -17,7 +17,7 @@ def HandleQuestion(request):
                 'success': True,
                 'message': 'answer saved',
                 'answer': {
-                    'client_id': answer.client.id,
+                    'user_id': answer.user.id,
                     'question_id': answer.question.id,
                     'response': answer.response
                 },
@@ -31,7 +31,7 @@ def HandleQuestion(request):
 def BackButtonPressed(request):
         # Delete the answer for this client and question
         data = request.data
-        Questionresponsemapping.objects.filter(client_id=data['client'], question=data['question']).delete()
+        Questionresponsemapping.objects.filter(user_id=data['user'], question=data['question']).delete()
 
         return Response({
             'success': True,

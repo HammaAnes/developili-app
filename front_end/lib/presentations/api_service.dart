@@ -5,11 +5,11 @@ class APIService {
   static const String baseUrl = "http://127.0.0.1:8000";
 
   static Future<Map<String, dynamic>> submitAnswer(
-      int clientId, int questionId, String response, String djangoApp, String other) async {
+      int userId, int questionId, String response, String djangoApp, String other) async {
     final url = Uri.parse("$baseUrl/$djangoApp/");
     final headers = {"Content-Type": "application/json"};
     final body = jsonEncode({
-      "client_id": clientId,
+      "user_id": userId,
       "question_id": questionId,
       "response": response,
       "other_response": other,
@@ -30,11 +30,11 @@ class APIService {
   }
 
   static Future<Map<String, dynamic>> deleteAnswer(
-      int clientId, int questionId, String djangoApp) async {
+      int userId, int questionId, String djangoApp) async {
     final url = Uri.parse("$baseUrl/$djangoApp/BackButtonPressed/");
     final headers = {"Content-Type": "application/json"};
     final body = jsonEncode({
-      "client": clientId,
+      "user": userId,
       "question": questionId,
     });
 
