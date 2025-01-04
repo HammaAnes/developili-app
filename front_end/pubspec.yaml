@@ -83,6 +83,13 @@ flutter:
     - lib/icons/user_linear.png
     - lib/icons/web_full.png
     - lib/icons/web_linear.png
+    - lib/icons/Carte_Visa.png
+    - lib/icons/master_card.png
+    - lib/icons/visa.png
+    - lib/icons/info_section_blue_ciel.png
+    - lib/icons/Info_section_blue.png
+    - lib/icons/add-circle.png
+    - lib/icons/export.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
