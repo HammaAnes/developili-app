@@ -1,9 +1,14 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
+<<<<<<< HEAD
+export "FLUTTER_ROOT=F:\YOUNES\flutter"
+export "FLUTTER_APPLICATION_PATH=F:\YOUNES\projet_eng\SoftwareEngProject\front_end"
+=======
 export "FLUTTER_ROOT=/Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/flutter"
 export "FLUTTER_APPLICATION_PATH=/Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/SoftwareEngProject/front_end"
+>>>>>>> a60b0ba787a7f4be68c7a5a913095fd0670adec1
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
-export "FLUTTER_TARGET=/Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/SoftwareEngProject/front_end/lib/presentations/Questions/Form_client_qst4.dart"
+export "FLUTTER_TARGET=/Users/mohamedouadahi/Downloads/NIT/Projet-Devlopili/SoftwareEngProject/front_end/lib/presentations/main_client.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
 export "FLUTTER_BUILD_NUMBER=1"

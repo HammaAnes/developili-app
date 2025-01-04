@@ -62,8 +62,8 @@ class _My_2nd_question_State extends State<My_2nd_question>
     });
 
     try {
-      final result = await APIService.submitAnswer(
-          2, 2, answer); // Example: client_id = 1, question_id = 1
+      final result = await APIService.submitAnswer(1, 2, answer,
+          'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
         _goTo3rdPage();
@@ -84,12 +84,39 @@ class _My_2nd_question_State extends State<My_2nd_question>
     }
   }
 
+  Future<void> _handleBackButton() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.deleteAnswer(1, 1,
+          'handle_questions'); // Replace with the actual client ID and question ID
+      if (result["success"] == true) {
+        _goBack1stPage(); // Navigate to the previous page
+      } else {
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to go back: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   // Handles button selection and form display
   void _onOptionSelected(int index) {
     setState(() {
       boutonSelectionne = index;
       showForm =
-          index == nomsBoutons.length - 1; // Show form for the "Other" option
+          index == nomsBoutons.length; // Show form for the "Other" option
       if (!showForm) {
         _submitAnswer(nomsBoutons[index]);
       }
@@ -186,11 +213,7 @@ class _My_2nd_question_State extends State<My_2nd_question>
               bottom: 55,
               left: 20,
               child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _goBack1stPage();
-                  });
-                },
+                onPressed: _handleBackButton,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   shape: RoundedRectangleBorder(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
 import 'Form_client_qst2.dart';
-import '../main.dart';
+import '../main_client.dart';
 import '../api_service.dart'; // Import the API service
 
 void main() {
@@ -46,9 +46,16 @@ class _My_1st_question_State extends State<My_1st_question>
     setState(() {
       isLoading = true;
     });
+    String other_answer = 'null';
+    if (showForm && otherController.text.isNotEmpty) {
+      answer = 'other';
+      other_answer = otherController.text;
+    }
 
     try {
-      final result = await APIService.submitAnswer(1, 1, answer); // Example: client_id = 1, question_id = 1
+      final result = await APIService.submitAnswer(
+          1, 1, answer, 'handle_questions', other_answer);
+
       if (result["success"]) {
         // Navigate to the next question on success
         Navigator.push(
@@ -76,7 +83,8 @@ class _My_1st_question_State extends State<My_1st_question>
   void _onOptionSelected(int index) {
     setState(() {
       boutonSelectionne = index;
-      showForm = index == nomsBoutons.length - 1; // Show form for the "Other" option
+      showForm =
+          index == nomsBoutons.length - 1; // Show form for the "Other" option
       if (!showForm) {
         _submitAnswer(nomsBoutons[index]);
       }
@@ -197,7 +205,7 @@ class _My_1st_question_State extends State<My_1st_question>
                       curve: Curves.easeInOut,
                       child: showForm
                           ? Padding(
-                              padding: const EdgeInsets.only(top: 0.0),
+                              padding: const EdgeInsets.only(top: 20.0),
                               child: Container(
                                 width: 318,
                                 height: 50,
@@ -240,7 +248,7 @@ class _My_1st_question_State extends State<My_1st_question>
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => ClientMain()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -259,6 +267,34 @@ class _My_1st_question_State extends State<My_1st_question>
                   ),
                 ),
               ),
+              // Next button
+              if (showForm)
+                Positioned(
+                  bottom: 55,
+                  right: 20,
+                  child: ElevatedButton(
+                    onPressed: otherController.text.isNotEmpty
+                        ? () => _submitAnswer(otherController.text)
+                        : null, // Disabled if the form is empty
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: otherController.text.isNotEmpty
+                          ? Colors.black
+                          : Colors.grey, // Change color dynamically
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    ),
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

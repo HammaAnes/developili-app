@@ -7,11 +7,11 @@ from django.http import JsonResponse
 from allauth.socialaccount.models import SocialAccount
 from rest_framework.authtoken.models import Token
 from .serialization import LoginSerializer
-from .models import User
 import requests
+from log_in.models import User
 
 
-@api_view(['POST'])
+@api_view(['POST']) 
 @renderer_classes([JSONRenderer])
 def login_views(request):
     serializer = LoginSerializer(data=request.data)
@@ -35,7 +35,7 @@ def login_views(request):
                     'role': user.role,
                 }
             }, status=status.HTTP_202_ACCEPTED)
-
+    
        
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
     else:
@@ -92,9 +92,9 @@ def validate_social_token(provider, token):
 
 def add(request):
     user = User.objects.create(
-        email="a@gmail.com",
-        username="TryLogIn"
-    )
+        email="tdb@gmail.com",
+        username="TryDB"
+    ) 
     user.set_password("12345678")
     user.save()
 

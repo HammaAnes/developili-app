@@ -1,22 +1,21 @@
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-=momx#9gkva^a8q4q+ucn-fdr%mz=1!3$_*s-o^m_8&hl2l6vf"
 
-DEBUG = True  # Set to False in production
+DEBUG = True  # Keep True in development; Set to False in production
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']  # Allow all hosts for development
 
-# Port handling (handled by gunicorn)
+# Port handling
 PORT = os.environ.get('PORT', '8000')
 
+# Installed apps
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -27,36 +26,29 @@ INSTALLED_APPS = [
     "log_in.apps.LogInConfig",
     "registration.apps.RegistrationConfig",
     "handle_questions.apps.HandleQuestionsConfig",
+    "main_page.apps.MainPageConfig",
     "rest_framework",
     "rest_framework.authtoken",
-    "allauth",  # Adding allauth to installed apps
-    "allauth.account",  # Adding allauth account app
-    "allauth.socialaccount",  # Adding allauth social account app
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     "corsheaders",
-    # Add social providers if needed, e.g., 'allauth.socialaccount.providers.google',
 ]
 
-# Configure authentication backends
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",  # Default authentication backend
-    "allauth.account.auth_backends.AuthenticationBackend",  # allauth authentication backend
-]
-
-# Define the custom user model
+# Custom user model
 AUTH_USER_MODEL = 'log_in.User'
 
-# Configure django-allauth
-SITE_ID = 1  # Add this setting, it's required by allauth
-ACCOUNT_EMAIL_REQUIRED = True  # Require email for authentication
-ACCOUNT_USERNAME_REQUIRED = False  # Don't require username
-ACCOUNT_AUTHENTICATION_METHOD = "email"  # Authenticate using email
-ACCOUNT_EMAIL_VERIFICATION = "optional"  # Optional email verification
-ACCOUNT_SIGNUP_EMAIL_ENTERED = True  # If you want to allow users to directly sign up with an email
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # Confirm the email when it's visited
-LOGIN_REDIRECT_URL = '/'  # Redirect URL after login
+# django-allauth configurations
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+LOGIN_REDIRECT_URL = "/"
 
-# Middleware configuration
+# Middleware
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",  # Ensure this is at the top
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -64,14 +56,14 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "allauth.account.middleware.AccountMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
+    "allauth.account.middleware.AccountMiddleware", 
+    
 ]
 
 # URL configuration
 ROOT_URLCONF = "developili.urls"
 
-# Templates configuration
+# Templates
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -90,14 +82,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "developili.wsgi.application"
 
-# Database configuration
+# Database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",  # Default database engine
-        "NAME": BASE_DIR / "db.sqlite3",  # Database location
-        "OPTIONS":{
-            'timeout': 30,
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'defaultdb',
+        'USER': 'avnadmin',
+        'PASSWORD': 'AVNS_GAdGpf1DtUda-fCprv-',
+        'HOST': 'developili-db-developili.k.aivencloud.com',  # or the IP address of your PostgreSQL server
+        'PORT': '20939',
     }
 }
 
@@ -109,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# Internationalization settings
+# Internationalization
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
@@ -121,16 +114,55 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_URL = "static/"
 
 # Media files
-MEDIA_URL = '/media/'  # Add if you are using media files (like profile pictures)
+MEDIA_URL = '/media/'
 
-# CORS settings (if you're using APIs across domains)   
-CORS_ALLOW_ALL_ORIGINS = True  # You can configure this to allow specific domains
+# CORS settings (for APIs)
+CORS_ALLOW_ALL_ORIGINS = True  # For development; restrict in production
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies and authentication tokens
+CORS_ALLOW_HEADERS = [
+    "Content-Type",
+    "Authorization",
+    "X-CSRFToken",
+]
 
-# Add Django Allauth-related settings
-SOCIALACCOUNT_EMAIL_VERIFICATION = "mandatory"
-SOCIALACCOUNT_EMAIL_REQUIRED = True
+# REST Framework Configuration
+# REST_FRAMEWORK = {
+#     "DEFAULT_AUTHENTICATION_CLASSES": (
+#         "rest_framework_simplejwt.authentication.JWTAuthentication",  # Use JWT for authentication
+#         "rest_framework.authentication.SessionAuthentication",  # Optional
+#     ),
+#     "DEFAULT_PERMISSION_CLASSES": (
+#         "rest_framework.permissions.IsAuthenticated",  # Default: restrict access
+#     ),
+# }
 
-# Security settings (change these for production)
-SECURE_SSL_REDIRECT = False  # Set to True in production if using HTTPS
-CSRF_COOKIE_SECURE = False  # Set to True in production for security
-SESSION_COOKIE_SECURE = False  # Set to True in production for security
+# # Simple JWT Configuration
+# SIMPLE_JWT = {
+#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # Token expires after 1 hour
+#     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Refresh token expires after 7 days
+#     "ROTATE_REFRESH_TOKENS": True,  # Generate a new refresh token on use
+#     "BLACKLIST_AFTER_ROTATION": True,  # Blacklist old refresh tokens
+#     "AUTH_HEADER_TYPES": ("Bearer",),  # Authorization: Bearer <token>
+#     "ALGORITHM": "HS256",
+#     "SIGNING_KEY": SECRET_KEY,  # Use the same key as Django
+#     "VERIFYING_KEY": None,
+#     "AUDIENCE": None,
+#     "ISSUER": None,
+#     "USER_ID_FIELD": "id",
+#     "USER_ID_CLAIM": "user_id",
+#     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+#     "TOKEN_TYPE_CLAIM": "token_type",
+# }
+
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:65071",
+    "http://localhost:65071",
+]
+CSRF_COOKIE_HTTPONLY = False  # Allow access to CSRF cookies via JavaScript in development
+
+# Security settings (change in production)
+SECURE_SSL_REDIRECT = False
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
