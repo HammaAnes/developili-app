@@ -3,8 +3,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from log_in.models import Questionresponsemapping
-from .serialization import QuestionResponseMappingSerializer, PreviousProjectDevSerializer
+from log_in.models import Questionresponsemapping, Developerprofile
+from .serialization import QuestionResponseMappingSerializer, PreviousProjectDevSerializer, DeveloperProfileSerialization
 
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated])  # Enforce authentication
@@ -56,3 +56,29 @@ def DevPreviousProject(request):
         }, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def AddSkillDev(request):
+    serializer = DeveloperProfileSerialization(data=request.data)
+
+    if serializer.is_valid():
+        # Get the developer profile
+        dev = serializer.validated_data['developer']
+        
+        # Update the developer profile with the new skills
+        dev.skills = serializer.validated_data['skills']
+        dev.save()
+
+        return Response({
+            'success': True,
+            'message': 'Skills updated successfully',
+            'developer': {
+                'id': dev.id,
+                'skills': dev.skills,
+            },
+        }, status=status.HTTP_201_CREATED)
+
+    # Return validation errors
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

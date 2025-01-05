@@ -76,4 +76,27 @@ class APIService {
     }
   }
 
+    static Future<Map<String, dynamic>> devLanguages(
+      int userId, List skills) async {
+    final url = Uri.parse("$baseUrl/handle_questions/AddSkillDev/");
+    final headers = {"Content-Type": "application/json"};
+    final body = jsonEncode({
+      "user": userId,
+      "skills": skills
+    });
+
+    try {
+      final http.Response res =
+          await http.post(url, headers: headers, body: body);
+
+      if (res.statusCode == 201) {
+        return {"success": true, "data": jsonDecode(res.body)};
+      } else {
+        return {"success": false, "error": jsonDecode(res.body)};
+      }
+    } catch (e) {
+      return {"success": false, "error": e.toString()};
+    }
+  }
+
 }

@@ -119,14 +119,14 @@ class Developerpreferences(models.Model):
 
 class Developerprofile(models.Model):
     user = models.ForeignKey(User, models.DO_NOTHING)
-    skills = models.TextField(blank=True, null=True)
+    skills = models.JSONField(blank=True, null=True)
     availability = models.TextField(blank=True, null=True)
     rating = models.FloatField(blank=True, null=True)
     profile_picture = models.TextField(blank=True, null=True)
     accomplishments = models.JSONField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'developerprofile'
 
 

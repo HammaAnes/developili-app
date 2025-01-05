@@ -66,3 +66,18 @@ class PreviousProjectDevSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Create the instance with the mapped developer field
         return Previousprojectdev.objects.create(**validated_data)
+    
+
+class DeveloperProfileSerialization(serializers.Serializer):
+    user = serializers.IntegerField()  # Expect user as an integer (user ID)
+    skills = serializers.JSONField()  # Expect skills as a JSON field (list or dict)
+
+    def validate(self, data):
+        # Ensure the user has a developer profile
+        developer = Developerprofile.objects.filter(user_id=data['user']).first()
+        if not developer:
+            raise serializers.ValidationError("This user does not have a developer profile.")
+        
+        # Add the developer profile to validated data for use in the view
+        data['developer'] = developer
+        return data

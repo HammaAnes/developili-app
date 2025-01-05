@@ -347,7 +347,7 @@ class _My_6th_question_State extends State<My_6th_question> {
                 child: ElevatedButton(
                   onPressed: (minimumController.text.isNotEmpty &&
                           maximumController.text.isNotEmpty)
-                      ? _goToNextPage
+                      ? ()=> _submitAnswer(minimumController.text+","+maximumController.text)
                       : null, // Désactivé si aucun formulaire n'est rempli
                   style: ElevatedButton.styleFrom(
                     backgroundColor: (minimumController.text.isNotEmpty ||
