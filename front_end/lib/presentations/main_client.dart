@@ -6,6 +6,8 @@ import 'top_devs_page.dart';
 import 'projects_page.dart';
 import 'message_icone_client.dart';
 import 'Questions_SRS/Form_SRS_qst1.dart';
+import 'projects_page.dart';
+import 'Payments.dart';
 
 void main() {
   runApp(const ClientMain());
@@ -31,6 +33,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -266,6 +269,100 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      drawer: Drawer(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xff314270),
+                Color(0xff5E7ED6),
+              ],
+              stops: [0.1, 0.73],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Stack(
+                  children: [
+                    // Profile Image
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Profile Image Clicked');
+                        },
+                        child: CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.grey.shade300,
+                          child: Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // Back Icon
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Buttons
+              buildMenuTile(
+                index: 0,
+                icon: Icons.backup_table_outlined,
+                label: 'Projects',
+                context: context,
+                destination: ProjectsPage(),
+              ),
+              const SizedBox(height: 10),
+              buildMenuTile(
+                index: 1,
+                icon: Icons.payments_outlined,
+                label: 'Payments',
+                context: context,
+                destination: Payments(),
+              ),
+              const SizedBox(height: 10),
+              buildMenuTile(
+                index: 2,
+                icon: Icons.settings,
+                label: 'Settings',
+                context: context,
+                destination: Payments(),
+              ),
+              const SizedBox(height: 10),
+              buildMenuTile(
+                index: 3,
+                icon: Icons.phone_in_talk_rounded,
+                label: 'Help & Support',
+                context: context,
+                destination: Payments(),
+              ),
+            ],
+          ),
+        ),
+      ),
 
       // Footer (Kept as is)
       bottomNavigationBar: Container(
@@ -345,6 +442,45 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildMenuTile({
+    required int index,
+    required IconData icon,
+    required String label,
+    required BuildContext context,
+    required Widget destination,
+  }) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        color: _selectedIndex == index ? Colors.black : Colors.white,
+      ),
+      title: Text(
+        label,
+        style: TextStyle(
+          color: _selectedIndex == index ? Colors.black : Colors.white,
+          fontSize: 22,
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destination),
+        );
+        print('$label clicked');
+        // Add navigation logic here if necessary
+      },
+      tileColor: _selectedIndex == index
+          ? Colors.white.withOpacity(0.2)
+          : Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
