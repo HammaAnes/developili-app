@@ -3,6 +3,7 @@ import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
 import 'main_client.dart';
 import 'chat_client.dart';
 import 'profile_client.dart';
+import 'Wallet.dart';
 
 void main() {
   runApp(const MyAppMain());
@@ -67,7 +68,7 @@ class Payments extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               child: Text(
-                "Payments",
+                "Settings",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28,
@@ -81,46 +82,80 @@ class Payments extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  _buildPaymentButton(
-                    imagePath: 'lib/icons/apple-logo.png',
-                    text: "Apple ID",
+                  _buildSettingsButton(
+                    imagePath: 'lib/icons/profile_settings.png',
+                    text: "Profile",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 15), // Espacement entre les boutons
+                  _buildSettingsButton(
+                    imagePath: 'lib/icons/notification.png',
+                    text: "Notifications",
                     onPressed: () {
                       // Action pour ce bouton
                     },
                   ),
                   const SizedBox(height: 15), // Espacement entre les boutons
-                  _buildPaymentButton(
-                    imagePath: 'lib/icons/master_card.png',
-                    text: "Master Card",
+                  _buildSettingsButton(
+                    imagePath: 'lib/icons/wallet_settings.png',
+                    text: "Wallet",
                     onPressed: () {
-                      // Action pour ce bouton
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Wallet()),
+                      );
                     },
                   ),
-                  const SizedBox(height: 15), // Espacement entre les boutons
-                  _buildPaymentButton(
-                    imagePath: 'lib/icons/visa.png',
-                    text: "Visa",
+                  const SizedBox(
+                      height: 15), // Espacement avant les nouveaux boutons
+                  _buildSettingsButton(
+                    imagePath: 'lib/icons/key-square_settings.png',
+                    text: "Login settings",
                     onPressed: () {
                       // Action pour ce bouton
                     },
                   ),
                   const SizedBox(
-                      height: 30), // Espacement avant les nouveaux boutons
-                  _buildColoredButton(
-                    text: "Wallet",
-                    color: const Color(0xFF0094FF),
+                      height: 15), // Espacement avant les nouveaux boutons
+                  _buildSettingsButton(
+                    imagePath: 'lib/icons/call-calling_settings.png',
+                    text: "Help & Support",
                     onPressed: () {
-                      // Action pour le bouton Wallet
+                      // Action pour ce bouton
                     },
                   ),
-                  const SizedBox(height: 15),
-                  _buildColoredButton(
-                    text: "Add Payment Method",
-                    color: const Color(0xFF0094FF),
+                  const SizedBox(
+                      height: 100), // Espacement avant les nouveaux boutons
+
+                  TextButton(
                     onPressed: () {
-                      // Action pour le bouton Add Payment Method
+                      // Action pour le bouton de déconnexion
                     },
-                  ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: Color.fromARGB(255, 25, 43, 109),
+                          size: 40,
+                        ),
+                        const SizedBox(
+                            width: 10), // Espacement entre l'icône et le texte
+                        const Text(
+                          'Log Out',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 25, 43, 109),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -214,7 +249,7 @@ class Payments extends StatelessWidget {
   }
 
   // Widget pour construire chaque bouton avec Image.asset
-  Widget _buildPaymentButton({
+  Widget _buildSettingsButton({
     required String imagePath,
     required String text,
     required VoidCallback onPressed,
@@ -223,7 +258,7 @@ class Payments extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: TextButton(
         style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 25.0),
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
           backgroundColor: Colors.white.withOpacity(0.0), // Transparent
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
@@ -238,14 +273,14 @@ class Payments extends StatelessWidget {
               children: [
                 Image.asset(
                   imagePath,
-                  width: 35,
-                  height: 35,
+                  width: 45,
+                  height: 45,
                 ), // Icône personnalisée
                 const SizedBox(width: 15),
                 Text(
                   text,
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),

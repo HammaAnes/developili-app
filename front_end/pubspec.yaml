@@ -90,6 +90,11 @@ flutter:
     - lib/icons/Info_section_blue.png
     - lib/icons/add-circle.png
     - lib/icons/export.png
+    - lib/icons/call-calling_settings.png
+    - lib/icons/key-square_settings.png
+    - lib/icons/notification.png
+    - lib/icons/profile_settings.png
+    - lib/icons/wallet_settings.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

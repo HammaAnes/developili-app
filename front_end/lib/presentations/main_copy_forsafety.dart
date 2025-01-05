@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
-import 'profile.dart';
+import 'profile_dev.dart';
 
 void main() {
   runApp(const MyAppMain());
