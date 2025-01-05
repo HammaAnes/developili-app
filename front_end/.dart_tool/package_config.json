@@ -36,6 +36,7 @@
       "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.18.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+      "languageVersion": "2.18"
     },
     {
       "name": "cupertino_icons",
@@ -162,6 +163,7 @@
       "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+      "languageVersion": "2.18"
     },
     {
       "name": "stream_channel",
@@ -174,6 +176,7 @@
       "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+      "languageVersion": "2.18"
     },
     {
       "name": "term_glyph",
@@ -185,6 +188,7 @@
       "name": "test_api",
       "rootUri": "file:///C:/Users/DELL/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.2",
       "packageUri": "lib/",
+      "languageVersion": "3.2"
       "languageVersion": "3.2"
     },
     {
