@@ -3,6 +3,7 @@ import '../couleur_du_fond.dart';
 import 'Form_SRS_qst4.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'Form_SRS_qst6.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart'; // Importation du color picker
+import '../api_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,6 +31,8 @@ class _My_5th_question_State extends State<My_5th_question>
   bool showForm = false; // Contrôle l'affichage du formulaire
   int currentPage = 4; // Page actuelle
   final int totalPages = 10; // Nombre total de pages
+  bool isLoading = false; // Loading indicator
+  bool showNext = false;
 
   // Méthode pour passer à la page suivante
   void _goToNextPage() {
@@ -45,6 +48,63 @@ class _My_5th_question_State extends State<My_5th_question>
       context,
       MaterialPageRoute(builder: (context) => My_4th_question()),
     );
+  }
+
+  // Submit the selected answer to the backend
+  Future<void> _submitAnswer(String answer) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.submitAnswer(
+          1,
+          13,
+          answer,
+          'handle_questions',
+          'null'); // Example: client_id = 1, question_id = 1
+      if (!(result["success"])) {
+        
+        // Show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to submit answer: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _handleBackButton() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.deleteAnswer(1, 12,
+          'handle_questions'); // Replace with the actual client ID and question ID
+      if (result["success"] == true) {
+        _goBack2ndPage(); // Navigate to the previous page
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to go back: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   // Méthode pour ouvrir le color picker
@@ -81,7 +141,9 @@ class _My_5th_question_State extends State<My_5th_question>
           TextButton(
             child: Text('Submit'),
             onPressed: () {
-              Navigator.of(context).setState(() {});
+              Color color = _currentColor;
+              _submitAnswer("${color.red}+${color.green}+${color.blue}");
+              showNext = true;
             },
           ),
         ],
@@ -142,7 +204,7 @@ class _My_5th_question_State extends State<My_5th_question>
                 bottom: 55,
                 left: 20,
                 child: ElevatedButton(
-                  onPressed: _goBack2ndPage,
+                  onPressed: _handleBackButton,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
@@ -163,7 +225,9 @@ class _My_5th_question_State extends State<My_5th_question>
                 bottom: 55,
                 right: 20,
                 child: ElevatedButton(
-                  onPressed: _goToNextPage,
+                  onPressed: showNext
+                  ? _goToNextPage
+                  : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(

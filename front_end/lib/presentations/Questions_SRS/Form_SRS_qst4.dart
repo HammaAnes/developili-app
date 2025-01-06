@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Form_SRS_qst3.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'Form_SRS_qst5.dart';
 import '../couleur_du_fond.dart';
+import '../api_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +28,7 @@ class _My_4th_question_State extends State<My_4th_question>
   int? boutonSelectionne; // Index du bouton sélectionné
   int currentPage = 3; // Page actuelle
   final int totalPages = 10; // Nombre total de pages
+  bool isLoading = false; // Loading indicator
 
   // Liste des noms des boutons
   final List<String> nomsBoutons = [
@@ -50,6 +52,65 @@ class _My_4th_question_State extends State<My_4th_question>
       context,
       MaterialPageRoute(builder: (context) => My_3rd_question()),
     );
+  }
+
+  // Submit the selected answer to the backend
+  Future<void> _submitAnswer(String answer) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.submitAnswer(
+          1,
+          12,
+          answer,
+          'handle_questions',
+          'null'); // Example: client_id = 1, question_id = 1
+      if (result["success"]) {
+        // Navigate to the next question on success
+        _goTo3rdPage();
+      } else {
+        // Show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to submit answer: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _handleBackButton() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final result = await APIService.deleteAnswer(1, 11,
+          'handle_questions'); // Replace with the actual client ID and question ID
+      if (result["success"] == true) {
+        _goBack1stPage(); // Navigate to the previous page
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to go back: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -110,7 +171,8 @@ class _My_4th_question_State extends State<My_4th_question>
                         onTap: () {
                           setState(() {
                             boutonSelectionne = index;
-                            _goTo3rdPage(); // Naviguer vers la prochaine page
+                            _submitAnswer(nomsBoutons[
+                                index]); // Naviguer vers la prochaine page
                           });
                         },
                         child: Container(
@@ -149,7 +211,7 @@ class _My_4th_question_State extends State<My_4th_question>
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    _goBack1stPage();
+                    _handleBackButton();
                   });
                 },
                 style: ElevatedButton.styleFrom(
