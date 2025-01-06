@@ -24,5 +24,4 @@ urlpatterns = [
     path('registration/', include('registration.urls')),
     path('handle_questions/', include('handle_questions.urls')),
     path('main_page/', include('main_page.urls')),        
-
 ]

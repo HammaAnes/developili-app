@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
 import 'profile_client.dart'; // Profile Page
-import 'project_details.dart'; // Devlopili Details Page
+import 'Project_Details.dart'; // Devlopili Details Page
 import 'top_devs_page.dart';
 import 'projects_page.dart';
 import 'message_icone_client.dart';
 import 'Questions_SRS/Form_SRS_qst1.dart';
-import 'projects_page.dart';
 import 'Payments.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(const ClientMain());
@@ -34,6 +36,33 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = -1;
+  List<Map<String, dynamic>> _projects = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProjects();
+  }
+
+  Future<void> _fetchProjects() async {
+    final response =
+        await http.get(Uri.parse('http://127.0.0.1:8000/main_page/'));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      setState(() {
+        _projects = data.cast<Map<String, dynamic>>();
+      });
+    } else {
+      // Handle errors
+      print('Failed to fetch projects');
+    }
+  }
+
+  Future<void> _storeData(int id) async {
+    var storage = FlutterSecureStorage();
+    await storage.write(key: 'projectID', value: '$id');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,35 +208,35 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   buildProjectCard(
-                    context,
-                    "Devlopili",
-                    "https://via.placeholder.com/200",
-                    ProjectDetailsPage(),
-                    [
-                      "https://via.placeholder.com/30",
-                      "https://via.placeholder.com/30"
-                    ],
-                  ),
+                      context,
+                      _projects[0]['title'],
+                      "https://via.placeholder.com/200",
+                      ProjectDetailsPage(),
+                      [
+                        "https://via.placeholder.com/30",
+                        "https://via.placeholder.com/30"
+                      ],
+                      0),
                   buildProjectCard(
-                    context,
-                    "Bricoula",
-                    "https://via.placeholder.com/200",
-                    ProjectDetailsPage(),
-                    [
-                      "https://via.placeholder.com/30",
-                      "https://via.placeholder.com/30"
-                    ],
-                  ),
+                      context,
+                      _projects[1]['title'],
+                      "https://via.placeholder.com/200",
+                      ProjectDetailsPage(),
+                      [
+                        "https://via.placeholder.com/30",
+                        "https://via.placeholder.com/30"
+                      ],
+                      1),
                   buildProjectCard(
-                    context,
-                    "CodeCraft",
-                    "https://via.placeholder.com/200",
-                    ProjectDetailsPage(),
-                    [
-                      "https://via.placeholder.com/30",
-                      "https://via.placeholder.com/30"
-                    ],
-                  ),
+                      context,
+                      _projects[2]['title'],
+                      "https://via.placeholder.com/200",
+                      ProjectDetailsPage(),
+                      [
+                        "https://via.placeholder.com/30",
+                        "https://via.placeholder.com/30"
+                      ],
+                      2),
                 ],
               ),
             ),
@@ -487,9 +516,10 @@ class _HomePageState extends State<HomePage> {
 
   // Helper for Project Card
   Widget buildProjectCard(BuildContext context, String title, String imageUrl,
-      Widget detailsPage, List<String> profileUrls) {
+      Widget detailsPage, List<String> profileUrls, int projectID) {
     return GestureDetector(
       onTap: () {
+        _storeData(projectID);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => detailsPage),
