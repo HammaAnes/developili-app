@@ -1,11 +1,7 @@
 import pandas as pd
 import re
 from sqlalchemy import create_engine
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import MultiLabelBinarizer
-from sklearn.metrics import accuracy_score, classification_report
-from imblearn.over_sampling import RandomOverSampler
 import sys
 
 # Database connection details
@@ -82,43 +78,8 @@ mlb = MultiLabelBinarizer()
 languages_encoded = mlb.fit_transform(df['languages'])
 df_languages = pd.DataFrame(languages_encoded, columns=mlb.classes_)
 
-# Prepare input (X) and output (y)
-X = df_languages
-y = df['experience_level']
-
-# Balance the dataset
-ros = RandomOverSampler(random_state=42)
-X_resampled, y_resampled = ros.fit_resample(X, y)
-
-# Split dataset into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
-
-# Train a RandomForestClassifier with hyperparameter tuning
-param_grid = {
-    'n_estimators': [100, 200, 500],
-    'max_depth': [10, 15, 20],
-    'min_samples_split': [2, 5],
-    'min_samples_leaf': [1, 2],
-}
-grid_search = GridSearchCV(
-    estimator=RandomForestClassifier(random_state=42),
-    param_grid=param_grid,
-    scoring='accuracy',
-    cv=3,
-    n_jobs=-1
-)
-grid_search.fit(X_train, y_train)
-
-# Best model
-model = grid_search.best_estimator_
-
-# Evaluate the model
-y_pred = model.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
-
-print(f"\nModel Accuracy: {accuracy:.2f}")
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
+# Combine encoded languages with the original data
+df = pd.concat([df, df_languages], axis=1)
 
 # Extract languages and budget from user input
 def extract_features_from_text(text, budget):
@@ -145,45 +106,53 @@ def extract_features_from_text(text, budget):
 
     return list(set(languages)), experience_level
 
-# Find the top 5 developers based on user input
-def find_top_5_developers(text, budget):
+# Find top developers
+def find_top_developers(languages, experience_level):
     """
-    Find the top 5 developers based on client input, filtering by required languages and budget.
+    Find the top developers for the given languages.
     """
-    languages_input, experience_input = extract_features_from_text(text, budget)
+    results = {"single_language": {}, "combined": [], "individual": {}}
 
-    # Filter matching developers
-    matching_developers = df[
-        df['languages'].apply(lambda x: bool(set(languages_input).intersection(x))) &
-        (df['experience_level'] == experience_input)
-    ]
+    if len(languages) == 1:  # If only one language is specified
+        lang = languages[0]
+        top_devs = df[
+            (df[lang] == 1) & (df['experience_level'] == experience_level)
+        ].head(5)
+        results["single_language"][lang] = list(top_devs["developer_id"])
+        return results
 
-    if matching_developers.empty:
-        print("\nNo developers matched your criteria.")
-        return []
-
-    # Avoid SettingWithCopyWarning
-    matching_developers = matching_developers.copy()
-    matching_developers['match_score'] = matching_developers['developer_name'].apply(
-        lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
+    # Developers who know at least 2 out of the requested languages
+    df["match_score"] = df["languages"].apply(
+        lambda x: len(set(languages).intersection(x))
     )
+    all_languages_match = df[
+        (df["match_score"] >= 2) & (df["experience_level"] == experience_level)
+    ].head(5)
+    results["combined"] = list(all_languages_match["developer_id"])
 
-    # Return the top 5 developers based on match scores
-    return matching_developers.sort_values(by='match_score', ascending=False).head(15)
+    # Individual languages
+    excluded_ids = set(all_languages_match["developer_id"])
+    for lang in languages:
+        matching_devs = df[
+            (df[lang] == 1)
+            & (df['experience_level'] == experience_level)
+            & (~df["developer_id"].isin(excluded_ids))
+        ].head(5)
+        results["individual"][lang] = list(matching_devs["developer_id"])
+
+    return results
 
 # Main Script
 try:
     client_input = input("Enter the type of developer you're looking for (e.g., 'Python, Java, React'): ").upper()
     client_budget = input("Enter your budget (Small, Medium, High): ").upper()
 
-    top_matches = find_top_5_developers(client_input, client_budget)
+    languages_input, experience_input = extract_features_from_text(client_input, client_budget)
 
-    if not isinstance(top_matches, list) and not top_matches.empty:
-        print("\nTop 5 matches:")
-        for _, row in top_matches.iterrows():
-            print(f"User ID: {row['developer_id']}, {row['developer_name']}: {row['match_score']:.2f}% "
-                  f"(Experience: {row['experience_level']}, Languages: {', '.join(row['languages'])})")
-    else:
-        print("\nNo developers matched your criteria.")
+    developer_results = find_top_developers(languages_input, experience_input)
+
+    print("\nResults:")
+    print(developer_results)
+
 except ValueError as e:
     print(f"Error: {e}")
