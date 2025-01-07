@@ -1,7 +1,10 @@
 import pandas as pd
 import re
 from sqlalchemy import create_engine
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import MultiLabelBinarizer
+from imblearn.over_sampling import RandomOverSampler
 import sys
 
 # Database connection details
@@ -78,8 +81,35 @@ mlb = MultiLabelBinarizer()
 languages_encoded = mlb.fit_transform(df['languages'])
 df_languages = pd.DataFrame(languages_encoded, columns=mlb.classes_)
 
-# Combine encoded languages with the original data
-df = pd.concat([df, df_languages], axis=1)
+# Prepare input (X) and output (y)
+X = df_languages
+y = df['experience_level']
+
+# Balance the dataset
+ros = RandomOverSampler(random_state=42)
+X_resampled, y_resampled = ros.fit_resample(X, y)
+
+# Split dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
+
+# Train a RandomForestClassifier with hyperparameter tuning
+param_grid = {
+    'n_estimators': [100, 200, 500],
+    'max_depth': [10, 15, 20],
+    'min_samples_split': [2, 5],
+    'min_samples_leaf': [1, 2],
+}
+grid_search = GridSearchCV(
+    estimator=RandomForestClassifier(random_state=42),
+    param_grid=param_grid,
+    scoring='accuracy',
+    cv=3,
+    n_jobs=-1
+)
+grid_search.fit(X_train, y_train)
+
+# Best model
+model = grid_search.best_estimator_
 
 # Extract languages and budget from user input
 def extract_features_from_text(text, budget):
@@ -106,39 +136,62 @@ def extract_features_from_text(text, budget):
 
     return list(set(languages)), experience_level
 
-# Find top developers
+# Find developers for all input languages
 def find_top_developers(languages, experience_level):
     """
-    Find the top developers for the given languages.
+    Find the top developers based on the matching criteria.
     """
-    results = {"single_language": {}, "combined": [], "individual": {}}
+    results = {
+        "all_languages": [],
+        "partial_match": [],
+        "individual_languages": {}
+    }
 
-    if len(languages) == 1:  # If only one language is specified
-        lang = languages[0]
-        top_devs = df[
-            (df[lang] == 1) & (df['experience_level'] == experience_level)
-        ].head(5)
-        results["single_language"][lang] = list(top_devs["developer_id"])
-        return results
+    # Developers matching all languages
+    all_languages_devs = df[
+        df['languages'].apply(lambda x: set(languages).issubset(x)) &
+        (df['experience_level'] == experience_level)
+    ]
 
-    # Developers who know at least 2 out of the requested languages
-    df["match_score"] = df["languages"].apply(
-        lambda x: len(set(languages).intersection(x))
-    )
-    all_languages_match = df[
-        (df["match_score"] >= 2) & (df["experience_level"] == experience_level)
-    ].head(5)
-    results["combined"] = list(all_languages_match["developer_id"])
+    if not all_languages_devs.empty:
+        all_languages_devs = all_languages_devs.copy()
+        all_languages_devs['match_score'] = all_languages_devs['developer_name'].apply(
+            lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
+        )
+        results["all_languages"] = all_languages_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
 
-    # Individual languages
-    excluded_ids = set(all_languages_match["developer_id"])
+    # Exclude developers already in "all_languages"
+    excluded_ids = set(results["all_languages"])
+
+    # Developers matching at least 2 languages
+    partial_match_devs = df[
+        df['languages'].apply(lambda x: len(set(languages).intersection(x)) >= 2) &
+        (df['experience_level'] == experience_level) &
+        (~df['developer_id'].isin(excluded_ids))
+    ]
+
+    if not partial_match_devs.empty:
+        partial_match_devs = partial_match_devs.copy()
+        partial_match_devs['match_score'] = partial_match_devs['developer_name'].apply(
+            lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
+        )
+        results["partial_match"] = partial_match_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
+
+    # Individual language matches
+    excluded_ids.update(results["partial_match"])
     for lang in languages:
-        matching_devs = df[
-            (df[lang] == 1)
-            & (df['experience_level'] == experience_level)
-            & (~df["developer_id"].isin(excluded_ids))
-        ].head(5)
-        results["individual"][lang] = list(matching_devs["developer_id"])
+        individual_devs = df[
+            df['languages'].apply(lambda x: lang in x) &
+            (df['experience_level'] == experience_level) &
+            (~df['developer_id'].isin(excluded_ids))
+        ]
+
+        if not individual_devs.empty:
+            individual_devs = individual_devs.copy()
+            individual_devs['match_score'] = individual_devs['developer_name'].apply(
+                lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
+            )
+            results["individual_languages"][lang] = individual_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
 
     return results
 
@@ -149,10 +202,8 @@ try:
 
     languages_input, experience_input = extract_features_from_text(client_input, client_budget)
 
-    developer_results = find_top_developers(languages_input, experience_input)
-
-    print("\nResults:")
-    print(developer_results)
+    results = find_top_developers(languages_input, experience_input)
+    print("\nResults:", results)
 
 except ValueError as e:
     print(f"Error: {e}")
