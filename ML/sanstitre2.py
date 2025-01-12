@@ -121,9 +121,6 @@ def extract_features_from_text(text, budget):
 
     languages = re.findall(languages_pattern, text)
 
-    if not languages:
-        raise ValueError("No programming languages found in the input text. Please specify at least one valid programming language.")
-
     # Map budget to experience levels
     if "SMALL" in budget.upper():
         experience_level = "Junior"
@@ -136,10 +133,11 @@ def extract_features_from_text(text, budget):
 
     return list(set(languages)), experience_level
 
-# Find developers for all input languages
+# Find developers for all input languages or return top developers for experience level
 def find_top_developers(languages, experience_level):
     """
     Find the top developers based on the matching criteria.
+    If no languages are specified, return top developers based on experience level.
     """
     results = {
         "all_languages": [],
@@ -147,51 +145,39 @@ def find_top_developers(languages, experience_level):
         "individual_languages": {}
     }
 
-    # Developers matching all languages
-    all_languages_devs = df[
-        df['languages'].apply(lambda x: set(languages).issubset(x)) &
-        (df['experience_level'] == experience_level)
-    ]
-
-    if not all_languages_devs.empty:
-        all_languages_devs = all_languages_devs.copy()
-        all_languages_devs['match_score'] = all_languages_devs['developer_name'].apply(
-            lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
-        )
-        results["all_languages"] = all_languages_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
-
-    # Exclude developers already in "all_languages"
-    excluded_ids = set(results["all_languages"])
-
-    # Developers matching at least 2 languages
-    partial_match_devs = df[
-        df['languages'].apply(lambda x: len(set(languages).intersection(x)) >= 2) &
-        (df['experience_level'] == experience_level) &
-        (~df['developer_id'].isin(excluded_ids))
-    ]
-
-    if not partial_match_devs.empty:
-        partial_match_devs = partial_match_devs.copy()
-        partial_match_devs['match_score'] = partial_match_devs['developer_name'].apply(
-            lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
-        )
-        results["partial_match"] = partial_match_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
-
-    # Individual language matches
-    excluded_ids.update(results["partial_match"])
-    for lang in languages:
-        individual_devs = df[
-            df['languages'].apply(lambda x: lang in x) &
-            (df['experience_level'] == experience_level) &
-            (~df['developer_id'].isin(excluded_ids))
+    if languages:  # If languages are provided
+        all_languages_devs = df[
+            df['languages'].apply(lambda x: set(languages).issubset(x)) &
+            (df['experience_level'] == experience_level)
         ]
-
-        if not individual_devs.empty:
-            individual_devs = individual_devs.copy()
-            individual_devs['match_score'] = individual_devs['developer_name'].apply(
+        if not all_languages_devs.empty:
+            all_languages_devs = all_languages_devs.copy()
+            all_languages_devs['match_score'] = all_languages_devs['developer_name'].apply(
                 lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
             )
-            results["individual_languages"][lang] = individual_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
+            results["all_languages"] = all_languages_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
+
+        excluded_ids = set(results["all_languages"])
+        for lang in languages:
+            individual_devs = df[
+                df['languages'].apply(lambda x: lang in x) &
+                (df['experience_level'] == experience_level) &
+                (~df['developer_id'].isin(excluded_ids))
+            ]
+            if not individual_devs.empty:
+                individual_devs = individual_devs.copy()
+                individual_devs['match_score'] = individual_devs['developer_name'].apply(
+                    lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
+                )
+                results["individual_languages"][lang] = individual_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
+    else:  # If no languages are provided
+        fallback_devs = df[df['experience_level'] == experience_level]
+        if not fallback_devs.empty:
+            fallback_devs = fallback_devs.copy()
+            fallback_devs['match_score'] = fallback_devs['developer_name'].apply(
+                lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
+            )
+            results["all_languages"] = fallback_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
 
     return results
 
@@ -200,7 +186,11 @@ try:
     client_input = input("Enter the type of developer you're looking for (e.g., 'Python, Java, React'): ").upper()
     client_budget = input("Enter your budget (Small, Medium, High): ").upper()
 
-    languages_input, experience_input = extract_features_from_text(client_input, client_budget)
+    try:
+        languages_input, experience_input = extract_features_from_text(client_input, client_budget)
+    except ValueError as e:
+        print("No specific languages provided or found. Finding the best developers for your experience level.")
+        languages_input, experience_input = [], map_experience_level(client_budget)
 
     results = find_top_developers(languages_input, experience_input)
     print("\nResults:", results)
