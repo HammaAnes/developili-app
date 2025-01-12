@@ -88,7 +88,7 @@ class _RequestsPageState extends State<RequestsPage> {
                       hintText: "Search here...",
                       border: InputBorder.none,
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                     ),
                   ),
                 ),

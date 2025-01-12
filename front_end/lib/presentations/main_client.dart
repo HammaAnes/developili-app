@@ -210,31 +210,31 @@ class _HomePageState extends State<HomePage> {
                   buildProjectCard(
                       context,
                       _projects[0]['title'],
-                      "https://via.placeholder.com/200",
+                      "https://www.cloudapper.ai/wp-content/uploads/custom_images/projects/device-1.png",
                       ProjectDetailsPage(),
                       [
-                        "https://via.placeholder.com/30",
-                        "https://via.placeholder.com/30"
+                        "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg",
+                        "https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg="
                       ],
                       0),
                   buildProjectCard(
                       context,
                       _projects[1]['title'],
-                      "https://via.placeholder.com/200",
+                      "https://d6fiz9tmzg8gn.cloudfront.net/wp-content/uploads/2023/08/Blog3-7.jpg",
                       ProjectDetailsPage(),
                       [
-                        "https://via.placeholder.com/30",
-                        "https://via.placeholder.com/30"
+                        "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg",
+                        "https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg="
                       ],
                       1),
                   buildProjectCard(
                       context,
                       _projects[2]['title'],
-                      "https://via.placeholder.com/200",
+                      "https://www.jotform.com/blog/wp-content/uploads/2021/03/The-9-best-cloud-storage-apps-for-iOS-and-Android.png",
                       ProjectDetailsPage(),
                       [
-                        "https://via.placeholder.com/30",
-                        "https://via.placeholder.com/30"
+                        "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg",
+                        "https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.jpg?s=612x612&w=0&k=20&c=9zbG2-9fl741fbTWw5fNgcEEe4ll-JegrGlQQ6m54rg="
                       ],
                       2),
                 ],
@@ -287,11 +287,11 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   buildDevProfile(context, "Steve M", "Full-stack Developer",
-                      "https://via.placeholder.com/100", ProfilePage()),
+                      "https://www.corporatephotographerslondon.com/wp-content/uploads/2023/02/LinkedIn_Profile_Photo.jpg", ProfilePage()),
                   buildDevProfile(context, "Harvey J", "UI/UX Designer",
-                      "https://via.placeholder.com/100", ProfilePage()),
+                      "https://blog-pixomatic.s3.appcnt.com/image/22/01/26/61f166e07f452/_orig/pixomatic_1572877263963.png", ProfilePage()),
                   buildDevProfile(context, "Asep Yanto", "Front End Developer",
-                      "https://via.placeholder.com/100", ProfilePage()),
+                      "https://img.freepik.com/premium-photo/professional-linkedin-profile-photo-young-man-suit-tie-smiling-confidently_1141323-1549.jpg", ProfilePage()),
                 ],
               ),
             ),
