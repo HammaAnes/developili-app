@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from use_ai.ai_model.mymodel import find_top_developers
+from use_ai.ai_model.mymodel import find_top_developers, extract_features_from_text, map_experience_level
 from log_in.models import Questionresponsemapping
 import logging
 
@@ -32,7 +32,7 @@ def topDeveloper(request):
         # Extract response fields
         experience_level = experience_response.response  # Replace 'response' with actual field name
         languages = language_response.response  # Replace 'response' with actual field name
-
+        preferred_range = Questionresponsemapping.objects.filter(question_id=23).all()
         # Debug log: Check values
         import logging
 
@@ -49,11 +49,17 @@ def topDeveloper(request):
         # Debug log: After processing
         logging.info(f"Processed Languages: {languages}")
 
+        try:
+            languages_input, experience_input = extract_features_from_text(languages, experience_level, preferred_range)
+        except ValueError as e:
+            print("No specific languages provided or found. Finding the best developers for your experience level.")
+            languages_input, experience_input = [], map_experience_level(experience_level)
         # Call AI model
-        results = find_top_developers(languages, experience_level)
+        results = find_top_developers(languages_input, experience_input)
 
         # Debug log: Results
         logging.info(f"AI Model Results: {results}")
+        print(results)
 
         return Response({"success": True, "data": results}, status=status.HTTP_200_OK)
     except Exception as e:

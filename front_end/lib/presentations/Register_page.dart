@@ -38,8 +38,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return _passwordController.text == _confirmPasswordController.text;
   }
 
+  // Function to extract username from email
+  String _extractUsername(String email) {
+    return email.replaceAll('@gmail.com', '');
+  }
+
   // Function to handle API call for user registration
   Future<void> _registerUser() async {
+    String email = _usernameController.text;
+
     if (!_passwordsMatch()) {
       _showErrorDialog("Passwords do not match!");
       return;
@@ -56,8 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
           "Content-Type": "application/json",
         },
         body: jsonEncode({
-          "username": _usernameController.text,
-          "email": "${_usernameController.text}@gmail.com",
+          "username": _extractUsername(email),
+          "email": email,
           "password": _passwordController.text,
           "role": _isDeveloper ? "developer" : "client",
         }),
@@ -146,14 +153,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Enter your username',
+                      'Enter your email address',
                       style: TextStyle(color: Colors.white, fontSize: 16.43),
                     ),
                   ),
                   TextField(
                     controller: _usernameController,
                     decoration: InputDecoration(
-                      hintText: 'Username',
+                      hintText: 'email address',
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
