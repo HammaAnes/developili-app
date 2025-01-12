@@ -3,6 +3,8 @@ import '../couleur_du_fond.dart';
 import 'Form_SRS_qst7.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'Form_SRS_qst9.dart';
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,7 +63,10 @@ class _My_8th_question_State extends State<My_8th_question>
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 16, answer,
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.submitAnswer(id, 16, answer,
           'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
@@ -89,7 +94,10 @@ class _My_8th_question_State extends State<My_8th_question>
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 15,'handle_questions'); // Replace with the actual client ID and question ID
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 15,'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
       } else {

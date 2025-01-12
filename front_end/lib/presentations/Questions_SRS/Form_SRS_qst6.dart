@@ -3,6 +3,8 @@ import '../couleur_du_fond.dart';
 import 'Form_SRS_qst5.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import 'Form_SRS_qst7.dart';
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -153,8 +155,11 @@ Future<void> _showSelectionDialog(
     });
 
     try {
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
       final result = await APIService.submitAnswer(
-          1,
+          id,
           14,
           answer,
           'handle_questions',
@@ -185,7 +190,10 @@ Future<void> _showSelectionDialog(
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 13,
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 13,
           'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page

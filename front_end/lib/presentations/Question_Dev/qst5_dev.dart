@@ -4,6 +4,8 @@ import 'qst4_dev.dart'; // Importez la page que vous souhaitez afficher après a
 import 'qst6_dev.dart';
 import 'package:flutter/services.dart'; // N'oubliez pas d'importer ce package pour FilteringTextInputFormatter
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -68,7 +70,10 @@ class _My_5th_question_State extends State<My_5th_question> {
     });
 
     try {
-      final result = await APIService.devPrevProjct(17, project_name,
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.devPrevProjct(id, project_name,
           dev_speciality); // Example: client_id = 1, question_id = 1
       if (!result["success"]) {
         // Show an error message
@@ -93,7 +98,10 @@ class _My_5th_question_State extends State<My_5th_question> {
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 21,
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 21,
           'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
