@@ -16,9 +16,34 @@ db_config = {
     'database': 'defaultdb'
 }
 
+def extract_max_salary(salary_range):
+    """
+    Extract the maximum salary from a salary range string (e.g., '4000-6000€' -> 6000, '<1000€' -> 1000, '>5000€' -> 5000).
+    """
+    if pd.isnull(salary_range):
+        return None
+    
+    # If the salary range is like "4000-6000€"
+    match = re.search(r'(\d+)-(\d+)', salary_range)
+    if match:
+        return int(match.group(2))  # Extract the max salary
+
+    # If the salary range is like "<1000€"
+    match_less_than = re.search(r'<\s*(\d+)', salary_range)
+    if match_less_than:
+        return int(match_less_than.group(1))  # Extract the salary after "<"
+
+    # If the salary range is like ">5000€"
+    match_greater_than = re.search(r'>\s*(\d+)', salary_range)
+    if match_greater_than:
+        return int(match_greater_than.group(1))  # Extract the salary after ">"
+
+    # If no valid salary range is found, return None
+    return None
+
 def load_developer_data():
     """
-    Load developer data, fetching skills and experience levels from the database.
+    Load developer data, fetching skills, experience levels, and salary range from question response mapping.
     """
     try:
         engine = create_engine(
@@ -29,15 +54,21 @@ def load_developer_data():
             u.id AS developer_id, 
             u.username AS developer_name, 
             dp.skills AS languages,
-            dp.rating AS experience_level
+            dp.rating AS experience_level,
+            qrm.response AS salary_range
         FROM "User" u
         INNER JOIN DeveloperProfile dp ON u.id = dp.user_id
+        LEFT JOIN QuestionResponseMapping qrm ON dp.user_id = qrm.user_id AND qrm.question_id = 23
         WHERE u.role = 'developer' AND u.is_active = TRUE;
         """
         df = pd.read_sql(query, engine)
         if df.empty:
             print("No data retrieved from the database.")
             return None
+        
+        # Apply the max salary extraction
+        df['max_salary'] = df['salary_range'].apply(extract_max_salary)
+        
         return df
     except Exception as e:
         print("Failed to load developer data:", e)
@@ -114,70 +145,66 @@ model = grid_search.best_estimator_
 # Extract languages and budget from user input
 def extract_features_from_text(text, budget):
     """
-    Extract programming languages from input text and map budget to experience levels.
+    Extract programming languages from input text and map budget to a maximum salary threshold.
     """
     text = text.upper()
     languages_pattern = r"(" + "|".join(re.escape(lang) for lang in mlb.classes_) + r")"
 
     languages = re.findall(languages_pattern, text)
 
-    # Map budget to experience levels
+    # Map budget to maximum salary
     if "SMALL" in budget.upper():
-        experience_level = "Junior"
+        max_salary = 1000
     elif "MEDIUM" in budget.upper():
-        experience_level = "Mid-Level"
+        max_salary = 6000
     elif "HIGH" in budget.upper():
-        experience_level = "Senior"
+        max_salary = 80000
     else:
         raise ValueError("Invalid budget specified. Use 'Small', 'Medium', or 'High'.")
 
-    return list(set(languages)), experience_level
+    return list(set(languages)), max_salary
 
-# Find developers for all input languages or return top developers for experience level
-def find_top_developers(languages, experience_level):
+# Find developers for all input languages or return top developers for salary range
+def find_top_developers(languages, max_salary):
     """
     Find the top developers based on the matching criteria.
-    If no languages are specified, return top developers based on experience level and rating.
     """
     results = {
         "all_languages": [],
         "individual_languages": {}
     }
 
-    if languages:  # If languages are provided
-        all_languages_devs = df[
-            df['languages'].apply(lambda x: set(languages).issubset(x)) &
-            (df['experience_level'] == experience_level)
+    if not languages:  # If no languages are provided
+        # Return the best developers within the salary range
+        fallback_devs = df[df['max_salary'] <= max_salary]
+        if not fallback_devs.empty:
+            results["all_languages"] = fallback_devs.sort_values(by='experience_level', ascending=False).head(5)['developer_id'].tolist()
+
+    elif len(languages) == 1:  # If just one language is provided
+        all_languages_devs = df[ 
+            df['languages'].apply(lambda x: set(languages).issubset(x)) & 
+            (df['max_salary'] <= max_salary)
         ]
         if not all_languages_devs.empty:
-            all_languages_devs = all_languages_devs.copy()
-            all_languages_devs['match_score'] = all_languages_devs['developer_name'].apply(
-                lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
-            )
-            results["all_languages"] = all_languages_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
+            results["all_languages"] = all_languages_devs.sort_values(by='experience_level', ascending=False).head(5)['developer_id'].tolist()
+
+    else:  # If multiple languages are provided
+        all_languages_devs = df[ 
+            df['languages'].apply(lambda x: set(languages).issubset(x)) & 
+            (df['max_salary'] <= max_salary)
+        ]
+        if not all_languages_devs.empty:
+            results["all_languages"] = all_languages_devs.sort_values(by='experience_level', ascending=False).head(5)['developer_id'].tolist()
 
         excluded_ids = set(results["all_languages"])
         for lang in languages:
-            individual_devs = df[
-                df['languages'].apply(lambda x: lang in x) &
-                (df['experience_level'] == experience_level) &
+            individual_devs = df[ 
+                df['languages'].apply(lambda x: lang in x) & 
+                (df['max_salary'] <= max_salary) & 
                 (~df['developer_id'].isin(excluded_ids))
             ]
             if not individual_devs.empty:
-                individual_devs = individual_devs.copy()
-                individual_devs['match_score'] = individual_devs['developer_name'].apply(
-                    lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
-                )
-                results["individual_languages"][lang] = individual_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
-    else:  # If no languages are provided
-        fallback_devs = df[df['experience_level'] == experience_level]
-        if not fallback_devs.empty:
-            fallback_devs = fallback_devs.copy()
-            fallback_devs['match_score'] = fallback_devs['developer_name'].apply(
-                lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
-            )
-            # Sort by rating (highest first) and experience level, return top 5
-            results["all_languages"] = fallback_devs.sort_values(by=['experience_level', 'experience_level'], ascending=[True, False]).head(5)['developer_id'].tolist()
+                results["individual_languages"][lang] = individual_devs.sort_values(by='experience_level', ascending=False).head(5)['developer_id'].tolist()
 
     return results
 
@@ -187,12 +214,12 @@ try:
     client_budget = input("Enter your budget (Small, Medium, High): ").upper()
 
     try:
-        languages_input, experience_input = extract_features_from_text(client_input, client_budget)
+        languages_input, max_salary_input = extract_features_from_text(client_input, client_budget)
     except ValueError as e:
-        print("No specific languages provided or found. Finding the best developers for your experience level.")
-        languages_input, experience_input = [], map_experience_level(client_budget)
+        print("No specific languages provided or found. Finding the best developers for your salary range.")
+        languages_input, max_salary_input = [], None
 
-    results = find_top_developers(languages_input, experience_input)
+    results = find_top_developers(languages_input, max_salary_input)
     print("\nResults:", results)
 
 except ValueError as e:
