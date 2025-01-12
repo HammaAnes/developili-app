@@ -60,7 +60,7 @@ class _ChooseDevPageState extends State<ChooseDevPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   children: [
                     // Front-End Section
-                    buildSectionTitle(context, "Front-End"),
+                    buildSectionTitle(context, "Top Developers"),
                     ...buildDevCards(context, [
                       {
                         "name": "Aihan Soysakal",
