@@ -30,6 +30,7 @@ def login_views(request):
                 'success': 'Successfully logged in',
                 'token': token.key,  # Return token to Flutter
                 'user': {
+                    'user_id': user.id,
                     'username': user.username,
                     'email': user.email,
                     'role': user.role,

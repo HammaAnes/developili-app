@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'Questions/Form_client_qst1.dart';
 import 'main_dev.dart';
 import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,6 +60,11 @@ class _LoginPageState extends State<LoginPage> {
       final data = jsonDecode(response.body);
       if (response.statusCode == 202) {
         if (data['success'] == "Successfully logged in") {
+          final storage = FlutterSecureStorage();
+          await storage.delete(key: "user_id");
+          await storage.write(
+              key: 'user_id', value: '${data['user']['user_id']}');
+              
           // Navigate to the success page
           String role = data['user']['role'];
           if (role == 'client') {

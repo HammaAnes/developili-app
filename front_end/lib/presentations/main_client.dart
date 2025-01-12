@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
 import 'profile_client.dart'; // Profile Page
-import 'project_details.dart'; // Devlopili Details Page
+import 'Project_Details.dart'; // Devlopili Details Page
 import 'top_devs_page.dart';
 import 'projects_page.dart';
 import 'message_icone_client.dart';
 import 'Questions_SRS/Form_SRS_qst1.dart';
+import 'Payments.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(const ClientMain());
@@ -31,6 +35,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = -1;
+  List<Map<String, dynamic>> _projects = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProjects();
+  }
+
+  Future<void> _fetchProjects() async {
+    final response =
+        await http.get(Uri.parse('http://127.0.0.1:8000/main_page/'));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      setState(() {
+        _projects = data.cast<Map<String, dynamic>>();
+      });
+    } else {
+      // Handle errors
+      print('Failed to fetch projects');
+    }
+  }
+
+  Future<void> _storeData(int id) async {
+    var storage = FlutterSecureStorage();
+    await storage.write(key: 'projectID', value: '$id');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,35 +208,35 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   buildProjectCard(
-                    context,
-                    "Devlopili",
-                    "https://via.placeholder.com/200",
-                    ProjectDetailsPage(),
-                    [
-                      "https://via.placeholder.com/30",
-                      "https://via.placeholder.com/30"
-                    ],
-                  ),
+                      context,
+                      _projects[0]['title'],
+                      "https://via.placeholder.com/200",
+                      ProjectDetailsPage(),
+                      [
+                        "https://via.placeholder.com/30",
+                        "https://via.placeholder.com/30"
+                      ],
+                      0),
                   buildProjectCard(
-                    context,
-                    "Bricoula",
-                    "https://via.placeholder.com/200",
-                    ProjectDetailsPage(),
-                    [
-                      "https://via.placeholder.com/30",
-                      "https://via.placeholder.com/30"
-                    ],
-                  ),
+                      context,
+                      _projects[1]['title'],
+                      "https://via.placeholder.com/200",
+                      ProjectDetailsPage(),
+                      [
+                        "https://via.placeholder.com/30",
+                        "https://via.placeholder.com/30"
+                      ],
+                      1),
                   buildProjectCard(
-                    context,
-                    "CodeCraft",
-                    "https://via.placeholder.com/200",
-                    ProjectDetailsPage(),
-                    [
-                      "https://via.placeholder.com/30",
-                      "https://via.placeholder.com/30"
-                    ],
-                  ),
+                      context,
+                      _projects[2]['title'],
+                      "https://via.placeholder.com/200",
+                      ProjectDetailsPage(),
+                      [
+                        "https://via.placeholder.com/30",
+                        "https://via.placeholder.com/30"
+                      ],
+                      2),
                 ],
               ),
             ),
@@ -264,6 +296,100 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ],
+        ),
+      ),
+      drawer: Drawer(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xff314270),
+                Color(0xff5E7ED6),
+              ],
+              stops: [0.1, 0.73],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Stack(
+                  children: [
+                    // Profile Image
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Profile Image Clicked');
+                        },
+                        child: CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.grey.shade300,
+                          child: Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // Back Icon
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Buttons
+              buildMenuTile(
+                index: 0,
+                icon: Icons.backup_table_outlined,
+                label: 'Projects',
+                context: context,
+                destination: ProjectsPage(),
+              ),
+              const SizedBox(height: 10),
+              buildMenuTile(
+                index: 1,
+                icon: Icons.payments_outlined,
+                label: 'Payments',
+                context: context,
+                destination: Payments(),
+              ),
+              const SizedBox(height: 10),
+              buildMenuTile(
+                index: 2,
+                icon: Icons.settings,
+                label: 'Settings',
+                context: context,
+                destination: Payments(),
+              ),
+              const SizedBox(height: 10),
+              buildMenuTile(
+                index: 3,
+                icon: Icons.phone_in_talk_rounded,
+                label: 'Help & Support',
+                context: context,
+                destination: Payments(),
+              ),
+            ],
+          ),
         ),
       ),
 
@@ -349,11 +475,51 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget buildMenuTile({
+    required int index,
+    required IconData icon,
+    required String label,
+    required BuildContext context,
+    required Widget destination,
+  }) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        color: _selectedIndex == index ? Colors.black : Colors.white,
+      ),
+      title: Text(
+        label,
+        style: TextStyle(
+          color: _selectedIndex == index ? Colors.black : Colors.white,
+          fontSize: 22,
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destination),
+        );
+        print('$label clicked');
+        // Add navigation logic here if necessary
+      },
+      tileColor: _selectedIndex == index
+          ? Colors.white.withOpacity(0.2)
+          : Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
+
   // Helper for Project Card
   Widget buildProjectCard(BuildContext context, String title, String imageUrl,
-      Widget detailsPage, List<String> profileUrls) {
+      Widget detailsPage, List<String> profileUrls, int projectID) {
     return GestureDetector(
       onTap: () {
+        _storeData(projectID);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => detailsPage),

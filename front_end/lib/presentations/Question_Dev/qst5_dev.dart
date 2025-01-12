@@ -4,6 +4,8 @@ import 'qst4_dev.dart'; // Importez la page que vous souhaitez afficher après a
 import 'qst6_dev.dart';
 import 'package:flutter/services.dart'; // N'oubliez pas d'importer ce package pour FilteringTextInputFormatter
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,6 +29,7 @@ class My_5th_question extends StatefulWidget {
 class _My_5th_question_State extends State<My_5th_question> {
   bool isMinimumSelected = false; // Indique si "Minimum" est sélectionné
   bool isMaximumSelected = false; // Indique si "Maximum" est sélectionné
+  int projectAdded = 0;
   bool isLoading = false;
   final TextEditingController minimumController = TextEditingController();
   final TextEditingController maximumController = TextEditingController();
@@ -52,24 +55,26 @@ class _My_5th_question_State extends State<My_5th_question> {
   }
 
   // Méthode pour le bouton "Add"
-  void _addProject() {
+  void _addProject(String pn, String ds) {
     // Effacer le contenu des champs de formulaire
-    
-
+    projectAdded++;
     // Optionnel: Afficher un message dans la console ou dans l'interface utilisateur
-    print('Le projet a été ajouté et les champs ont été réinitialisés');
+    _submitAnswer(pn, ds);
   }
 
-      Future<void> _submitAnswer(String project_name, String dev_speciality) async {
-        
-      minimumController.clear();
-      maximumController.clear();
+  Future<void> _submitAnswer(String project_name, String dev_speciality) async {
+    minimumController.clear();
+    maximumController.clear();
     setState(() {
       isLoading = true;
     });
 
     try {
-      final result = await APIService.devPrevProjct(17, project_name, dev_speciality); // Example: client_id = 1, question_id = 1
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.devPrevProjct(id, project_name,
+          dev_speciality); // Example: client_id = 1, question_id = 1
       if (!result["success"]) {
         // Show an error message
         ScaffoldMessenger.of(context).showSnackBar(
@@ -93,11 +98,14 @@ class _My_5th_question_State extends State<My_5th_question> {
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 21,'handle_questions'); // Replace with the actual client ID and question ID
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 21,
+          'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
       } else {
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Failed to go back: ${result["error"]}")),
         );
@@ -291,7 +299,8 @@ class _My_5th_question_State extends State<My_5th_question> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
-                        onPressed: ()=> _submitAnswer(minimumController.text, maximumController.text),
+                        onPressed: () => _addProject(
+                            minimumController.text, maximumController.text),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
@@ -317,7 +326,7 @@ class _My_5th_question_State extends State<My_5th_question> {
                 bottom: 55,
                 left: 20,
                 child: ElevatedButton(
-                  onPressed: _goBack2ndPage,
+                  onPressed: _handleBackButton,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
@@ -362,15 +371,11 @@ class _My_5th_question_State extends State<My_5th_question> {
                 bottom: 55,
                 right: 20,
                 child: ElevatedButton(
-                  onPressed: (minimumController.text.isNotEmpty &&
-                          maximumController.text.isNotEmpty)
+                  onPressed: (projectAdded > 0)
                       ? _goToNextPage
                       : null, // Désactivé si aucun formulaire n'est rempli
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: (minimumController.text.isNotEmpty ||
-                            maximumController.text.isNotEmpty)
-                        ? Colors.black
-                        : Colors.grey,
+                    backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(60),
                     ),

@@ -16,14 +16,14 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=30, blank=True, null=True)
     role = models.TextField(blank=True, null=True, choices=ROLE_CHOICES)    
     date_joined = models.DateTimeField(blank=True, null=True)
-    is_active = models.BooleanField(blank=True, null=True)
+    is_active = models.BooleanField(blank=True, default=True)
 
 
     USERNAME_FIELD = 'email'  
     REQUIRED_FIELDS = ['username']
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'User'
 
 class Applicationfeatures(models.Model):
@@ -119,14 +119,14 @@ class Developerpreferences(models.Model):
 
 class Developerprofile(models.Model):
     user = models.ForeignKey(User, models.DO_NOTHING)
-    skills = models.TextField(blank=True, null=True)
+    skills = models.JSONField(blank=True, null=True)
     availability = models.TextField(blank=True, null=True)
     rating = models.FloatField(blank=True, null=True)
     profile_picture = models.TextField(blank=True, null=True)
     accomplishments = models.JSONField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'developerprofile'
 
 

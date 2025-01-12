@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../couleur_du_fond.dart';
 import 'Form_SRS_qst2.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import '../main_client.dart';
+import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,6 +52,42 @@ class _My_1st_question_State extends State<My_1st_question>
       context,
       MaterialPageRoute(builder: (context) => HomePage()),
     );
+  }
+
+  // Submit the selected answer to the backend
+  Future<void> _submitAnswer(String answer) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.submitAnswer(
+          id,
+          9,
+          answer,
+          'handle_questions',
+          'null'); // Example: client_id = 1, question_id = 1
+      if (result["success"]) {
+        // Navigate to the next question on success
+        _goToNextPage();
+      } else {
+        // Show an error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed to submit answer: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -114,7 +153,7 @@ class _My_1st_question_State extends State<My_1st_question>
                               boutonSelectionne = index;
                             });
                             // Rediriger vers la page suivante après sélection
-                            _goToNextPage();
+                            _submitAnswer(nomsBoutons[index]);
                           },
                           child: Container(
                             width: 345,

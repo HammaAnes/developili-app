@@ -3,6 +3,8 @@ import '../couleur_du_fond.dart';
 import 'qst6_dev.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import '../main_dev.dart';
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +30,7 @@ class _My_7th_question_State extends State<My_7th_question>
   int? boutonSelectionne; // Index du bouton sélectionné
   bool showForm = true; // Contrôle l'affichage du formulaire
   bool isLoading = false; // Loading indicator
+  int addedLanguages = 0;
   int currentPage = 6; // Page actuelle
   final int totalPages = 7; // Nombre total de pages
 
@@ -35,9 +38,12 @@ class _My_7th_question_State extends State<My_7th_question>
     'Language',
   ];
 
+  List<String> languages = [];
+
   final TextEditingController otherController = TextEditingController();
 
-  void _addLanguage() {
+  void _addLanguage(String text) {
+    languages.add(text);
     otherController.clear();
     // Optionnel: Afficher un message dans la console ou dans l'interface utilisateur
     print('Le projet a été ajouté et les champs ont été réinitialisés');
@@ -61,14 +67,20 @@ class _My_7th_question_State extends State<My_7th_question>
     );
   }
 
-      Future<void> _submitAnswer(String answer) async {
+  Future<void> _submitAnswer(List answer) async {
+    
     setState(() {
       isLoading = true;
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 24, answer,
-          'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.devLanguages(
+        id,
+        answer
+      ); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
         _goToNextPage();
@@ -95,12 +107,14 @@ class _My_7th_question_State extends State<My_7th_question>
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 23,
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 23,
           'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
       } else {
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Failed to go back: ${result["error"]}")),
         );
@@ -249,7 +263,7 @@ class _My_7th_question_State extends State<My_7th_question>
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
-                        onPressed: _addLanguage,
+                        onPressed: () => {_addLanguage(otherController.text), addedLanguages++},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
@@ -275,7 +289,7 @@ class _My_7th_question_State extends State<My_7th_question>
                 bottom: 55,
                 left: 20,
                 child: ElevatedButton(
-                  onPressed: _goBack2ndPage,
+                  onPressed: _handleBackButton,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
@@ -321,8 +335,8 @@ class _My_7th_question_State extends State<My_7th_question>
                   bottom: 55,
                   right: 20,
                   child: ElevatedButton(
-                    onPressed: otherController.text.isNotEmpty
-                        ? _goToNextPage
+                    onPressed: addedLanguages > 0
+                        ? ()=>_submitAnswer(languages)
                         : null, // Désactivé si le formulaire est vide
                     style: ElevatedButton.styleFrom(
                       backgroundColor: otherController.text.isNotEmpty

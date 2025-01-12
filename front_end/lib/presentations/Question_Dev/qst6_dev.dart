@@ -4,6 +4,8 @@ import 'qst5_dev.dart'; // Importez la page que vous souhaitez afficher après a
 import 'qst7_dev.dart';
 import 'package:flutter/services.dart'; // N'oubliez pas d'importer ce package pour FilteringTextInputFormatter
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -57,7 +59,10 @@ class _My_6th_question_State extends State<My_6th_question> {
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 23, answer,
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.submitAnswer(id, 23, answer,
           'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
@@ -85,7 +90,10 @@ class _My_6th_question_State extends State<My_6th_question> {
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 22,
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 22,
           'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
@@ -347,7 +355,7 @@ class _My_6th_question_State extends State<My_6th_question> {
                 child: ElevatedButton(
                   onPressed: (minimumController.text.isNotEmpty &&
                           maximumController.text.isNotEmpty)
-                      ? _goToNextPage
+                      ? ()=> _submitAnswer(minimumController.text+","+maximumController.text)
                       : null, // Désactivé si aucun formulaire n'est rempli
                   style: ElevatedButton.styleFrom(
                     backgroundColor: (minimumController.text.isNotEmpty ||
