@@ -59,7 +59,7 @@ class _ChooseDevPageState extends State<ChooseDevPage> {
                 child: ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   children: [
-                    // Front-End Section
+                    // Front-End Section (Top Developers)
                     buildSectionTitle(context, "Top Developers"),
                     ...buildDevCards(context, [
                       {
@@ -89,98 +89,6 @@ class _ChooseDevPageState extends State<ChooseDevPage> {
                       },
                     ]),
                     const SizedBox(height: 16),
-
-                    // Back-End Section
-                    buildSectionTitle(context, "Back-End"),
-                    ...buildDevCards(context, [
-                      {
-                        "name": "Gregory Hayes",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.4
-                      },
-                      {
-                        "name": "Barshan Patel",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.4
-                      },
-                      {
-                        "name": "Brystian Krzew",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.4
-                      },
-                      {
-                        "name": "Nina Tors",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.3
-                      },
-                      {
-                        "name": "Ivan Dominguez",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.2
-                      },
-                    ]),
-                    const SizedBox(height: 16),
-
-                    // Database Section
-                    buildSectionTitle(context, "Database"),
-                    ...buildDevCards(context, [
-                      {
-                        "name": "Daria Koval",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.4
-                      },
-                      {
-                        "name": "Shawn Smith",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.3
-                      },
-                      {
-                        "name": "Evelyn Zhou",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.5
-                      },
-                      {
-                        "name": "Mark Peterson",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.3
-                      },
-                      {
-                        "name": "Lisa Jones",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.4
-                      },
-                    ]),
-                    const SizedBox(height: 16),
-
-                    // AI Section
-                    buildSectionTitle(context, "AI"),
-                    ...buildDevCards(context, [
-                      {
-                        "name": "Isaac Newton",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.6
-                      },
-                      {
-                        "name": "Albert Einstein",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.8
-                      },
-                      {
-                        "name": "Ada Lovelace",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.7
-                      },
-                      {
-                        "name": "Marie Curie",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.6
-                      },
-                      {
-                        "name": "Alan Turing",
-                        "image": "https://via.placeholder.com/100",
-                        "rating": 4.9
-                      },
-                    ]),
 
                     // Confirm Button at the End
                     const SizedBox(height: 30),
