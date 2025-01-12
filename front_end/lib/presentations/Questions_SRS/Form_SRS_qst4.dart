@@ -3,6 +3,8 @@ import 'Form_SRS_qst3.dart'; // Importez la page que vous souhaitez afficher apr
 import 'Form_SRS_qst5.dart';
 import '../couleur_du_fond.dart';
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +36,7 @@ class _My_4th_question_State extends State<My_4th_question>
   final List<String> nomsBoutons = [
     'Small budget (< 1000€)',
     'Medium budget (1000€ - 5000€)',
-    'Large budget (> 5000€)',
+    'High budget (> 5000€)',
   ];
 
   // Fonction pour naviguer vers une autre page
@@ -61,8 +63,11 @@ class _My_4th_question_State extends State<My_4th_question>
     });
 
     try {
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
       final result = await APIService.submitAnswer(
-          1,
+          id,
           12,
           answer,
           'handle_questions',
@@ -93,8 +98,10 @@ class _My_4th_question_State extends State<My_4th_question>
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 11,
-          'handle_questions'); // Replace with the actual client ID and question ID
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 11,'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack1stPage(); // Navigate to the previous page
       } else {
@@ -171,8 +178,16 @@ class _My_4th_question_State extends State<My_4th_question>
                         onTap: () {
                           setState(() {
                             boutonSelectionne = index;
-                            _submitAnswer(nomsBoutons[
-                                index]); // Naviguer vers la prochaine page
+                            if(index == 0){
+                              _submitAnswer("Small");
+                            }
+                            else if(index == 1){
+                              _submitAnswer("Medium");
+                            }
+                            if(index == 2){
+                              _submitAnswer("High");
+                            }
+                             // Naviguer vers la prochaine page
                           });
                         },
                         child: Container(

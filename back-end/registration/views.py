@@ -23,6 +23,7 @@ def registration_views(request):
                 serializerDev.save()
             else:
                 print(serializerDev.errors) 
+        
             
         return Response({
             'success': True,

@@ -3,6 +3,8 @@ import '../couleur_du_fond.dart';
 import 'qst2_dev.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import '../main_dev.dart';
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -69,7 +71,10 @@ class _My_1st_question_State extends State<My_1st_question>
     }
 
     try {
-      final result = await APIService.submitAnswer(1, 18, answer,'handle_questions', other_answer); // Example: user_id = 1, question_id = 1
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.submitAnswer(id, 18, answer,'handle_questions', other_answer); // Example: user_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
         _goToNextPage();

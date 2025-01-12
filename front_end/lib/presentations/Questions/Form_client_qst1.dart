@@ -3,6 +3,8 @@ import '../couleur_du_fond.dart';
 import 'Form_client_qst2.dart';
 import '../main_client.dart';
 import '../api_service.dart'; // Import the API service
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,8 +55,12 @@ class _My_1st_question_State extends State<My_1st_question>
     }
 
     try {
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
       final result = await APIService.submitAnswer(
-          1, 1, answer, 'handle_questions', other_answer);
+          id
+          , 1, answer, 'handle_questions', other_answer);
 
       if (result["success"]) {
         // Navigate to the next question on success

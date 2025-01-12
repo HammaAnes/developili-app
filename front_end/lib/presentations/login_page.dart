@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-//import 'package:google_sign_in/google_sign_in.dart';
-//import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Questions/Form_client_qst1.dart';
 import 'main_dev.dart';
+import 'main_client.dart';
 import 'couleur_du_fond.dart'; // Import du fichier contenant le dégradé
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,13 +59,26 @@ class _LoginPageState extends State<LoginPage> {
       final data = jsonDecode(response.body);
       if (response.statusCode == 202) {
         if (data['success'] == "Successfully logged in") {
+          final storage = FlutterSecureStorage();
+          await storage.delete(key: "user_id");
+          await storage.write(
+              key: 'user_id', value: '${data['user']['user_id']}');
+
           // Navigate to the success page
           String role = data['user']['role'];
           if (role == 'client') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => My_1st_question()),
-            );
+            if(data['user']['first_login']){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => My_1st_question()),
+              );
+            }
+            else{
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ClientMain()),
+              );
+            }
           } else if (role == 'developer') {
             Navigator.push(
               context,

@@ -3,6 +3,8 @@ import 'Form_client_qst6.dart'; // Importez la page que vous souhaitez afficher 
 import 'Form_client_qst4.dart';
 import '../couleur_du_fond.dart';
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -62,7 +64,10 @@ class _My_5th_question_State extends State<My_5th_question>
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 5, answer, 'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.submitAnswer(id, 5, answer, 'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
       if (result["success"]) {
         // Navigate to the next question on success
         _goTo6thPage();
@@ -89,7 +94,10 @@ class _My_5th_question_State extends State<My_5th_question>
   });
 
   try {
-    final result = await APIService.deleteAnswer(1, 4, 'handle_questions'); // Replace with the actual client ID and question ID
+    final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+    final result = await APIService.deleteAnswer(id, 4, 'handle_questions'); // Replace with the actual client ID and question ID
     if (result["success"]) {
       _goBack3rdPage(); // Navigate to the previous page
     } else {

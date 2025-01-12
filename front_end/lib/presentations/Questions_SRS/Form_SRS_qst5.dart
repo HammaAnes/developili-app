@@ -4,6 +4,8 @@ import 'Form_SRS_qst4.dart'; // Importez la page que vous souhaitez afficher apr
 import 'Form_SRS_qst6.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart'; // Importation du color picker
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -57,8 +59,11 @@ class _My_5th_question_State extends State<My_5th_question>
     });
 
     try {
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
       final result = await APIService.submitAnswer(
-          1,
+          id,
           13,
           answer,
           'handle_questions',
@@ -87,7 +92,10 @@ class _My_5th_question_State extends State<My_5th_question>
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 12,
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 12,
           'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page

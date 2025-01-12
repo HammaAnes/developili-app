@@ -12,13 +12,17 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate_email(self, value):
         """Ensure email is unique."""
+        print("I am here 1")
         if User.objects.filter(email=value).exists():
+            print("I am here 2")
             raise serializers.ValidationError("A user with this email already exists.")
+        print("I am here 3")
         return value
 
     def create(self, validated_data):
         """Override to hash the password."""
         password = validated_data.pop('password')
+        print(validated_data)
         user = User(**validated_data)
         user.set_password(password)  # Hash the password
         user.save()

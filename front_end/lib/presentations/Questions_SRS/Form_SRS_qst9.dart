@@ -3,6 +3,8 @@ import '../couleur_du_fond.dart';
 import 'Form_SRS_qst8.dart'; // Importez la page que vous souhaitez afficher après avoir cliqué sur un des premiers boutons
 import '../main_client.dart';
 import '../api_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../user_get_id.dart';
 
 void main() {
   runApp(MyApp());
@@ -54,19 +56,23 @@ class _My_9th_question_State extends State<My_9th_question>
     );
   }
 
-      // Submit the selected answer to the backend
+  // Submit the selected answer to the backend
   Future<void> _submitAnswer(String answer) async {
     setState(() {
       isLoading = true;
     });
 
     try {
-      final result = await APIService.submitAnswer(1, 17, answer,'handle_questions', 'null'); // Example: client_id = 1, question_id = 1
-      if (result["success"]) {
-        // Navigate to the next question on success
-        _goToNextPage();
-      } else {
-        // Show an error message
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.submitAnswer(
+          id,
+          17,
+          answer,
+          'handle_questions',
+          'null'); // Example: client_id = 1, question_id = 1
+      if (!result["success"]) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Error: ${result["error"]}")),
         );
@@ -88,14 +94,44 @@ class _My_9th_question_State extends State<My_9th_question>
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 16,
-          'handle_questions'); // Replace with the actual client ID and question ID
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 16, 'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
       } else {
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Failed to go back: ${result["error"]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _submitToAI() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.useAI(id); // Replace with the actual client ID and question ID
+      if (result["success"] == true) {
+        print(result["data"]["data"]);
+        _goToNextPage();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to predict: ${result["error"]}")),
         );
       }
     } catch (e) {
@@ -268,9 +304,14 @@ class _My_9th_question_State extends State<My_9th_question>
                 bottom: 55,
                 right: 20,
                 child: ElevatedButton(
-                  onPressed: otherController.text.isNotEmpty
-                  ? ()=> _submitAnswer(otherController.text)
-                  : _goToNextPage,
+                  onPressed: () {
+                      if (otherController.text.isNotEmpty) {
+                        _submitAnswer(otherController.text);
+                        _submitToAI();
+                      } else {
+                        _submitToAI();
+                      }
+                    },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
