@@ -260,20 +260,62 @@ This Document was created based on the IEEE template for System Requirement Spec
 ### 3.1.1 User Interfaces
 
 - Home Page Client :
+
+
+
   <img src="images/main-client.png" alt="My Image" title="This is a sample image" width="300">
+
+
+  
 - Home Page Developer :
+
+
+
   <img src="images/main-dev.png" alt="My Image" title="This is a sample image" width="300">
+
+
+
 - Developer Profile :
+
+
+
   <img src="images/profile-dev.png" alt="My Image" title="This is a sample image" width="300">
+
+
+
 - Client Profile :
+
+
+
   <img src="images/profile-client.png" alt="My Image" title="This is a sample image" width="300">
+
+
+
 - Developer Proposition :
+
+
+
   <img src="images/choose-dev.png" alt="My Image" title="This is a sample image" width="300">
+
+
+
 - Client Requests :
+
+
+
   <img src="images/requests.png" alt="My Image" title="This is a sample image" width="300">
 - Project Page :
+
+
+
   <img src="images/project.png" alt="My Image" title="This is a sample image" width="300">
+
+
+
 - Payements :
+
+
+
   <img src="images/Payements.png" alt="My Image" title="This is a sample image" width="300">
 
 ## 3.2 Functional Requirements
