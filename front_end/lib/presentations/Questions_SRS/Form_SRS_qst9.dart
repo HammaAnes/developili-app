@@ -63,17 +63,16 @@ class _My_9th_question_State extends State<My_9th_question>
     });
 
     try {
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
       final result = await APIService.submitAnswer(
-          1,
+          id,
           17,
           answer,
           'handle_questions',
           'null'); // Example: client_id = 1, question_id = 1
-      if (result["success"]) {
-        // Navigate to the next question on success
-        _goToNextPage();
-      } else {
-        // Show an error message
+      if (!result["success"]) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Error: ${result["error"]}")),
         );
@@ -95,8 +94,10 @@ class _My_9th_question_State extends State<My_9th_question>
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 16,
-          'handle_questions'); // Replace with the actual client ID and question ID
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 16, 'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
       } else {
@@ -303,9 +304,14 @@ class _My_9th_question_State extends State<My_9th_question>
                 bottom: 55,
                 right: 20,
                 child: ElevatedButton(
-                  onPressed: otherController.text.isNotEmpty
-                      ? () => _submitAnswer(otherController.text)
-                      : _submitToAI,
+                  onPressed: () {
+                      if (otherController.text.isNotEmpty) {
+                        _submitAnswer(otherController.text);
+                        _submitToAI();
+                      } else {
+                        _submitToAI();
+                      }
+                    },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(

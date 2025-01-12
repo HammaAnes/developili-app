@@ -98,8 +98,10 @@ class _My_4th_question_State extends State<My_4th_question>
     });
 
     try {
-      final result = await APIService.deleteAnswer(1, 11,
-          'handle_questions'); // Replace with the actual client ID and question ID
+      final storage = FlutterSecureStorage();
+      String? user_id = await storage.read(key: "user_id");
+      int? id = getUserId(user_id);
+      final result = await APIService.deleteAnswer(id, 11,'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack1stPage(); // Navigate to the previous page
       } else {
@@ -176,8 +178,16 @@ class _My_4th_question_State extends State<My_4th_question>
                         onTap: () {
                           setState(() {
                             boutonSelectionne = index;
-                            _submitAnswer(nomsBoutons[
-                                index]); // Naviguer vers la prochaine page
+                            if(index == 0){
+                              _submitAnswer("Small");
+                            }
+                            else if(index == 1){
+                              _submitAnswer("Medium");
+                            }
+                            if(index == 2){
+                              _submitAnswer("High");
+                            }
+                             // Naviguer vers la prochaine page
                           });
                         },
                         child: Container(

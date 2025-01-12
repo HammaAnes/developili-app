@@ -137,11 +137,10 @@ def extract_features_from_text(text, budget):
 def find_top_developers(languages, experience_level):
     """
     Find the top developers based on the matching criteria.
-    If no languages are specified, return top developers based on experience level.
+    If no languages are specified, return top developers based on experience level and rating.
     """
     results = {
         "all_languages": [],
-        "partial_match": [],
         "individual_languages": {}
     }
 
@@ -177,7 +176,8 @@ def find_top_developers(languages, experience_level):
             fallback_devs['match_score'] = fallback_devs['developer_name'].apply(
                 lambda dev: model.predict_proba(X.loc[df[df['developer_name'] == dev].index])[0].max() * 100
             )
-            results["all_languages"] = fallback_devs.sort_values(by='match_score', ascending=False).head(5)['developer_id'].tolist()
+            # Sort by rating (highest first) and experience level, return top 5
+            results["all_languages"] = fallback_devs.sort_values(by=['experience_level', 'experience_level'], ascending=[True, False]).head(5)['developer_id'].tolist()
 
     return results
 

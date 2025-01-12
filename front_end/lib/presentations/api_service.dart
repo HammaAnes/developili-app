@@ -99,8 +99,7 @@ class APIService {
     }
   }
 
-  static Future<Map<String, dynamic>> useAI(
-      int? userId) async {
+  static Future<Map<String, dynamic>> useAI(int? userId) async {
     final url = Uri.parse("$baseUrl/use_ai/");
     final headers = {"Content-Type": "application/json"};
     final body = jsonEncode({
