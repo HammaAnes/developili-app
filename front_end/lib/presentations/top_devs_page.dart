@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
 import 'profile_client.dart';
 
+void main() {
+  runApp(const TopDevsPage());
+}
+
 class TopDevsPage extends StatelessWidget {
   const TopDevsPage({Key? key}) : super(key: key);
 
