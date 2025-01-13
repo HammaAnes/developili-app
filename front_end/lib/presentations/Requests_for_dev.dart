@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'couleur_du_fond.dart';
-import 'profile_dev.dart'; // Profile Page
+import 'Profile_dev.dart'; // Profile Page
 import 'main_dev.dart'; // Main Page
 import 'chat_dev_after_accept.dart'; // Chat Page
 
@@ -33,7 +33,8 @@ class _RequestsPageState extends State<RequestsPage> {
     10,
     (index) => {
       "name": "Client Name $index",
-      "imageUrl": "https://via.placeholder.com/100",
+      "imageUrl":
+          "https://cdn4.iconfinder.com/data/icons/business-conceptual-part1-1/513/business-man-512.png",
       "role": index % 2 == 0 ? "Front-End" : "Back-End",
       "budget": index % 2 == 0 ? "1000€ - 5000€" : "<1000€",
       "languages": index % 2 == 0 ? "Flutter - C#" : "Python - C#",
@@ -207,7 +208,7 @@ class _RequestsPageState extends State<RequestsPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ProfilePage()),
+                        builder: (context) => const ProfilePaged()),
                   );
                 },
               ),

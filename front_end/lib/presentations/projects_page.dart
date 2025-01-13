@@ -73,7 +73,7 @@ class ProjectsPage extends StatelessWidget {
                                 top: Radius.circular(12),
                               ),
                               child: Image.network(
-                                "https://via.placeholder.com/200",
+                                "https://www.lifewire.com/thmb/m3LAzZuZc-jg8ozDvdOr7RLG1js=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/online-business-540487840-577047f23df78cb62c867e24.jpg",
                                 height: 120,
                                 width: double.infinity,
                                 fit: BoxFit.cover,

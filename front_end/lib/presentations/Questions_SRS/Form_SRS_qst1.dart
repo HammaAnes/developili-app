@@ -173,7 +173,7 @@ class _My_1st_question_State extends State<My_1st_question>
                               nomsBoutons[index],
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 19,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

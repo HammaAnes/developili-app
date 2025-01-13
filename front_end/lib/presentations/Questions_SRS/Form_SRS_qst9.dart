@@ -44,7 +44,7 @@ class _My_9th_question_State extends State<My_9th_question>
     if (otherController.text.isNotEmpty) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MyApp()),
+        MaterialPageRoute(builder: (context) => Clientchoosingdev()),
       );
     }
   }
@@ -237,7 +237,7 @@ class _My_9th_question_State extends State<My_9th_question>
                               nomsBoutons[index],
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 20,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

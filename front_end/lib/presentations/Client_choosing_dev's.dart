@@ -4,11 +4,11 @@ import 'profile_client.dart'; // Import the profile page
 import 'main_client.dart'; // Import the main.dart for navigation
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Clientchoosingdev());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Clientchoosingdev extends StatelessWidget {
+  const Clientchoosingdev({super.key});
 
   @override
   Widget build(BuildContext context) {

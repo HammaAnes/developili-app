@@ -195,7 +195,7 @@ class _My_7th_question_State extends State<My_7th_question>
                               nomsBoutons[index],
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 19,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

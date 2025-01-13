@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ProfilePaged extends StatefulWidget {
+  const ProfilePaged({super.key});
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfilePagedState createState() => _ProfilePagedState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePagedState extends State<ProfilePaged> {
   int _currentPage = 0; // Keeps track of the currently visible project card
   bool isOccupied = true; // Tracks Occupied/Available state
 
