@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class APIService {
   static const String baseUrl = "http://127.0.0.1:8000";
@@ -118,6 +119,18 @@ class APIService {
     } catch (e) {
       return {"success": false, "error": e.toString()};
     }
+  }
+
+  static Future<void> saveData(Map<String, dynamic>? data) async {
+    final prefs = await SharedPreferences.getInstance();
+    String jsonString = jsonEncode(data);
+    prefs.setString('languageData', jsonString);
+  }
+
+  static Future<Map<String, dynamic>?> getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? jsonString = prefs.getString('languageData');
+    return jsonString != null ? jsonDecode(jsonString) : null;
   }
 
 }
