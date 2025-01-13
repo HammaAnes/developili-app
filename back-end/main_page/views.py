@@ -24,3 +24,10 @@ def mainPageShow(request):
         })
     
     return Response(project_data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def fetch_developers(request):
+    data = request.data
+    all_dev = []
+    for dev in data:
+        all_dev.append(dev)

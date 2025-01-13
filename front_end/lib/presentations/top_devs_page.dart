@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'couleur_du_fond.dart';
 import 'profile_client.dart';
+import 'main_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+
+void main() {
+  runApp(const MaterialApp(home: TopDevsPage()));
+}
 
 class TopDevsPage extends StatelessWidget {
   const TopDevsPage({Key? key}) : super(key: key);
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +31,11 @@ class TopDevsPage extends StatelessWidget {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back, color: Colors.white),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ClientMain(),
+                        ),)
                     ),
                     const Text(
                       "Top Dev's",

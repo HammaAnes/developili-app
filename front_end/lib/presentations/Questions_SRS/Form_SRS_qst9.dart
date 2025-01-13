@@ -4,6 +4,8 @@ import 'Form_SRS_qst8.dart'; // Importez la page que vous souhaitez afficher apr
 import '../main_client.dart';
 import '../api_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 import '../user_get_id.dart';
 import "../Client_choosing_dev's.dart";
 
@@ -41,12 +43,11 @@ class _My_9th_question_State extends State<My_9th_question>
 
   // Méthode pour passer à la page suivante
   void _goToNextPage() {
-    if (otherController.text.isNotEmpty) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Clientchoosingdev()),
       );
-    }
+    
   }
 
   // Méthode pour revenir à la page d'accueil
@@ -130,7 +131,6 @@ class _My_9th_question_State extends State<My_9th_question>
       final result = await APIService.useAI(
           id); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
-        print(result["data"]["data"]);
         _goToNextPage();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
