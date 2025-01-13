@@ -67,13 +67,12 @@ class _LoginPageState extends State<LoginPage> {
           // Navigate to the success page
           String role = data['user']['role'];
           if (role == 'client') {
-            if(data['user']['first_login']){
+            if (data['user']['first_login']) {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => My_1st_question()),
               );
-            }
-            else{
+            } else {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ClientMain()),
@@ -100,64 +99,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  /*Future<void> loginWithGoogle() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    try {
-      final GoogleSignInAccount? account = await googleSignIn.signIn();
-      if (account != null) {
-        final GoogleSignInAuthentication auth = await account.authentication;
-        final String idToken = auth.idToken!;
-
-        final response = await http.post(
-          Uri.parse("http://127.0.0.1:8000/social_login/"),
-          headers: {"Content-Type": "application/json"},
-          body: jsonEncode({
-            "provider": "google",
-            "access_token": idToken,
-          }),
-        );
-
-        if (response.statusCode == 200) {
-          _showMessage("Logged in with Google successfully!");
-        } else {
-          _showMessage("Google login failed: ${response.body}");
-        }
-      } else {
-        _showMessage("Google sign-in canceled.");
-      }
-    } catch (e) {
-      _showMessage("Google login error: $e");
-    }
-  }
-
-  Future<void> loginWithApple() async {
-    try {
-      final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-      );
-
-      final response = await http.post(
-        Uri.parse("http://127.0.0.1:8000/social_login/"),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "provider": "apple",
-          "access_token": credential.identityToken!,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        _showMessage("Logged in with Apple successfully!");
-      } else {
-        _showMessage("Apple login failed: ${response.body}");
-      }
-    } catch (e) {
-      _showMessage("Apple login error: $e");
-    }
-  }
-*/
   void _showMessage(String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
@@ -166,8 +107,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset:
+          true, // Permet au clavier de ne pas causer d'espace
       body: SingleChildScrollView(
         child: Container(
+          height: MediaQuery.of(context)
+              .size
+              .height, // Occupe toute la hauteur disponible
           decoration: BoxDecoration(
             gradient: CouleurDuFond.gradientBackground,
           ),

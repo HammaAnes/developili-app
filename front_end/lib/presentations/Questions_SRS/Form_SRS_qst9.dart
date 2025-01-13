@@ -5,6 +5,7 @@ import '../main_client.dart';
 import '../api_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../user_get_id.dart';
+import "../Client_choosing_dev's.dart";
 
 void main() {
   runApp(MyApp());
@@ -43,7 +44,7 @@ class _My_9th_question_State extends State<My_9th_question>
     if (otherController.text.isNotEmpty) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => MyApp()),
       );
     }
   }
@@ -97,7 +98,8 @@ class _My_9th_question_State extends State<My_9th_question>
       final storage = FlutterSecureStorage();
       String? user_id = await storage.read(key: "user_id");
       int? id = getUserId(user_id);
-      final result = await APIService.deleteAnswer(id, 16, 'handle_questions'); // Replace with the actual client ID and question ID
+      final result = await APIService.deleteAnswer(id, 16,
+          'handle_questions'); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         _goBack2ndPage(); // Navigate to the previous page
       } else {
@@ -125,7 +127,8 @@ class _My_9th_question_State extends State<My_9th_question>
       final storage = FlutterSecureStorage();
       String? user_id = await storage.read(key: "user_id");
       int? id = getUserId(user_id);
-      final result = await APIService.useAI(id); // Replace with the actual client ID and question ID
+      final result = await APIService.useAI(
+          id); // Replace with the actual client ID and question ID
       if (result["success"] == true) {
         print(result["data"]["data"]);
         _goToNextPage();
@@ -305,13 +308,13 @@ class _My_9th_question_State extends State<My_9th_question>
                 right: 20,
                 child: ElevatedButton(
                   onPressed: () {
-                      if (otherController.text.isNotEmpty) {
-                        _submitAnswer(otherController.text);
-                        _submitToAI();
-                      } else {
-                        _submitToAI();
-                      }
-                    },
+                    if (otherController.text.isNotEmpty) {
+                      _submitAnswer(otherController.text);
+                      _submitToAI();
+                    } else {
+                      _submitToAI();
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
