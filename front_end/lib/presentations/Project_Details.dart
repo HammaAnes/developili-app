@@ -168,220 +168,224 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
     );
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: Container(
-      decoration: BoxDecoration(
-        gradient: CouleurDuFond.gradientBackground,
-      ),
-      child: SafeArea(
-        child: _projects.isEmpty || id == null
-            ? Center(child: CircularProgressIndicator())
-            : Column(
-                children: [
-                  // Title and Back Button
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_back, color: Colors.white),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        const Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Devlopili',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: CouleurDuFond.gradientBackground,
+        ),
+        child: SafeArea(
+          child: _projects.isEmpty || id == null
+              ? Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    // Title and Back Button
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: IconButton(
+                              icon: const Icon(Icons.arrow_back,
+                                  color: Colors.white),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // Scrollable Image List
-                  SizedBox(
-                    height: 200,
-                    child: PageView.builder(
-                      itemCount: _imageUrls.length,
-                      onPageChanged: (index) {
-                        setState(() {
-                          _currentPage = index;
-                        });
-                      },
-                      controller: PageController(viewportFraction: 0.85),
-                      itemBuilder: (context, index) {
-                        return AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: Container(
-                              color: Colors.grey.shade300,
-                              child: Image.network(
-                                _imageUrls[index],
-                                fit: BoxFit.cover,
-                                loadingBuilder: (context, child, progress) {
-                                  if (progress == null) return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: progress.expectedTotalBytes != null
-                                          ? progress.cumulativeBytesLoaded /
-                                              progress.expectedTotalBytes!
-                                          : null,
-                                    ),
-                                  );
-                                },
-                                errorBuilder: (context, error, stackTrace) {
-                                  return const Center(
-                                    child: Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                      size: 40,
-                                    ),
-                                  );
-                                },
+                          const Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Devlopili',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
                           ),
-                        );
-                      },
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
 
-                  // Dots Indicator
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      _imageUrls.length,
-                      (index) => AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                        width: _currentPage == index ? 12.0 : 8.0,
-                        height: 8.0,
-                        decoration: BoxDecoration(
-                          color: _currentPage == index
-                              ? Colors.blue.shade200
-                              : Colors.grey.shade400,
-                          borderRadius: BorderRadius.circular(4.0),
+                    // Scrollable Image List
+                    SizedBox(
+                      height: 200,
+                      child: PageView.builder(
+                        itemCount: _imageUrls.length,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _currentPage = index;
+                          });
+                        },
+                        controller: PageController(viewportFraction: 0.85),
+                        itemBuilder: (context, index) {
+                          return AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Container(
+                                color: Colors.grey.shade300,
+                                child: Image.network(
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBNKl_j1Bqly7xT4al3oH2FHXG4AoAwxk07A&s',
+                                  
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, progress) {
+                                    if (progress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: progress.expectedTotalBytes !=
+                                                null
+                                            ? progress.cumulativeBytesLoaded /
+                                                progress.expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Center(
+                                      child: Icon(
+                                        Icons.error,
+                                        color: Colors.red,
+                                        size: 40,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Dots Indicator
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        _imageUrls.length,
+                        (index) => AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                          width: _currentPage == index ? 12.0 : 8.0,
+                          height: 8.0,
+                          decoration: BoxDecoration(
+                            color: _currentPage == index
+                                ? Colors.blue.shade200
+                                : Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
-                  // Developer Avatar and Name
-                  if (id != null && id! < _projects.length) ...[
-                    CircleAvatar(
-                      radius: 35,
-                      backgroundImage: NetworkImage(
-                        _projects[id!]['user_avatar'] ??
-                            'https://via.placeholder.com/150.png?text=Developer',
+                    // Developer Avatar and Name
+                    if (id != null && id! < _projects.length) ...[
+                      CircleAvatar(
+                        radius: 35,
+                        backgroundImage: NetworkImage(
+                          _projects[id!]['user_avatar'] ??
+                              'https://easy-peasy.ai/cdn-cgi/image/quality=80,format=auto,width=700/https://fdczvxmwwjwpwbeeqcth.supabase.co/storage/v1/object/public/images/50dab922-5d48-4c6b-8725-7fd0755d9334/3a3f2d35-8167-4708-9ef0-bdaa980989f9.png',
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      _projects[id!]['user_first_name'] ?? 'Developer',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      const SizedBox(height: 8),
+                      Text(
+                        _projects[id!]['user_first_name'] ?? 'Developer',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 20),
+
+                    // Titles and Description Button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column(
+                        children: [
+                          _infoRow(
+                            "Description",
+                            "Details about the project",
+                            _projects[id!]['description'],
+                          ),
+                          _infoRow(
+                            "Technologies",
+                            "Technologies used in this project.",
+                            _projects[id!]['technologies']?.join(', ') ??
+                                "No Technologies",
+                          ),
+                          _infoRow(
+                            "Duration",
+                            "Project duration information.",
+                            _projects[id!]['duration'] ?? "No Duration",
+                          ),
+                          _infoRow(
+                            "Team",
+                            "The members of the team",
+                            _projects[id!]['team_members']?.join('| ') ??
+                                "No Team Members",
+                          ),
+                          _infoRow(
+                            "Users",
+                            "Number of Downloads",
+                            "this app have ${_projects[id!]['users']}",
+                          ),
+                        ],
                       ),
                     ),
                   ],
-                  const SizedBox(height: 20),
-
-                  // Titles and Description Button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      children: [
-                        _infoRow(
-                          "Description",
-                          "Details about the project",
-                          _projects[id!]['description'],
-                        ),
-                        _infoRow(
-                          "Technologies",
-                          "Technologies used in this project.",
-                          _projects[id!]['technologies']?.join(', ') ?? "No Technologies",
-                        ),
-                        _infoRow(
-                          "Duration",
-                          "Project duration information.",
-                          _projects[id!]['duration'] ?? "No Duration",
-                        ),
-                        _infoRow(
-                          "Team",
-                          "The members of the team",
-                          _projects[id!]['team_members']?.join('| ') ?? "No Team Members",
-                        ),
-                        _infoRow(
-                          "Users",
-                          "Number of Downloads",
-                          "this app have ${_projects[id!]['users']}",
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-
-Widget _infoRow(String title, String shortText, String fullText) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            _showDetails(context, title, fullText);
-          },
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            backgroundColor: Colors.blue.shade200,
-          ),
-          child: Text(
-            shortText,
-            overflow: TextOverflow.ellipsis,
+  Widget _infoRow(String title, String shortText, String fullText) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
             style: const TextStyle(
-              fontSize: 14,
-              color: Colors.black87,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
+          ElevatedButton(
+            onPressed: () {
+              _showDetails(context, title, fullText);
+            },
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              backgroundColor: Colors.blue.shade200,
+            ),
+            child: Text(
+              shortText,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
