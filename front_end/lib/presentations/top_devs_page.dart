@@ -9,9 +9,6 @@ void main() {
   runApp(const MaterialApp(home: TopDevsPage()));
 }
 
-void main() {
-  runApp(const TopDevsPage());
-}
 
 class TopDevsPage extends StatelessWidget {
   const TopDevsPage({Key? key}) : super(key: key);

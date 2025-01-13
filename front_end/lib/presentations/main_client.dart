@@ -286,12 +286,24 @@ class _HomePageState extends State<HomePage> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  buildDevProfile(context, "Steve M", "Full-stack Developer",
-                      "https://www.corporatephotographerslondon.com/wp-content/uploads/2023/02/LinkedIn_Profile_Photo.jpg", ProfilePage()),
-                  buildDevProfile(context, "Harvey J", "UI/UX Designer",
-                      "https://blog-pixomatic.s3.appcnt.com/image/22/01/26/61f166e07f452/_orig/pixomatic_1572877263963.png", ProfilePage()),
-                  buildDevProfile(context, "Asep Yanto", "Front End Developer",
-                      "https://img.freepik.com/premium-photo/professional-linkedin-profile-photo-young-man-suit-tie-smiling-confidently_1141323-1549.jpg", ProfilePage()),
+                  buildDevProfile(
+                      context,
+                      "Steve M",
+                      "Full-stack Developer",
+                      "https://www.corporatephotographerslondon.com/wp-content/uploads/2023/02/LinkedIn_Profile_Photo.jpg",
+                      ProfilePage()),
+                  buildDevProfile(
+                      context,
+                      "Harvey J",
+                      "UI/UX Designer",
+                      "https://blog-pixomatic.s3.appcnt.com/image/22/01/26/61f166e07f452/_orig/pixomatic_1572877263963.png",
+                      ProfilePage()),
+                  buildDevProfile(
+                      context,
+                      "Asep Yanto",
+                      "Front End Developer",
+                      "https://img.freepik.com/premium-photo/professional-linkedin-profile-photo-young-man-suit-tie-smiling-confidently_1141323-1549.jpg",
+                      ProfilePage()),
                 ],
               ),
             ),
